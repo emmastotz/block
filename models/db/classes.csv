@@ -1,0 +1,353 @@
+subject_id,subject_name,class_name
+1,AMST-American Studies,201-Intro to American Studies
+2,ANTH-Anthropology,101-Intro Cultural & Social Anthro
+2,ANTH-Anthropology,316-Political Anthropology
+2,ANTH-Anthropology,321-Anthropology of Food
+2,ANTH-Anthropology,342-Touring Cultures
+2,ANTH-Anthropology,344-Urban Theory & Ethnography
+2,ANTH-Anthropology,350-Amazonian Societies
+2,ANTH-Anthropology,371UU-Immigration in Global Perspect
+2,ANTH-Anthropology,481-Senior Thesis
+3,ARAB-Arabic,102-Beginning Arabic II
+3,ARAB-Arabic,202-Intermediate Arabic II
+3,ARAB-Arabic,302-Advanced Arabic
+4,ARTH-Art History,114A-History of Western Art I
+4,ARTH-Art History,115A-History of Western Art II
+4,ARTH-Art History,118-History of Asian Art
+4,ARTH-Art History,224-Arts of Japan and Korea
+4,ARTH-Art History,303-Methods of Art History
+4,ARTH-Art History,305-Egypt & Near East Art & Archae
+4,ARTH-Art History,317-Laboratory in Museum Studies
+4,ARTH-Art History,326-Romanesque & Gothic Art
+4,ARTH-Art History,351A-Post Impress to Abstr Express
+4,ARTH-Art History,357-Contemporary Asian Art
+4,ARTH-Art History,470A6-Art Hist & Disability Studies
+5,ARTS-Art,104-Digital Approaches to Fine Art
+5,ARTS-Art,105-Design Principles
+5,ARTS-Art,120-Drawing I
+5,ARTS-Art,219-Digital Video Production
+5,ARTS-Art,223-Ceramics I
+5,ARTS-Art,231A-Sculpture I
+5,ARTS-Art,241A-Photography I
+5,ARTS-Art,281FF-Special Topics: The Ukelele
+5,ARTS-Art,281GG-Spec Topics: In the Darkroom
+5,ARTS-Art,311A-Ceramics II
+5,ARTS-Art,331B-Sculpture II
+5,ARTS-Art,342-Painting II
+5,ARTS-Art,454-Approaches to Video Art
+5,ARTS-Art,475-Senior Thesis Seminar
+6,BIOL-Biology,126-Phage Hunters II w/lab
+6,BIOL-Biology,127-Human Biology
+6,BIOL-Biology,203-Science in Perspective
+6,BIOL-Biology,210-Intro to Ecology and Evolution
+6,BIOL-Biology,251-History of Biology
+6,BIOL-Biology,260-The Research Process
+6,BIOL-Biology,342-Nutrition and Metabolism
+6,BIOL-Biology,442-Evolution
+7,CHEM-Chemistry,107-Societal Chemistry
+7,CHEM-Chemistry,318-Biochemistry II
+7,CHEM-Chemistry,331-Environmental Chem
+7,CHEM-Chemistry,343-Inorganic Chem
+7,CHEM-Chemistry,384A-Physical Chem II
+7,CHEM-Chemistry,471H-Top: Bioanalytical Chemistry
+8,CHIN-Chinese,102-Beginning Chinese II
+8,CHIN-Chinese,202-Intermediate Chinese II
+8,CHIN-Chinese,300C-Lang & Culture through Media
+9,CLAS-Classics,103-Ideas & Culture:Greek Civ
+9,CLAS-Classics,105-Ideas & Culture:Roman Civ
+9,CLAS-Classics,110-Grk &Roman Mythology Art & Lit
+9,CLAS-Classics,202C-Ancient Tragedy
+9,CLAS-Classics,305-Egypt & Near East Art & Archae
+10,COMM-Communication,205-Public Speaking
+10,COMM-Communication,206-Small Group Communication
+10,COMM-Communication,341-Communication Research Methods
+10,COMM-Communication,370U-Sports & The Digital
+10,COMM-Communication,460-Seminar in Digital Rhetoric
+11,CPRD-Contemplative Practice,104-Meditation Contemplative Pract
+11,CPRD-Contemplative Practice,304-Contemplative Practice II
+12,CPSC-Computer Science,110-Intro to Computer Science
+12,CPSC-Computer Science,219-Foundations for Data Science
+12,CPSC-Computer Science,302-Computer Ethics
+12,CPSC-Computer Science,370DD-Artificial Neural Systems
+12,CPSC-Computer Science,414-Network Principles & Applicatn
+12,CPSC-Computer Science,448-Advanced Web Development
+13,DATA-Data Analytics,219-Foundations for Data Science
+13,DATA-Data Analytics,370DD-Artificial Neural Systems
+14,DGST-Digital Studies,101-Intro to Digital Studies
+14,DGST-Digital Studies,"201-Tinkering, Hacking & Making"
+14,DGST-Digital Studies,301C-Digital Media Studio
+14,DGST-Digital Studies,301E-Virtual and Augmented Reality
+14,DGST-Digital Studies,395-Applied digital Studies
+15,ECON-Economics,201B-Princp of Macroeconomics
+15,ECON-Economics,202B-Princp of Microeconomics
+15,ECON-Economics,300-Intro Economic Analysis
+15,ECON-Economics,303-Microeconomics
+15,ECON-Economics,304-Macroeconomics
+15,ECON-Economics,331A-Environmental Resource Econ
+15,ECON-Economics,351C-Poverty/ Affluence & Equality
+15,ECON-Economics,352-Labor Economics
+15,ECON-Economics,374-History of Economic Thought
+15,ECON-Economics,382-International Trade
+15,ECON-Economics,384-Economic Development
+15,ECON-Economics,428-Economics Multinational Corps.
+15,ECON-Economics,462-Advanced Economic Analysis
+15,ECON-Economics,488X-The New Macroeconomics
+15,ECON-Economics,490C-How to Change the World
+15,ECON-Economics,490E-Independent Research
+16,EESC-Environmental Studies,210-Oceanography
+16,EESC-Environmental Studies,221-Environmental Geology
+16,EESC-Environmental Studies,307-Environmental Soil Science
+16,EESC-Environmental Studies,330-Environ Regulations Compliance
+16,EESC-Environmental Studies,340-Energy Resources & Technology
+16,EESC-Environmental Studies,421T-Topic: Sustainable Aquaculture
+17,ENGL-English,200-News Journalism
+17,ENGL-English,202B-Writing About The Self
+17,ENGL-English,202D1-Writing about Comedy
+17,ENGL-English,2020-Writing about Writing
+17,ENGL-English,202F1-Writing About Technology
+17,ENGL-English,202G1-Writing About Conspiracy
+17,ENGL-English,202H1-Writing About Fairy Tales
+17,ENGL-English,205-Art of Literature
+17,ENGL-English,206A-Global Issues in Literature
+17,ENGL-English,245-Introduction to Cinema Studies
+17,ENGL-English,"251HH-Folktale, Myth, and Archetype"
+17,ENGL-English,251MM-Feminist Science Fiction
+17,ENGL-English,251NN-Lit of Death and Purpose
+17,ENGL-English,295-Meth of Adv Literary Studies
+17,ENGL-English,300-Investigative Journalism
+17,ENGL-English,302A-Intro to Creative Writing
+17,ENGL-English,305A-Creative Writing: Fiction
+17,ENGL-English,310-Courtly Tradition Medieval Lit
+17,ENGL-English,312-Creative Writing:Nonfiction
+17,ENGL-English,314-Literary Journal
+17,ENGL-English,327-Jane Austen
+17,ENGL-English,354-African American Lit post-1900
+17,ENGL-English,357-Southern Literature
+17,ENGL-English,384-Disability and Literature
+17,ENGL-English,"390E-Shakespeare, Race, and Gender"
+17,ENGL-English,390F-Sexuality & Origins Modernity
+17,ENGL-English,391B-Sherlock Holmes and Friends
+17,ENGL-English,392A-Great American Novel
+17,ENGL-English,392B-Environmental Literature
+17,ENGL-English,393A-Globalization and Literature
+17,ENGL-English,393B-Black Women Writers
+17,ENGL-English,449S-Woolf and Mansfield
+17,ENGL-English,451B-Reading Lit with Computers
+17,ENGL-English,458-American Long Poems
+17,ENGL-English,470A-Sem:Creative Writing Poetry
+17,ENGL-English,470C-Creat Writ Sem:Non Fiction
+18,FREN-French,101-Beginning French I
+18,FREN-French,102-Beginning French II
+18,FREN-French,201A-Intermediate French I
+18,FREN-French,202A-Intermediate French II
+18,FREN-French,312-Oral Communication & Phonetics
+18,FREN-French,326-Intro to Pre-Revolutionary Lit
+18,FREN-French,411-Stylistics
+18,FREN-French,481A-Senior Seminar
+19,FSEM-Fiscal Fitness,100P1-Life Auditing: Fiscal Fitness
+20,GEOG-Geography,101-World Regional Geography
+20,GEOG-Geography,102-Intro to Human Geography
+20,GEOG-Geography,200D-Geographic Thinking
+20,GEOG-Geography,222A-Geog of Westn N America
+20,GEOG-Geography,237-Cities
+20,GEOG-Geography,240-Natural Hazards
+20,GEOG-Geography,304A-Geography of the Middle East
+20,GEOG-Geography,325-Dynamic Climatology
+20,GEOG-Geography,331-Race & Place in America
+20,GEOG-Geography,338-Geopolitics
+20,GEOG-Geography,360E-Grassroots Dev in Guatemala
+21,GERM-German,102-Beginning German II
+21,GERM-German,202A-Intermediate German II
+22,GREK-Greek,102-Elementary Greek
+22,GREK-Greek,202-Intermediate Greek
+23,HISP-Historic Preservation,100-Intro to Historic Preservation
+23,HISP-Historic Preservation,105-The American Built Environment
+23,HISP-Historic Preservation,205-Documentation and Field Work
+23,HISP-Historic Preservation,207-American Archaeology
+23,HISP-Historic Preservation,209-Planning History & Practice
+23,HISP-Historic Preservation,305A-Historic Building Technologies
+23,HISP-Historic Preservation,313-Museum Education
+23,HISP-Historic Preservation,317-Museum Collections Management
+23,HISP-Historic Preservation,320-Material Culture
+23,HISP-Historic Preservation,345-Computer Applications in HISP
+23,HISP-Historic Preservation,463-Lab Museum Design&Interpretatn
+23,HISP-Historic Preservation,469-Lab in Preservation Planning
+23,HISP-Historic Preservation,471A9-The Preservation Enterprise
+24,HIST-History,121-Western Civ I
+24,HIST-History,122-Western Civ II
+24,HIST-History,131-American History to 1865
+24,HIST-History,132-Am Hist Since 1865
+24,HIST-History,142-Asian Civilaztn II
+24,HIST-History,190-Gr Lives:Biog Approach to Hist
+24,HIST-History,297-History Colloquium
+24,HIST-History,298-History Practicum
+24,HIST-History,300B7-The Atlantic World
+24,HIST-History,300ZZ-Intro to Public History
+24,HIST-History,305-The American West
+24,HIST-History,308-US Labor History
+24,HIST-History,314-Afr-Amer History Since Slavery
+24,HIST-History,322-US Environmental History
+24,HIST-History,338-From Mongols to Ottomans
+24,HIST-History,339-Modern Middle East History
+24,HIST-History,354-History of France
+24,HIST-History,358-History of Russia II
+24,HIST-History,362-Hist of Latin America
+24,HIST-History,368-Gender in Chinese History
+24,HIST-History,372-European Diplomatic Hist
+24,HIST-History,385-Arab-Israeli Conflict
+24,HIST-History,395-US Hist & Popular Culture
+24,HIST-History,428-Digital History
+24,HIST-History,457-History of Conspiracy Theories
+24,HIST-History,471F3-Medicine & the Body 1400-1800
+24,HIST-History,471F5-History of Childhood
+24,HIST-History,471G2-Hist of American Citizenship
+25,IDIS-Sports Management,130-Intro to Sports Management
+26,ITAL-Italian,102-Beginning Italian II
+26,ITAL-Italian,202-Intermediate Italian II
+26,ITAL-Italian,316-Italian Society & Civilization
+27,LATN-Latin,102-Elementary Latin
+27,LATN-Latin,202-Intermediate Latin
+27,LATN-Latin,358-Ovid
+28,LING-Linguistics,101B-Intro to Linguistics
+28,LING-Linguistics,205-Writing Systems of the World
+28,LING-Linguistics,301A-Intro Psycholinguistics
+28,LING-Linguistics,308-Language and Race
+28,LING-Linguistics,309-Introduction to Phonology
+28,LING-Linguistics,470U-Linguistics of Names
+29,MATH-Mathematics,110-Finite Math with Applications
+29,MATH-Mathematics,111-Precalculus
+29,MATH-Mathematics,115A-Intr Math Modeling
+29,MATH-Mathematics,201-Intro to Discrete Mathematics
+29,MATH-Mathematics,207-History of Math
+29,MATH-Mathematics,253-Introduction to Cryptography
+29,MATH-Mathematics,300-Linear Algebra
+29,MATH-Mathematics,312-Differential Equations
+29,MATH-Mathematics,330-Foundations of Advanced Math
+29,MATH-Mathematics,361A-Problems in Industry
+29,MATH-Mathematics,372A-Modern Geometry
+29,MATH-Mathematics,431-Abstract Algebra
+29,MATH-Mathematics,432-Abstract Algebra
+29,MATH-Mathematics,461S-Graph Theory
+29,MATH-Mathematics,471-Real Analysis
+29,MATH-Mathematics,472-Real Analysis
+29,MATH-Mathematics,481-Theory of Interest
+30,MUHL-Music History,152-Music and Society
+30,MUHL-Music History,156-American Music
+30,MUHL-Music History,376-Music Hist II Narratives&Ideol
+31,MUPR-Music Appreciation,347A-Choral Conducting
+32,MUSC-Music,473A-SS:Street Choir
+32,MUSC-Music,490-Music Seminar
+33,MUTC-Music Technology,100-Technology for Musicians
+33,MUTC-Music Technology,320-Audio Recording
+34,MUTH-Music Theory,181A-Materls & Sources Musi Theory
+34,MUTH-Music Theory,191-Diatonic Music Theory
+34,MUTH-Music Theory,391-Post-Tonal Music Theory
+35,PHIL-Philsophy,101-Intro to Philosophy
+35,PHIL-Philsophy,110-Intro Law & Legal Writing
+35,PHIL-Philsophy,151B-Introductory Logic
+35,PHIL-Philsophy,202-Early Modern Philosophy
+35,PHIL-Philsophy,220-Intro to Feminism
+35,PHIL-Philsophy,284-Buddhism
+35,PHIL-Philsophy,301-Medieval Philosophy
+35,PHIL-Philsophy,307-Philosophy of Language
+35,PHIL-Philsophy,330-Environmental Ethics
+35,PHIL-Philsophy,485-Research in Philosophy
+36,PHYS-Physical Education,104-Elementary Astronomy
+36,PHYS-Physical Education,108-General Physics
+36,PHYS-Physical Education,110-University Physics
+37,PSCI-Political Science,101A-Intro to Political Science
+37,PSCI-Political Science,102A-Intro to Internatn'l Relations
+37,PSCI-Political Science,202A-American Public Policy
+37,PSCI-Political Science,312A-The American Presidency
+37,PSCI-Political Science,315-Alliance Politics
+37,PSCI-Political Science,321A-Theories of Internatnl Relatns
+37,PSCI-Political Science,323-Latin American Politics
+37,PSCI-Political Science,350B-Politics Developing Countries
+37,PSCI-Political Science,351-International Political Econom
+37,PSCI-Political Science,355-Politics Mid East & N Africa
+37,PSCI-Political Science,356-American Foreign Policy
+37,PSCI-Political Science,357A-Russian Foreign Policy
+37,PSCI-Political Science,363-Mass Media Politics
+37,PSCI-Political Science,367-East Asia in World Affairs
+37,PSCI-Political Science,370-Women and Politics
+37,PSCI-Political Science,387-Security & Conflict Studies
+37,PSCI-Political Science,442A-History Political Thought II
+37,PSCI-Political Science,471C2-US Constitutional Reform
+37,PSCI-Political Science,471D4-Intelligence&National Security
+37,PSCI-Political Science,471D6-Contemporary Africa
+38,PSYC-Psychology,100-General Psychology
+38,PSYC-Psychology,201-Social Psychology
+38,PSYC-Psychology,211-Abnormal Psychology
+38,PSYC-Psychology,231-Dev Psyc: The Infant and Child
+38,PSYC-Psychology,233-Psychology of Aging
+38,PSYC-Psychology,242-Psychology of Personality
+38,PSYC-Psychology,253-Fndmntl Learning & Motivation
+38,PSYC-Psychology,261A-Intro Statistics for Psyc
+38,PSYC-Psychology,273-Cognitive Psychology
+38,PSYC-Psychology,274-Biological Psychology
+38,PSYC-Psychology,305-Cognitive Neuroscience
+38,PSYC-Psychology,315-Foundations of Clinical Psych
+38,PSYC-Psychology,320-Psyc of Excep Children & Youth
+38,PSYC-Psychology,339-Health Psychology
+38,PSYC-Psychology,346-Forensic Psychology
+38,PSYC-Psychology,350-Psychology of Women
+38,PSYC-Psychology,360A-Advanced Statistics for Psyc
+38,PSYC-Psychology,372-Sensation and Perception
+38,PSYC-Psychology,385-Indust/Organiz Psy
+38,PSYC-Psychology,387-Organizational Develp & Change
+38,PSYC-Psychology,394-Psychopharmacology
+38,PSYC-Psychology,411-Sem Abnml-Persnlty-Soc Psyc
+38,PSYC-Psychology,412-Resrch Sem in Biol Psych
+38,PSYC-Psychology,413-Seminar-Cognition or Learning
+39,RELG-Religion,101-Intro to World Religions
+39,RELG-Religion,103-The Abrahamic Religions
+39,RELG-Religion,208-Christianity After New Testame
+39,RELG-Religion,231C3-The Bible & The Quran
+39,RELG-Religion,231K-SS:Roman Catholicism
+39,RELG-Religion,278-Relg in Amer After Civil War
+39,RELG-Religion,284-Buddhism
+39,RELG-Religion,331RR-Relg Tolerance/Intoleran in Am
+39,RELG-Religion,341B-Major Thinkers: Augustine
+40,SOCG-Sociology,105-The Social World
+40,SOCG-Sociology,155-Social Issues
+40,SOCG-Sociology,304-Social Stratification
+40,SOCG-Sociology,315A-Gender and Society
+40,SOCG-Sociology,332-Intro Soc Welfare
+40,SOCG-Sociology,352-Criminology
+40,SOCG-Sociology,371A6-Environmental Criminology
+40,SOCG-Sociology,440-Sociology of Education
+40,SOCG-Sociology,472-Contemp Sociological Theories
+41,SPAN-Spanish,101-Beginning Spanish I
+41,SPAN-Spanish,102-Beginning Spanish II
+41,SPAN-Spanish,201A-Intermediate Spanish I
+41,SPAN-Spanish,202A-Intermediate Spanish II
+41,SPAN-Spanish,305-Conversation and Grammar
+41,SPAN-Spanish,306-Composition and Grammar
+41,SPAN-Spanish,312-Intro to Lit Studies in Span
+41,SPAN-Spanish,314-Sounds of Spanish:Theory & Pra
+41,SPAN-Spanish,320J-Latinx Language Discrimination
+41,SPAN-Spanish,324A-Intro to Spanish Literature
+41,SPAN-Spanish,393-Business Spanish
+41,SPAN-Spanish,413-Advanced Writing
+41,SPAN-Spanish,481L-Galdos & 19th Cent Span Novel
+42,STAT-Statistics,180-Introduction to Statistics
+42,STAT-Statistics,280-Statistical Methods
+42,STAT-Statistics,320-Applied Regression Analysis
+42,STAT-Statistics,382-Probability & Statistical Inf
+43,THEA-Theater,111-Introduction to Theatre
+43,THEA-Theater,112-Introduction to Acting
+43,THEA-Theater,113-Intro Thea Design
+43,THEA-Theater,211A-Dramatic Literature
+43,THEA-Theater,212A-Dramatic Literature
+43,THEA-Theater,271C-Costume Crafts
+43,THEA-Theater,290-Scene Painting
+43,THEA-Theater,311-Fashion History
+43,THEA-Theater,318-Stage Dialects
+43,THEA-Theater,331-Playwriting
+43,THEA-Theater,336-Musical Theatre Performance
+43,THEA-Theater,362-Theatre History and Literature
+43,THEA-Theater,433-Lighting Design
+43,THEA-Theater,435-Ideas in Performance
+43,THEA-Theater,481-Resource Strategies Arts Admin
+44,WGST-Women and Gender Studies,101-Intro to Women's Studies
+44,WGST-Women and Gender Studies,102-Prsp in Sexualities:Queer Stu
