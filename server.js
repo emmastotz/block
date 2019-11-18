@@ -19,7 +19,8 @@ app.set("view engine", "handlebars");
 // ====================================================
 // ROUTES
 // ====================================================
-require("./controllers/classes_controller.js")(app);
+require("./routes/api-routes")(app);
+require("./routes/html-routes")(app);
 // ====================================================
 // LISTEN
 // ====================================================
