@@ -6,7 +6,7 @@ const db = require("../models");
 // ROUTES
 // ====================================================
 module.exports = function(app) {
-  app.get("/", function(req, res){
+  app.get("/index", function(req, res){
     db.Subjects.findAll({}).then(function(data) {
       var dataObj = {
         subject: data

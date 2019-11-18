@@ -8,15 +8,18 @@ body {
 div.jumbo-logo {
   text-align: center;
   background-color: transparent !important;
-  margin-top: 0%;
-  margin-bottom: 0%;
+  margin: 0;
   padding-top: 1%;
   padding-bottom: 1%;
 }
 
-img.block-logo{
+img.block-logo {
   width: 50%;
   height: auto;
+}
+
+div.login {
+  margin-top: 3%;
 }
 
 li.list-group-item {
@@ -55,6 +58,29 @@ button.btn-secondary {
   color: white;
 }
 
+div.user-input-container {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: black;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+div.form-group {
+  text-align: left;
+  margin: 0;
+}
+
+div.email {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+button#signup-button {
+  margin-bottom: 2%;
+}
+
 div.subject-display {
   text-align: center;
   background-color: rgba(255, 255, 255, 0.5);
@@ -85,7 +111,7 @@ h4 {
 }
 
 div.footer {
-  position: relative;
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -93,4 +119,13 @@ div.footer {
   text-align: center;
   padding-bottom: 1%;
   font-size: 8pt;
+}
+
+h5.card-title {
+  padding-top: 2%;
+}
+
+hr.top {
+  margin-top: 0;
+  margin-bottom: .5rem;
 }

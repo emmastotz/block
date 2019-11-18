@@ -1,36 +1,48 @@
-<div class="container navbar-container">
-<nav class="navbar fixed-top navbar-light bg-light">
-    <button class="btn btn-secondary" onclick="history.back()">
-    Back<span class="sr-only navbar-text">(current)</span>
-    </button>
-</nav>
+<div class="jumbotron jumbotron-fluid jumbo-logo">
+  <div class="container">
+    <img class="block-logo" src="/assets/img/block-logo-04.svg">
+  </div>
 </div>
 
-<div class="jumbotron jumbotron-fluid">
-<div class="container">
-    <img src="/assets/img/block-logos-03.svg">
-</div>
-</div>
-
-<div class="container-fluid user-input-container">
-<form id="signup-form">
-    <div class="form-group">
-    <label for="new-email">Email address</label>
-    <input type="email" class="form-control" id="new-email" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+<div class="container user-input-container">
+  <form id="signup-form">
+    <h5 class="card-title">Sign Up</h5>
+    <hr class="top">
+    <div class="form-group email">
+      <label for="new-email">Email address</label>
+      <input type="email" class="form-control" id="new-email" aria-describedby="emailHelp" placeholder="Enter email">
     </div>
-    <div class="form-group">
-    <label for="new-password">Password</label>
-    <input type="password" class="form-control" id="new-password" placeholder="Password">
+    <div class="form-group password">
+      <label for="new-password">Password</label>
+      <input type="password" class="form-control" id="new-password" placeholder="Password">
     </div>
-    <a href="#">
-    <button type="submit" class="btn btn-secondary" id="sign-up-button">Sign Up</button>
+    <div class="form-group password">
+      <label for="confirm-password">Confirm Password</label>
+      <input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password">
+    </div>
+    <hr>
+    <a href="index">
+      <button type="submit" class="btn btn-secondary" id="signup-button">Submit</button>
     </a>
-</form>
+  </form>
 </div>
 
-<footer class="card-footer text-muted">
-<container>
-    Created by: Alex, Andy, Emma, Juan, and Sandy
-</container>
-</footer>
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body signup-validation">
+        <p></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
