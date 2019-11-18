@@ -15,7 +15,7 @@ $(document).ready(function() {
       displayTable(scheduleId);
       window.history.pushState(null,null,'/');
     };
-//================================================================================== 
+//================================================================
     function displayTable(id){
       $.ajax("/schedule/" + id, function() {
         type: "GET"

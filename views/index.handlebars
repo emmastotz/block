@@ -1,15 +1,13 @@
 {{!-- NAVBAR --}}
-<div class="container navbar-container">
-  <nav class="navbar fixed-top navbar-light bg-light">
-    <button class="btn btn-secondary" onclick="history.back()">
-    Back<span class="sr-only navbar-text">(current)</span>
-    </button>
+<div class="container open" id="navbar-wrap">
+  <nav class="navbar navbar-menu">
+    <img class="navbar-logo" src="/assets/img/block-logo-04.svg" href="#">
   </nav>
 </div>
 
 {{!-- STUDENT SCHEDULE --}}
 <div class="container-fluid">
-  <div class="jumbotron student-schedule">
+  <div class="jumbotron student-schedule" >
     <h4>Schedule</h4>
     <hr>
     <div class="container timetable">
@@ -29,7 +27,7 @@
 </script>
 
 {{!-- CLASS INFO --}}
-<div class="container-fluid">
+<div class="container-fluid class-info">
   <div class="row">
 
     {{!-- SUBJECT --}}

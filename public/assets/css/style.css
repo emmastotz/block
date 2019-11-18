@@ -5,12 +5,35 @@ body {
   color: black;
 }
 
+nav.navbar {
+  background-color: rgba(0, 0, 0, .5) !important;
+  color: white;
+  position: absolute;
+  left: 100%;
+  flex-direction: column;
+  width: 100px;
+  height: 100%;
+}
+
+div#navbar-wrap {
+  position: fixed;
+  z-index: 10;
+  right: 100%;
+  width: 100%;
+  height: 100vh;
+}
+
 div.jumbo-logo {
   text-align: center;
   background-color: transparent !important;
   margin: 0;
   padding-top: 1%;
   padding-bottom: 1%;
+}
+
+img.navbar-logo {
+  height: auto;
+  transform: rotate(-90deg);
 }
 
 img.block-logo {
@@ -20,6 +43,12 @@ img.block-logo {
 
 div.login {
   margin-top: 3%;
+  text-align: center;
+}
+
+div.login-card {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: black;
 }
 
 li.list-group-item {
@@ -82,27 +111,34 @@ button#signup-button {
 }
 
 div.subject-display {
+  height: 30rem;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.5);
   color: black;
   padding-top: 2%;
   padding-bottom: 2%;
+  margin-left: 100px;
+  overflow-y: scroll;
 }
 
 div.classes-display {
+  height: 30rem;
   background-color: rgba(255, 255, 255, 0.5);
   padding-top: 2%;
   color: black;
   text-align: center;
   padding-bottom: 0;
+  overflow-y: scroll;
 }
 
 div.student-schedule {
   background-color: rgba(255, 255, 255, 0.5);
-  padding-top: 2%;
+  padding-top: 1%;
   color: black;
   text-align: center;
   padding-bottom: 0;
+  margin-left: 100px;
+  margin-top: 2%;
 }
 
 h4 {
