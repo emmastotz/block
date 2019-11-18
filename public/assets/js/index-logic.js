@@ -8,12 +8,13 @@ $(document).ready(function() {
     renderer.draw('.timetable');
 
     var url = window.location.href;
+    console.log(url);
     var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
     if(queryString){
       let scheduleId = queryString.split('=')[1];
       console.log('schedule id: ' + scheduleId);
       displayTable(scheduleId);
-      window.history.pushState(null,null,'/');
+      window.history.pushState(null,null,'/index');
     };
 //================================================================
     function displayTable(id){

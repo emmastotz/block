@@ -5,6 +5,16 @@ body {
   color: black;
 }
 
+/* ======================================================= */
+/* NAVBAR */
+div#navbar-wrap {
+  position: fixed;
+  z-index: 10;
+  right: 100%;
+  width: 100%;
+  height: 100%;
+}
+
 nav.navbar {
   background-color: rgba(0, 0, 0, .5) !important;
   color: white;
@@ -13,16 +23,35 @@ nav.navbar {
   flex-direction: column;
   width: 100px;
   height: 100%;
+  padding: 0;
 }
 
-div#navbar-wrap {
-  position: fixed;
-  z-index: 10;
-  right: 100%;
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
   width: 100%;
-  height: 100vh;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
 }
 
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+/* ======================================================= */
 div.jumbo-logo {
   text-align: center;
   background-color: transparent !important;
@@ -164,4 +193,22 @@ h5.card-title {
 hr.top {
   margin-top: 0;
   margin-bottom: .5rem;
+}
+
+/* ======================================================= */
+/* SCROLLBARS */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
