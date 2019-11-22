@@ -34,6 +34,7 @@ $(document).ready(function() {
 
             var name = res[i].subject_code + " " + res[i].number_title;
 
+            // #TODO : Improve this logic. Loop over the days of the week and append to time table accordingly
             if (res[i].day_code === "MWF"){
               appendToTimetable(name, "Monday",  startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
               appendToTimetable(name, "Wednesday", startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
@@ -127,8 +128,6 @@ $(document).ready(function() {
     });
 // ====================================================
     $(document).on("click", ".remove-class", function() {
-
-
       let id = $(this).data("id");
       var scheduleState = {
         inSchedule: false
@@ -137,7 +136,7 @@ $(document).ready(function() {
       updateTable(scheduleState, id);
       window.location.href = reloadUrl;
     });
-      //==========================================
+//==========================================
     $(".clear-btn").on("click", function(event) {
       var scheduleState = {
         inSchedule: false

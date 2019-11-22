@@ -65,5 +65,26 @@ module.exports = function(app) {
     });
   });
   // ====================================================
+  app.get("/api/login/:email",function(req,res){
+    db.User.findAll({
+        where : {email : req.params.email}
+    }).then(function(data){
+        res.json(data);
+    });
+  });
+  // ====================================================
+  // Create a user
+  app.post("/api/user", function(req, res){
+    db.User.create({ 
+            email: req.body.email,
+            password: req.body.password
+    }).then(function(data){
+        res.json(data);
+    }).catch(function(err){
+        console.log("Here is the error section at routes!");
+        throw err;
+    });
+  });
+  // ====================================================
 };
 // ====================================================
