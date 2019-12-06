@@ -127,6 +127,7 @@ $(document).ready(function() {
     });
 
 //==================================================================================
+// Updates the schedule state
     function updateTable (scheduleObj, id) {
       $.ajax("/classes/update/" + id, {
         type: "PUT",
@@ -166,7 +167,6 @@ $(document).ready(function() {
         data: scheduleState
       }).then(function () {
         console.log("Cleared class schedule");
-        renderTimetable();
         location.reload();
       });
     });
