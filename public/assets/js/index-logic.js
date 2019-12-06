@@ -1,12 +1,11 @@
 $(document).ready(function() {
   $(function() {
-    $(".classes-display").hide();
     var timetable = new Timetable();
-    timetable.setScope(9,20);
-    timetable.addLocations(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']);
     var renderer = new Timetable.Renderer(timetable);
-    renderer.draw('.timetable');
+    $(".classes-display").hide();
+    renderTimetable();
 
+    // Saves the window location from when you remove a single class
     var url = window.location.href;
     console.log(url);
     var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
@@ -17,6 +16,7 @@ $(document).ready(function() {
       window.history.pushState(null,null,'/index');
     };
 //================================================================
+// 
     function dayEquivalence(param){
       var day;
       switch(param){
@@ -41,20 +41,21 @@ $(document).ready(function() {
         default:
           day = "";
       }
-
     return day;
     };
-
-     var appendToTimetable = function (name,day, startTimeHour, startTimeMin, endTimeHour, endTimeMin) {
+//================================================================
+// Add a class
+    function appendToTimetable (name, day, startTimeHour, startTimeMin, endTimeHour, endTimeMin) {
       timetable.addEvent(name, day, new Date(2015,7,17, startTimeHour, startTimeMin), new Date(2015,7,17,endTimeHour,endTimeMin)); 
       renderer.draw('.timetable');
     };
-
+//================================================================
+// Displays all classes in the database with a value of true
     function displayTable(id){
       $.ajax("/schedule/" + id, function() {
         type: "GET"
       }).then(function(res){
-       
+      
         var dayCode = ['M','T','W','R','F','S'];
 
         for(var i = 0; i<res.length; i++) {
@@ -68,14 +69,18 @@ $(document).ready(function() {
               console.log(dayCode[j]);
               console.log(dayCode[j] + " is included in " + res[i].day_code + " : " + res[i].day_code.includes(dayCode[j]))
               console.log(dayEquivalence(dayCode[j]));
-              if(res[i].day_code.includes(dayCode[j]))
-                appendToTimetable(name, dayEquivalence(dayCode[j]),  startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
+
+              if(res[i].day_code.includes(dayCode[j])) {
+                appendToTimetable(name, dayEquivalence(dayCode[j]), startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
+              };
             }            
           }
         }
+        renderer.draw('.timetable');
       });
     }
-//==================================================================================  
+//================================================================================== 
+// Display Classes
     $(".subject-btn").on("click", function(event) {
       $("#classes-list").empty();
       let id = $(this).data("id");
@@ -131,7 +136,7 @@ $(document).ready(function() {
       });
     };    
 //==================================================================================
-
+// Add Class
     $(document).on("click", ".add-class", function() {
       let id = $(this).data("id");
       var scheduleState = {
@@ -140,16 +145,18 @@ $(document).ready(function() {
       updateTable(scheduleState, id);
     });
 // ====================================================
+// Remove single class from schedule
     $(document).on("click", ".remove-class", function() {
       let id = $(this).data("id");
       var scheduleState = {
         inSchedule: false
       };
-      let reloadUrl = '/?scheduleId=' + id;
+      let reloadUrl = '/index?scheduleId=' + id;
       updateTable(scheduleState, id);
       window.location.href = reloadUrl;
     });
 //==========================================
+// Clear Class Schedule
     $(".clear-btn").on("click", function(event) {
       var scheduleState = {
         inSchedule: false
@@ -159,14 +166,16 @@ $(document).ready(function() {
         data: scheduleState
       }).then(function () {
         console.log("Cleared class schedule");
-        var timetable = new Timetable();
-        timetable.setScope(9,20);
-        timetable.addLocations(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']);
-        var renderer = new Timetable.Renderer(timetable);
-        renderer.draw('.timetable');
+        renderTimetable();
         location.reload();
       });
-      
     });
+//==========================================
+// Render Timetable
+    function renderTimetable (){
+      timetable.setScope(9,20);
+      timetable.addLocations(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
+      renderer.draw('.timetable');
+    };
   });
 });
