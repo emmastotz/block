@@ -2,6 +2,7 @@
 // DEPENDENCIES
 // ====================================================
 // Express
+// ====================================================
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(express.static("public"));
 // ====================================================
 // Handlebars
+// ====================================================
 const exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({defaultLayout: "main"}));
@@ -24,7 +26,7 @@ require("./routes/html-routes")(app);
 // ====================================================
 // LISTEN
 // ====================================================
-db.sequelize.sync({force:true}).then(function() {
+db.sequelize.sync().then(function() {
   app.listen(PORT, function() {
     console.log("App listening on: http://localhost:" + PORT);
   });

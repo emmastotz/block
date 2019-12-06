@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
     AllData.belongsTo(models.Classes, { 
       foreignKey: "ClassId"
     })
-    AllData.belongsTo(models.Subjects, { 
+  AllData.belongsTo(models.Subjects, { 
       foreignKey: "SubjectId"
     })
   };
