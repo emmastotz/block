@@ -17,15 +17,45 @@ $(document).ready(function() {
       window.history.pushState(null,null,'/index');
     };
 //================================================================
+    function dayEquivalence(param){
+      var day;
+      switch(param){
+        case 'M':
+          day = "Monday";
+          break;
+        case 'T':
+          day = "Tuesday";
+          break;
+        case 'W':
+          day = "Wednesday";
+          break;
+        case 'R':
+          day = "Thursday";
+          break;
+        case 'F':
+          day = "Friday";
+          break;
+        case 'S':
+          day = "Saturday";
+          break;
+        default:
+          day = "";
+      }
+
+    return day;
+    };
+
+     var appendToTimetable = function (name,day, startTimeHour, startTimeMin, endTimeHour, endTimeMin) {
+      timetable.addEvent(name, day, new Date(2015,7,17, startTimeHour, startTimeMin), new Date(2015,7,17,endTimeHour,endTimeMin)); 
+      renderer.draw('.timetable');
+    };
+
     function displayTable(id){
       $.ajax("/schedule/" + id, function() {
         type: "GET"
       }).then(function(res){
-        //FUNCTION
-        var appendToTimetable = function (name,day, startTimeHour, startTimeMin, endTimeHour, endTimeMin) {
-          timetable.addEvent(name, day, new Date(2015,7,17, startTimeHour, startTimeMin), new Date(2015,7,17,endTimeHour,endTimeMin)); 
-          renderer.draw('.timetable');
-        };
+       
+        var dayCode = ['M','T','W','R','F','S'];
 
         for(var i = 0; i<res.length; i++) {
           if(res[i].inSchedule === true){
@@ -34,32 +64,15 @@ $(document).ready(function() {
 
             var name = res[i].subject_code + " " + res[i].number_title;
 
-            // #TODO : Improve this logic. Loop over the days of the week and append to time table accordingly
-            if (res[i].day_code === "MWF"){
-              appendToTimetable(name, "Monday",  startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
-              appendToTimetable(name, "Wednesday", startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
-              appendToTimetable(name, "Friday", startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
-
-            } else if (res[i].day_code === "TR"){
-              appendToTimetable(name, "Thursday", startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
-              appendToTimetable(name, "Tuesday", startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
-
-            } else if (res[i].day_code === "MW"){
-              appendToTimetable(name, "Monday", startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
-              appendToTimetable(name, "Wednesday", startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
-
-            } else if (res[i].day_code === "W"){
-              appendToTimetable(name, "Wednesday", startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
-
-            } else if(res[i].day_code === "T"){
-              appendToTimetable(name, "Tuesday", startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
-
-            } else if(res[i].day_code === "R"){
-              appendToTimetable(name, "Thursday", startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
-            }
+            for(var j in dayCode){
+              console.log(dayCode[j]);
+              console.log(dayCode[j] + " is included in " + res[i].day_code + " : " + res[i].day_code.includes(dayCode[j]))
+              console.log(dayEquivalence(dayCode[j]));
+              if(res[i].day_code.includes(dayCode[j]))
+                appendToTimetable(name, dayEquivalence(dayCode[j]),  startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
+            }            
           }
         }
-        renderer.draw('.timetable');
       });
     }
 //==================================================================================  
