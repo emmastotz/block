@@ -16,7 +16,7 @@ $(document).ready(function() {
       window.history.pushState(null,null,'/index');
     };
 //================================================================
-// 
+// Day Code Function
     function dayEquivalence(param){
       var day;
       switch(param){

@@ -13,6 +13,14 @@
   </nav>
 </div>
 
+<script>
+  var timetable = new Timetable();
+  timetable.setScope(9,20);
+  timetable.addLocations(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']);
+  var renderer = new Timetable.Renderer(timetable);
+  renderer.draw('.timetable');
+</script>
+
 {{!-- STUDENT SCHEDULE --}}
 <div class="container-fluid">
   <div class="jumbotron student-schedule" >
@@ -44,14 +52,6 @@
   </div>
 </div>
 
-<script>
-  var timetable = new Timetable();
-  timetable.setScope(9,20);
-  timetable.addLocations(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']);
-  var renderer = new Timetable.Renderer(timetable);
-  renderer.draw('.timetable');
-</script>
-
 {{!-- CLASS INFO --}}
 <div class="container-fluid class-info">
   <div class="row">
@@ -82,3 +82,10 @@
     </div>
   </div>
 </div>
+
+{{!--  jQuery CDN --}}
+<script src="https://code.jquery.com/jquery.js"></script>
+{{!-- Index Page Logic --}}
+<script src="/assets/js/index-logic.js"></script>
+{{!-- Time Table logic --}}
+<script src="assets/js/timetable.js"></script>
