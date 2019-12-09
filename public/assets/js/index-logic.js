@@ -6,26 +6,18 @@ $(document).ready(function() {
     allCombinations: [],
     classes: [],
     alldata: []   
-  }
+  };
+
   // Array of chars representings days of the week
   var dayCode = ['M','T','W','R','F','S'];
-  // Function where most of the magic happends
+
   $(function() {
+
     var timetable = new Timetable();
     var renderer = new Timetable.Renderer(timetable);
     $(".classes-display").hide();
     renderTimetable();
     renderer.draw('.timetable');
-    // Saves the window location from when you remove a single class
-    var url = window.location.href;
-    console.log(url);
-    var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
-    if(queryString){
-      let scheduleId = queryString.split('=')[1];
-      console.log('schedule id: ' + scheduleId);
-      displayTable(scheduleId);
-      window.history.pushState(null,null,'/index');
-    };
 
 //================================================================
 // Helper functions to create all possible combinations between two arrays
@@ -108,29 +100,21 @@ $(document).ready(function() {
             let classDiv = $("<li>");
             classDiv.addClass("list-group-item");
             classDiv.attr("class-id", classId);
-            classDiv.append("<strong>" + className + "</strong>");
-
-            let addBtn = $("<button>");
-            addBtn.addClass("btn btn-secondary btn-sm add-classes");
-            addBtn.attr("type","submit");
-            addBtn.text("Add to Schedule");
-            addBtn.attr("data-id",classId);
-
-            let deleteBtn = $("<button>");
-            deleteBtn.addClass("btn btn-secondary btn-sm remove-classes");
-            deleteBtn.attr("type","button");
-            deleteBtn.text("Remove from Schedule");
-            deleteBtn.attr("data-id",classId);
 
             let openBtn = $("<button>");
-            openBtn.addClass("btn btn-secondary btn-sm open");
+            openBtn.addClass("btn btn-link btn-sm open");
             openBtn.attr("type","button");
-            openBtn.text("Open");
+            openBtn.text(className);
             openBtn.attr("data-id",classId);
+
+            let addBtn = $("<button><i></i></button>");
+            addBtn.addClass("btn btn-link btn-sm add-classes li fa fa-plus");
+            addBtn.attr("type","submit");
+            addBtn.attr("data-id", classId);
+            addBtn.attr("data-name", className);
             
-            classDiv.append(addBtn);
-            classDiv.append(deleteBtn);
             classDiv.append(openBtn);
+            classDiv.append(addBtn);
             $("#classes-list").append(classDiv);
 
             let subclassDiv = $("<li>");
@@ -143,10 +127,6 @@ $(document).ready(function() {
         console.log(err);
       });
     });
-//==================================================================================
-// Appends the classes corresponding to a specific subject
-// $(".class-close-btn").on("click", function(event) {
-// });
 //==================================================================================
 // Updates the schedule state
     function updateTable (scheduleObj, id) {
@@ -162,11 +142,26 @@ $(document).ready(function() {
 // Appends the classes corresponding to a specific subject
     $(document).on("click",'.add-classes',function() {
       let id = $(this).data("id");
+      let className = $(this).data("name");
+
       // If the classes id is not in the class array add it
       if(state.classes.indexOf(id)> -1){
         state.classes.push(id);
       }
       console.log(state.classes);
+
+      let deleteBtn = $("<button><i></i></button>");
+      deleteBtn.addClass("btn btn-link btn-sm remove-class fa fa-times");
+      deleteBtn.attr("type","clear");
+      deleteBtn.attr("data-id",id);
+
+      let listItem = $("<li>")
+      listItem.addClass("list-group-item");
+      listItem.attr("id", "class-list-id-" + id)
+      listItem.append(className);
+      listItem.append(deleteBtn);
+
+      $("#classes-scheduled").append(listItem);
     });
 //==================================================================================
 // Appends the classes corresponding to a specific subject
@@ -177,6 +172,7 @@ $(document).ready(function() {
       $.ajax("/class/" + id, {
         type: "GET"
       }).then(function(result) {
+        $("#subclass-" + id).empty();
         $(".classes-display").show();
           for(var i in result){
             let startTime = result[i].start_time;
@@ -189,24 +185,18 @@ $(document).ready(function() {
             let classDivChild = $("<li>");
             classDivChild.addClass("list-group-item");
             classDivChild.attr("class-id", classId);
-            classDivChild.append("<strong>" + className + "</strong>");
+            classDivChild.append(className);
             classDivChild.append("<br>");
             classDivChild.append(time);
-            // The add-class class is used to append the specific alldata information
-            let addBtn = $("<button>");
-            addBtn.addClass("btn btn-secondary btn-sm add-class");
-            addBtn.attr("type","submit");
-            addBtn.text("Add");
-            addBtn.attr("data-id",classId);
 
-            let deleteBtn = $("<button>");
-            deleteBtn.addClass("btn btn-secondary btn-sm remove-class");
-            deleteBtn.attr("type","button");
-            deleteBtn.text("Remove");
-            deleteBtn.attr("data-id",classId);
+            let addBtn = $("<button><i></i></button>");
+            addBtn.addClass("btn btn-link btn-sm add-class fa fa-plus");
+            addBtn.attr("type", "submit");
+            addBtn.attr("data-id", classId);
+            addBtn.attr("data-name", className);
+            addBtn.attr("data-time", time);
 
             classDivChild.append(addBtn);
-            classDivChild.append(deleteBtn);
             classDiv.append(classDivChild);
           }
       }).fail(function(err){
@@ -214,10 +204,13 @@ $(document).ready(function() {
       });
 
     });    
-//==================================================================================
+// ==================================================================================
 // Add Class
     $(document).on("click", ".add-class", function() {
       let id = $(this).data("id");
+      let className = $(this).data("name");
+      let classTime = $(this).data("time");
+
       // If the specific class id is not in the alldata array add it
       if(state.classes.indexOf(id)> -1){
         state.alldata.push(id);
@@ -226,22 +219,46 @@ $(document).ready(function() {
       var scheduleState = {
         inSchedule: true
       };
+
+      let deleteBtn = $("<button><i></i></button>");
+      deleteBtn.addClass("btn btn-link btn-sm remove-class fa fa-times");
+      deleteBtn.attr("type","clear");
+      deleteBtn.attr("data-id",id);
+
+      let listItem = $("<li>")
+      listItem.addClass("list-group-item");
+      listItem.attr("id", "class-list-id-" + id)
+      listItem.append(className);
+      listItem.append($("<br>"));
+      listItem.append(classTime);
+      listItem.append(deleteBtn);
+
+      $("#classes-scheduled").append(listItem);
+
       updateTable(scheduleState, id);
     });
-// ====================================================
-// Remove single class from schedule
+
+// ==================================================================================
+// Remove Single Class from Schedule
     $(document).on("click", ".remove-class", function() {
       let id = $(this).data("id");
+
       var scheduleState = {
         inSchedule: false
       };
-      let reloadUrl = '/index?scheduleId=' + id;
+
+      $("#class-list-id-" + id).remove();
       updateTable(scheduleState, id);
-      // window.location.href = reloadUrl;
     });
-//==========================================
+
+// ==================================================================================
+// Save Class Schedule
+    $(".save-btn").on("click", function(){
+      console.log("Save schedule button clicked");
+    });
+// ==================================================================================
 // Clear Class Schedule
-    $(".clear-btn").on("click", function(event) {
+    $(".clear-btn").on("click", function() {
       var scheduleState = {
         inSchedule: false
       };
@@ -249,11 +266,10 @@ $(document).ready(function() {
         type: "PUT",
         data: scheduleState
       }).then(function () {
-        console.log("Cleared class schedule");
-        // location.reload();
         renderTimetable();
         renderer.draw('.timetable');
         $("#classes-list").empty();
+        $("#classes-scheduled").empty();
       });
     });
 //==========================================

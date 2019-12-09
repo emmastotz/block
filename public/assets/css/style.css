@@ -26,6 +26,13 @@ nav.navbar {
   padding: 0;
 }
 
+nav.ul {
+  list-style: none;
+}
+
+nav.li {
+  display: block;
+}
 /* Style the button that is used to open and close the collapsible content */
 .collapsible {
   background-color: #eee;
@@ -96,8 +103,8 @@ a:visited {
 }
 
 a:hover {
-  color: #2E7FAD;
-  text-decoration: underline;
+  color: #000000;
+  text-decoration: none;
 }
 
 a:active {
@@ -110,8 +117,27 @@ button.btn-sm {
   color: #2E7FAD;
 }
 
+button.btn-link {
+  text-decoration: none;
+}
+
+button.btn-link:visited {
+  color: #2E7FAD;
+  text-decoration: none;
+}
+
+button.btn-link:hover{
+  text-decoration: none;
+  color: #000000;
+}
+
+button.btn-link:active {
+  color: #2E7FAD;
+  text-decoration: none;
+}
+
 button.btn-secondary {
-  margin-top: 1%;
+  margin-top: 2.5%;
   background-color: #2E7FAD;
   color: white;
 }
@@ -168,6 +194,18 @@ div.student-schedule {
   padding-bottom: 0;
   margin-left: 100px;
   margin-top: 2%;
+  height: 30rem;
+}
+
+div.class-list {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding-top: 1%;
+  color: black;
+  text-align: center;
+  padding-bottom: 0;
+  margin-top: 4%;
+  height: 30rem;
+  overflow-y: scroll;
 }
 
 h4 {

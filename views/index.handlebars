@@ -15,14 +15,39 @@
 
 {{!-- STUDENT SCHEDULE --}}
 <div class="container-fluid">
-  <div class="jumbotron student-schedule" >
-    {{!-- <h4>Schedule</h4>
-    <hr> --}}
-    <div class="container-fluid">
-      <div class = "timetable"> </div>
+  <div class="row">
+
+    <div class="col-8">
+      <div class="jumbotron student-schedule" >
+        <h4>Schedule</h4>
+        <hr>
+        <div class = "timetable"> 
+          {{!-- Timetable Renders Here --}}
+            <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <button class="btn btn-secondary save-btn btn-sm" type="button">Save</button>
+        <button class="btn btn-secondary clear-btn btn-sm" type="clear">Clear</button>
+      </div>
     </div>
-    <button class="btn btn-secondary clear-btn btn-sm" type="clear">Clear Schedule</button>
+    <div class="col-4">
+      <div class="jumbotron class-list">
+        <div class="container">
+          <h4>Classes Added</h4>
+          <ul class="list-group list-group-flush" id="classes-scheduled">
+            {{!-- Classes Selected Added Here --}}
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
+  
 </div>
 
 {{!-- CLASS INFO --}}
@@ -47,9 +72,9 @@
     {{!-- CLASSES --}}
     <div class="col-6">
       <div class="jumbotron classes-display">
-        <h4>Classes</h4>
+        <h4>Available Classes</h4>
         <ul class="list-group list-group-flush" id="classes-list">
-          {{!-- Display classes --}}
+          {{!-- Display Classes --}}
         </ul>
       </div>
     </div>
@@ -60,5 +85,5 @@
 <script src="https://code.jquery.com/jquery.js"></script>
 {{!-- Index Page Logic --}}
 <script src="/assets/js/index-logic.js"></script>
-{{!-- Time Table logic --}}
+{{!-- Timetable logic --}}
 <script src="assets/js/timetable.js"></script>

@@ -193,8 +193,10 @@
   top: 50%;
   transform: translateY(-50%);
   display: block;
+  line-height: 1rem;
 }
 
 .timetable .time-entry:hover {
   background-color: #2E7FAD;
+  cursor: default;
 }
