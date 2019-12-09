@@ -280,6 +280,10 @@ $(document).ready(function() {
       timetable.setScope(8,21);
       timetable.addLocations(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
     };
+//==========================================
+// Open/Close Nav Bar
+    $("#navOpen").on("click", function() {
+      
+    })
   });
 });
-

@@ -30,7 +30,7 @@ nav.ul {
   list-style: none;
 }
 
-nav.li {
+nav.a {
   display: block;
 }
 /* Style the button that is used to open and close the collapsible content */
@@ -69,7 +69,6 @@ div.jumbo-logo {
 
 img.navbar-logo {
   height: auto;
-  transform: rotate(-90deg);
 }
 
 img.block-logo {
