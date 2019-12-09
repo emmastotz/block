@@ -51,6 +51,55 @@ $(document).ready(function() {
       }
     return day;
     };
+//==================================================================================
+// Create combination of classes and class instances
+function generateAllCombinations(){
+  var godArray = [];
+  for(var i = 0; i < state.alldata.length; i++){
+    $.ajax("/classes/all/" + state.alldata[i], function(){
+      type: "GET"
+    }).then(function(res){
+      var arr = [];
+      arr.push(res[0]);
+      console.log(arr);
+      godArray.push(arr);
+    })
+  };
+
+  for(var i = 0; i < state.classes.length; i++){
+    // A temp array where we will store our result set.
+    // Each class instance will be added as an entry of the array.
+    $.ajax("/class/" + state.classes[i], function(){
+      type: "GET"
+    }).then(function(res){
+      var tempArray = [];
+      // Iterate over classes intances based on the general class
+      for(var j = 0; j < res.length; j++){
+        tempArray.push(res[j]);
+      }
+      // Push the array containing all class instances 
+      godArray.push(tempArray);
+      state.allCombinations = mixer(godArray);
+      console.log("This is all combinations array ");
+      console.log(state.allCombinations);
+    });
+
+  }
+
+};
+//==================================================================================
+// Function used to mix an array of arrays
+function mixer(arr){
+  var mix_result = [];
+  for(var i = 0; i < arr.length; i++){
+    if(i == 0){
+      mix_result = arr[i]
+    } else {
+      mix_result = cartesian(mix_result,arr[i]);
+    }
+  }
+  return mix_result;
+}
 //================================================================
 // Add a class
     function appendToTimetable (name, day, startTimeHour, startTimeMin, endTimeHour, endTimeMin) {
@@ -162,6 +211,8 @@ $(document).ready(function() {
       listItem.append(deleteBtn);
 
       $("#classes-scheduled").append(listItem);
+      console.log("The current number of general classes in state are : " + state.classes);
+      generateAllCombinations();
     });
 //==================================================================================
 // Appends the classes corresponding to a specific subject
@@ -236,6 +287,9 @@ $(document).ready(function() {
       $("#classes-scheduled").append(listItem);
 
       updateTable(scheduleState, id);
+
+      console.log("The current number of general classes in state are : " + state.classes);
+      generateAllCombinations();
     });
 
 // ==================================================================================
