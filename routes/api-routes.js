@@ -39,6 +39,18 @@ module.exports = function(app) {
     });
   });
   // ====================================================
+  app.get("/classes/all/:AllDataId", function(req, res) {
+    db.AllData.findAll({
+      where: {
+        id: req.params.AllDataId
+      }
+    }).then(function(result){
+      res.json(result);
+    }).catch(function(err){
+      res.json(400, err);
+    });
+  });
+  // ====================================================
   app.get("/schedule/:allDataKey", function(req, res) {
     db.AllData.findAll({
       where: {

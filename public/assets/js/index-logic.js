@@ -194,7 +194,7 @@ function mixer(arr){
       let className = $(this).data("name");
 
       // If the classes id is not in the class array add it
-      if(state.classes.indexOf(id)> -1){
+      if(state.classes.indexOf(id) == -1){
         state.classes.push(id);
       }
       console.log(state.classes);
@@ -263,7 +263,7 @@ function mixer(arr){
       let classTime = $(this).data("time");
 
       // If the specific class id is not in the alldata array add it
-      if(state.classes.indexOf(id)> -1){
+      if(state.classes.indexOf(id) == -1){
         state.alldata.push(id);
       }
       console.log(state.alldata);
