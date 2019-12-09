@@ -193,7 +193,8 @@
   top: 50%;
   transform: translateY(-50%);
   display: block;
-  line-height: 1rem;
+  line-height: .75rem;
+  font-size: 8pt;
 }
 
 .timetable .time-entry:hover {
