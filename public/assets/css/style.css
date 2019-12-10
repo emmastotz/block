@@ -155,10 +155,30 @@ button.btn-link:active {
 }
 
 button.btn-secondary {
-  margin-top: 2.5%;
-  margin-bottom: 2.5%;
+  margin-top: 1%;
+  margin-bottom: 2%;
   background-color: #2E7FAD;
   color: white;
+}
+
+button.arrow {
+  background-color: transparent;
+  border: none;
+}
+
+button.arrow:hover {
+  color: grey;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+button#login {
+  margin-top: 8%;
+}
+
+button#signup-button {
+  margin-top: 8%;
+  margin-bottom: 8%;
 }
 
 div.user-input-container {
@@ -179,10 +199,6 @@ div.form-group {
 div.email {
   padding-top: 0;
   padding-bottom: 0;
-}
-
-button#signup-button {
-  margin-bottom: 2%;
 }
 
 div.subject-display {
@@ -223,6 +239,14 @@ div.student-schedule {
 
 p#schedule-counter {
   margin-bottom: .25rem;
+}
+
+p.error-message {
+  margin-top: .5rem;
+  margin-bottom: 0;
+  color: black;
+  background-color: rgba(255, 255, 255, .5);
+  border-radius: 5px;
 }
 
 hr {

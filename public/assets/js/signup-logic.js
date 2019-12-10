@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    console.log("I am here at SIGN UP !");
     // Checks if two strings are the same value
     function passwordValid(a,b){
         return a===b ? true : false;
@@ -9,7 +8,6 @@ $(document).ready(function(){
     function postUser(userData) {
             $.post("/api/user", userData)
             .then(function(error, result){
-                console.log("I am here at sign up with matching passwords !");
                 window.location.href="/";
             });
     };
@@ -28,8 +26,7 @@ $(document).ready(function(){
             // Console logs the current user object for sanity checking
             postUser(user);                    
         }else{
-            console.log("The Password entered does not match the confirm password.");
-            // $(".signup-validation").text("The Password entered does not match the confirm password.");
+            $(".error-message").text("The passwords do not match. Please try again.");
         };
     };
     $("#signup-button").on("click", function(){

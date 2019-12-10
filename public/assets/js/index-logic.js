@@ -55,11 +55,14 @@ function detectCollision(){
         (startTimeNumberTarget >= startTimeNumberSource) && 
         (startTimeNumberTarget <= endTimeNumberSource) && 
         (state.allCombinations[state.indexOfSchedule][i].day_code == state.allCombinations[state.indexOfSchedule][j+1].day_code)){
+          $(".time-entry").css("background-color", "red");
+          $(".error-message").text(state.allCombinations[state.indexOfSchedule][i].number_title + " and " + state.allCombinations[state.indexOfSchedule][j+1].number_title + " overlap in this schedule.");
           return true;
       }
       
     }
   }
+  $(".error-message").empty();
   return false;
 };
 

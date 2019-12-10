@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    console.log("I am here at the user LOGIN !");
     function passwordValid(a,b){
         return a===b ? true : false;
     };
@@ -19,12 +18,10 @@ $(document).ready(function(){
                 sessionStorage.setItem("user_id",userId);
                 window.location.replace("/index");
             } else {
-                console.log("The user/password entered is invalid for the given user/password.");
-                // $("#login-validation").text("The user/password entered is invalid for the given user/password.");
+                $(".error-message").text("The username/password combination does not exist. Please try again.");
             };
         }).catch(function(err){
-            console.log("The user/password entered is invalid for the given user/password.");
-            // $("#login-validation").text("The user/password entered is invalid for the given user/password.");
+            $(".error-message").text("The username/password does not exist. Please try again.");
             throw err;
         });
     };
