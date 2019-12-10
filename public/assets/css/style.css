@@ -155,6 +155,7 @@ button.btn-link:active {
 
 button.btn-secondary {
   margin-top: 2.5%;
+  margin-bottom: 2.5%;
   background-color: #2E7FAD;
   color: white;
 }
@@ -166,6 +167,7 @@ div.user-input-container {
   text-align: center;
   margin-top: 1%;
   margin-bottom: 1%;
+  width: 18rem;
 }
 
 div.form-group {
@@ -217,6 +219,11 @@ div.student-schedule {
   margin-top: 2%;
   height: 30rem;
 }
+
+p#schedule-counter {
+  margin-bottom: .25rem;
+}
+
 
 div.class-list {
   background-color: rgba(255, 255, 255, 0.5);

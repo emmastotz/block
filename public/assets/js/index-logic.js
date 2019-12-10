@@ -152,6 +152,8 @@ function displayTable(){
         }
       }
       renderer.draw('.timetable');
+      let counter = state.indexOfSchedule + 1;
+      $("#schedule-counter").text(counter + " of " + state.allCombinations.length);
     }
   } else {
         var startTimeArray = state.allCombinations[state.indexOfSchedule].start_time.split(":");
@@ -163,6 +165,8 @@ function displayTable(){
         }
       }
       renderer.draw('.timetable');
+      let counter = state.indexOfSchedule + 1;
+      $("#schedule-counter").text(counter + " of " + state.allCombinations.length);
   }
 }
 //================================================================================== 
