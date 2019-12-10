@@ -20,9 +20,10 @@ nav.navbar {
   position: absolute;
   left: 100%;
   flex-direction: column;
-  width: 100px;
+  width: 50px;
   height: 100%;
   padding: 0;
+  overflow-x: hidden;
 }
 
 nav.ul {
@@ -56,6 +57,10 @@ nav.a {
   display: none;
   overflow: hidden;
   background-color: #f1f1f1;
+}
+
+a.fa {
+  color: #2E7FAD;
 }
 /* ======================================================= */
 div.jumbo-logo {

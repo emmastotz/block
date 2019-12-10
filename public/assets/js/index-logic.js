@@ -5,7 +5,8 @@ $(document).ready(function() {
     indexOfSchedule: 0,
     allCombinations: [],
     classes: [],
-    alldata: []   
+    alldata: [],
+    navbar: false   
   };
 
   // Array of chars representings days of the week
@@ -335,7 +336,15 @@ function mixer(arr){
 //==========================================
 // Open/Close Nav Bar
     $("#navOpen").on("click", function() {
-      
+      if (state.navbar) {
+        $(".navbar").css("width", "200px");
+        state.navbar = false;
+      }
+      else {
+        $(".navbar").css("width", "50px");
+        $(".navbar").css("width", "50px");
+        state.navbar = true;
+      }
     });
 //==========================================
 // Previous Permutation Function
