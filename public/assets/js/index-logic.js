@@ -9,12 +9,10 @@ $(document).ready(function() {
     navbar: true,   
     collision: false   
   };
-
   // Array of chars representings days of the week
   var dayCode = ['M','T','W','R','F','S'];
 
   $(function() {
-
     var timetable = new Timetable();
     var renderer = new Timetable.Renderer(timetable);
     $(".classes-display").hide();
@@ -28,6 +26,43 @@ function removeFromArray(arr, elem){
       arr.splice(index,1);
   }
 }
+//================================================================
+// Function that detects if the current schedule has a collision
+function detectCollision(){
+
+  for(var i = 0; i < state.allCombinations[state.indexOfSchedule].length; i++){
+
+    let startTimeArraySource = state.allCombinations[state.indexOfSchedule][i].start_time.split(":");
+    let endTimeArraySource = state.allCombinations[state.indexOfSchedule][i].end_time.split(":");
+    console.log("S0:" + startTimeArraySource.toString());
+    console.log("E0:" + endTimeArraySource.toString());
+    let startTimeNumberSource = parseFloat(startTimeArraySource[0]) + parseFloat(startTimeArraySource[1]) / 60;
+    let endTimeNumberSource = parseFloat(endTimeArraySource[0]) + parseFloat(endTimeArraySource[1]) / 60;
+    console.log("S0 number:" + startTimeNumberSource);
+    console.log("E0 number:" + endTimeNumberSource);
+
+    for(var j = i; j < state.allCombinations[state.indexOfSchedule].length - 1; j++){
+      let startTimeArrayTarget = state.allCombinations[state.indexOfSchedule][j+1].start_time.split(":");
+      let endTimeArrayTarget = state.allCombinations[state.indexOfSchedule][j+1].end_time.split(":");
+      let startTimeNumberTarget = parseFloat(startTimeArrayTarget[0]) + parseFloat(startTimeArrayTarget[1]) / 60;
+      let endTimeNumberTarget = parseFloat(endTimeArrayTarget[0]) + parseFloat(endTimeArrayTarget[1]) / 60;
+      console.log("S1 number : " + startTimeNumberTarget);
+      console.log("E1 number : " + endTimeNumberTarget);
+      console.log("D0" + state.allCombinations[state.indexOfSchedule][i].day_code);
+      console.log("D1" + state.allCombinations[state.indexOfSchedule][j].day_code);
+
+      if(
+        (startTimeNumberTarget >= startTimeNumberSource) && 
+        (startTimeNumberTarget <= endTimeNumberSource) && 
+        (state.allCombinations[state.indexOfSchedule][i].day_code == state.allCombinations[state.indexOfSchedule][j+1].day_code)){
+          return true;
+      }
+      
+    }
+  }
+  return false;
+};
+
 //================================================================
 // Helper functions to create all possible combinations between two arrays
     const f = (a, b) => [].concat(...a.map(d => b.map(e => [].concat(d, e))));
@@ -113,10 +148,10 @@ function mixer(arr){
 }
 //================================================================
 // Add a class
-    function appendToTimetable (name, day, startTimeHour, startTimeMin, endTimeHour, endTimeMin) {
-      timetable.addEvent(name, day, new Date(2015,7,17, startTimeHour, startTimeMin), new Date(2015,7,17,endTimeHour,endTimeMin)); 
-      renderer.draw('.timetable');
-    };
+function appendToTimetable (name, day, startTimeHour, startTimeMin, endTimeHour, endTimeMin) {
+  timetable.addEvent(name, day, new Date(2015,7,17, startTimeHour, startTimeMin), new Date(2015,7,17,endTimeHour,endTimeMin)); 
+  renderer.draw('.timetable');
+};
 //================================================================
 // Displays all classes in the database with a value of true
 function displayTable(){
@@ -139,6 +174,7 @@ function displayTable(){
       let counter = state.indexOfSchedule + 1;
       $("#schedule-counter").text(counter + " of " + state.allCombinations.length);
     }
+    
   } else {
         var startTimeArray = state.allCombinations[state.indexOfSchedule].start_time.split(":");
         var endTimeArray = state.allCombinations[state.indexOfSchedule].end_time.split(":");
@@ -152,6 +188,14 @@ function displayTable(){
       let counter = state.indexOfSchedule + 1;
       $("#schedule-counter").text(counter + " of " + state.allCombinations.length);
   }
+  
+  // If the current schedule selected has conflicting classes then return true;
+  if(state.allCombinations.length){
+    console.log("The number of elements in all combinations is : " + state.allCombinations.length);
+    state.collision = detectCollision();
+    console.log("The state of collision : " + state.collision);
+  }
+
 }
 //================================================================================== 
 // Display Classes
@@ -384,6 +428,7 @@ $(".clear-btn").on("click", function() {
       if(state.allCombinations.length){
         state.indexOfSchedule--;
         state.indexOfSchedule = state.indexOfSchedule % state.allCombinations.length;
+        state.collision = detectCollision();
       }
       renderTimetable();
       displayTable();
@@ -394,7 +439,9 @@ $(".clear-btn").on("click", function() {
       if(state.allCombinations.length){
         state.indexOfSchedule++;
         state.indexOfSchedule = state.indexOfSchedule % state.allCombinations.length;
+        state.collision = detectCollision();
       }
+      
       renderTimetable();
       displayTable();
     });
