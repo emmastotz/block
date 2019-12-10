@@ -12,6 +12,7 @@ div#navbar-wrap {
   right: 100%;
   width: 100%;
   height: 100%;
+  align-content: center;
 }
 
 nav.navbar {
@@ -22,7 +23,7 @@ nav.navbar {
   flex-direction: column;
   width: 50px;
   height: 100%;
-  padding: 0;
+  padding: 0px;
   overflow-x: hidden;
 }
 
@@ -32,18 +33,31 @@ nav.ul {
 
 nav.a {
   display: block;
+  margin-top: 10px;
 }
+
+i.icon-menu {
+  color: #2E7FAD;
+  vertical-align: middle;
+  padding-right: 35px;
+}
+
+.full-menu {
+  visibility: hidden;
+}
+
 /* Style the button that is used to open and close the collapsible content */
 .collapsible {
-  background-color: #eee;
-  color: #444;
+  background-color: #2E7FAD;
+  color: #000000;
   cursor: pointer;
-  padding: 18px;
+  padding: 10px;
   width: 100%;
   border: none;
-  text-align: left;
+  text-align: center;
   outline: none;
   font-size: 15px;
+  visibility: hidden;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
@@ -175,7 +189,7 @@ div.subject-display {
   color: black;
   padding-top: 2%;
   padding-bottom: 2%;
-  margin-left: 100px;
+  margin-left: 50px;
   overflow-y: scroll;
 }
 
@@ -199,7 +213,7 @@ div.student-schedule {
   color: black;
   text-align: center;
   padding-bottom: 0;
-  margin-left: 100px;
+  margin-left: 50px;
   margin-top: 2%;
   height: 30rem;
 }

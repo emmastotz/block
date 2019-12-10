@@ -6,7 +6,7 @@ $(document).ready(function() {
     allCombinations: [],
     classes: [],
     alldata: [],
-    navbar: false   
+    navbar: true   
   };
 
   // Array of chars representings days of the week
@@ -81,7 +81,7 @@ function generateAllCombinations(){
       type: "GET"
     }).then(function(res){
       var tempArray = [];
-      // Iterate over classes intances based on the general class
+      // Iterate over classes instances based on the general class
       for(var j = 0; j < res.length; j++){
         tempArray.push(res[j]);
       }
@@ -368,11 +368,22 @@ $(".clear-btn").on("click", function() {
     $("#navOpen").on("click", function() {
       if (state.navbar) {
         $(".navbar").css("width", "200px");
+        $(".subject-display").css("margin-left", "200px");
+        $(".student-schedule").css("margin-left", "200px");
+        $(".collapsible").css("visibility", "visible");
+        $(".full-menu").css("visibility", "visible");
+        $(".fa-history").css("color", "#000000");
+        $(".icon-menu").css("padding-right", "0");
         state.navbar = false;
       }
       else {
         $(".navbar").css("width", "50px");
-        $(".navbar").css("width", "50px");
+        $(".subject-display").css("margin-left", "50px");
+        $(".student-schedule").css("margin-left", "50px");
+        $(".collapsible").css("visibility", "hidden");
+        $(".full-menu").css("visibility", "hidden");
+        $(".fa-history").css("color", "#2E7FAD");
+        $(".icon-menu").css("padding-right", "35px");
         state.navbar = true;
       }
     });
