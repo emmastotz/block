@@ -6,7 +6,8 @@ $(document).ready(function() {
     allCombinations: [],
     classes: [],
     alldata: [],
-    navbar: true   
+    navbar: true,   
+    collision: false   
   };
 
   // Array of chars representings days of the week
@@ -88,12 +89,29 @@ function generateAllCombinations(){
       // Push the array containing all class instances 
       godArray.push(tempArray);
       state.allCombinations = mixer(godArray);
-      console.log("This is all combinations array ");
-      console.log(state.allCombinations);
       setTimeout(1000,displayTable());
-    });
+    })
+  };
 
-  }
+    for(var i = 0; i < state.classes.length; i++){
+      // A temp array where we will store our result set.
+      // Each class instance will be added as an entry of the array.
+      $.ajax("/class/" + state.classes[i], function(){
+        type: "GET"
+      }).then(function(res){
+        var tempArray = [];
+        // Iterate over classes intances based on the general class
+        for(var j = 0; j < res.length; j++){
+          tempArray.push(res[j]);
+        }
+        // Push the array containing all class instances 
+        godArray.push(tempArray);
+        state.allCombinations = mixer(godArray);
+        console.log("This is all combinations array ");
+        console.log(state.allCombinations);
+        setTimeout(1000,displayTable());
+      });
+    }
 
 };
 //==================================================================================
@@ -192,17 +210,6 @@ function displayTable(){
       });
     });
 //==================================================================================
-// Updates the schedule state
-    function updateTable (scheduleObj, id) {
-      $.ajax("/classes/update/" + id, {
-        type: "PUT",
-        data: scheduleObj
-      }).done(function(res){
-        renderTimetable();
-        displayTable();
-      });
-    };
-//==================================================================================
 // Appends the classes corresponding to a specific subject
     $(document).on("click",'.add-classes',function() {
       let id = $(this).data("id");
@@ -300,13 +307,10 @@ function displayTable(){
 
       $("#classes-scheduled").append(listItem);
 
-      updateTable(scheduleState, id);
-
       console.log("The current number of general classes in state are : " + state.classes);
       generateAllCombinations();
     });
-
-// ==================================================================================
+// =================================================================================
 // Remove Single Class from Schedule
 $(document).on("click", ".remove-class", function() {
   let id = $(this).data("id");
@@ -329,12 +333,12 @@ $(document).on("click", ".remove-class", function() {
   // renderer.draw('.timetable');
 });
 
-// ==================================================================================
+// =================================================================================
 // Save Class Schedule
     $(".save-btn").on("click", function(){
       console.log("Save schedule button clicked");
     });
-// ==================================================================================
+// =================================================================================
 // Clear Class Schedule
 $(".clear-btn").on("click", function() {
   var scheduleState = {
@@ -390,14 +394,24 @@ $(".clear-btn").on("click", function() {
 //==========================================
 // Previous Permutation Function
     $(".control-prev").on("click", function() {
-      state.indexOfSchedule--;
-      console.log(state.indexOfSchedule);
+      if(state.allCombinations.length){
+        state.indexOfSchedule--;
+        state.indexOfSchedule = state.indexOfSchedule % state.allCombinations.length;
+        console.log(state.indexOfSchedule);
+        renderTimetable();
+        displayTable();
+      }
     });
 //==========================================
 // Next Permutation Function
     $(".control-next").on("click", function() {
-      state.indexOfSchedule++;
-      console.log(state.indexOfSchedule);
+      if(state.allCombinations.length){
+        state.indexOfSchedule++;
+        state.indexOfSchedule = state.indexOfSchedule % state.allCombinations.length;
+        console.log(state.indexOfSchedule);
+        renderTimetable();
+        displayTable();
+      }
     });
 
   });
