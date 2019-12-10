@@ -338,6 +338,17 @@ function mixer(arr){
 // Open/Close Nav Bar
     $("#navOpen").on("click", function() {
       
-    })
+    });
+//==========================================
+// Previous Permutation Function
+    $(".control-prev").on("click", function() {
+      state.indexOfSchedule--;
+    });
+//==========================================
+// Next Permutation Function
+    $(".control-next").on("click", function() {
+      state.indexOfSchedule++;
+    });
+
   });
 });
