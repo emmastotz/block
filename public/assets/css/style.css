@@ -87,6 +87,7 @@ div.jumbo-logo {
 
 img.navbar-logo {
   height: auto;
+  width: 50%;
 }
 
 img.block-logo {
@@ -224,6 +225,9 @@ p#schedule-counter {
   margin-bottom: .25rem;
 }
 
+hr {
+  margin: 0 !important;
+}
 
 div.class-list {
   background-color: rgba(255, 255, 255, 0.5);
