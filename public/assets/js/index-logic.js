@@ -166,8 +166,8 @@ function mixer(arr){
             classDiv.append(addBtn);
             $("#classes-list").append(classDiv);
 
-            let subclassDiv = $("<li>");
-            subclassDiv.addClass("list-group-item");
+            let subclassDiv = $("<ul>");
+            subclassDiv.addClass("list-group");
             subclassDiv.attr("id","subclass-" + classId);
             $("#classes-list").append(subclassDiv);
           }
@@ -216,14 +216,14 @@ function mixer(arr){
     });
 //==================================================================================
 // Appends the classes corresponding to a specific subject
-    $(document).on("click", '.open' ,function() {
+    $(document).on("click", '.open', function() {
       let id = $(this).data("id");
       // This subclass div is where we append the class instances (coming from alldata)
-      var classDiv = $("#subclass-" + id);
+      let classDiv = $("#subclass-" + id);
       $.ajax("/class/" + id, {
         type: "GET"
       }).then(function(result) {
-        $("#subclass-" + id).empty();
+        classDiv.empty();
         $(".classes-display").show();
           for(var i in result){
             let startTime = result[i].start_time;
@@ -234,10 +234,8 @@ function mixer(arr){
             let className = result[i].number_title;
             let classId = result[i].id;
             let classDivChild = $("<li>");
-            classDivChild.addClass("list-group-item");
+            classDivChild.addClass("list-group-item smaller");
             classDivChild.attr("class-id", classId);
-            classDivChild.append(className);
-            classDivChild.append("<br>");
             classDivChild.append(time);
 
             let addBtn = $("<button><i></i></button>");
@@ -343,11 +341,13 @@ function mixer(arr){
 // Previous Permutation Function
     $(".control-prev").on("click", function() {
       state.indexOfSchedule--;
+      console.log(state.indexOfSchedule);
     });
 //==========================================
 // Next Permutation Function
     $(".control-next").on("click", function() {
       state.indexOfSchedule++;
+      console.log(state.indexOfSchedule);
     });
 
   });

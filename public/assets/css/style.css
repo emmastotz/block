@@ -4,7 +4,6 @@ body {
   text-align: center;
   color: black;
 }
-
 /* ======================================================= */
 /* NAVBAR */
 div#navbar-wrap {
@@ -183,6 +182,10 @@ div.classes-display {
   text-align: center;
   padding-bottom: 0;
   overflow-y: scroll;
+}
+
+li.smaller {
+  font-size: smaller;
 }
 
 div.student-schedule {
