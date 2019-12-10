@@ -72,22 +72,6 @@ function generateAllCombinations(){
       arr.push(res[0]);
       console.log(arr);
       godArray.push(arr);
-    })
-  };
-
-  for(var i = 0; i < state.classes.length; i++){
-    // A temp array where we will store our result set.
-    // Each class instance will be added as an entry of the array.
-    $.ajax("/class/" + state.classes[i], function(){
-      type: "GET"
-    }).then(function(res){
-      var tempArray = [];
-      // Iterate over classes instances based on the general class
-      for(var j = 0; j < res.length; j++){
-        tempArray.push(res[j]);
-      }
-      // Push the array containing all class instances 
-      godArray.push(tempArray);
       state.allCombinations = mixer(godArray);
       setTimeout(1000,displayTable());
     })
@@ -329,12 +313,11 @@ $(document).on("click", ".remove-class", function() {
   console.log(state.classes);
   console.log(state.alldata);
   $("#class-list-id-" + id).remove();
-  // updateTable(scheduleState, id);
   renderTimetable();
   generateAllCombinations();
+  let counter = state.indexOfSchedule + 1;
+  $("#schedule-counter").text(counter + " of " + state.allCombinations.length);
   renderer.draw('.timetable');
-  // displayTable();
-  // renderer.draw('.timetable');
 });
 
 // =================================================================================
@@ -352,15 +335,15 @@ $(".clear-btn").on("click", function() {
     type: "PUT",
     data: scheduleState
   }).then(function () {
-    // displayTable();  
     renderTimetable();
     renderer.draw('.timetable');
     $("#classes-list").empty();
     $("#classes-scheduled").empty();
-    // generateAllCombinations();
     state.alldata = [];
     state.indexOfSchedule = 0;
     state.classes = [];
+    state.allCombinations = [];
+    $("#schedule-counter").text(state.indexOfSchedule + " of " + state.allCombinations.length);
   });
 });
 //==========================================
@@ -401,10 +384,9 @@ $(".clear-btn").on("click", function() {
       if(state.allCombinations.length){
         state.indexOfSchedule--;
         state.indexOfSchedule = state.indexOfSchedule % state.allCombinations.length;
-        console.log(state.indexOfSchedule);
-        renderTimetable();
-        displayTable();
       }
+      renderTimetable();
+      displayTable();
     });
 //==========================================
 // Next Permutation Function
@@ -412,10 +394,9 @@ $(".clear-btn").on("click", function() {
       if(state.allCombinations.length){
         state.indexOfSchedule++;
         state.indexOfSchedule = state.indexOfSchedule % state.allCombinations.length;
-        console.log(state.indexOfSchedule);
-        renderTimetable();
-        displayTable();
       }
+      renderTimetable();
+      displayTable();
     });
 
   });
