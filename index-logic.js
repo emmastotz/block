@@ -1,32 +1,33 @@
 $(document).ready(function() {
-  // The state of the page. 
-  // Used as input for the time table and fed by adding classes or specific class instances (all data)
-  let state = {
-    indexOfSchedule: 0,
-    allCombinations: [],
-    classes: [],
-    alldata: [],
-    navbar: false   
-  };
 
   // Array of chars representings days of the week
   var dayCode = ['M','T','W','R','F','S'];
 
   $(function() {
 
+    // The state of the page. 
+    // Used as input for the time table and fed by adding classes or specific class instances (all data)
+    var state = {
+      indexOfSchedule: 0,
+      allCombinations: [],
+      classes: [],
+      alldata: []   
+    };
+
     var timetable = new Timetable();
     var renderer = new Timetable.Renderer(timetable);
     $(".classes-display").hide();
     renderTimetable();
     renderer.draw('.timetable');
+
 //================================================================
 // Helper functions to remove an element from an array
-function removeFromArray(arr, elem){
-  var index = arr.indexOf(elem)
-  if(index > -1){
-      arr.splice(index,1);
+  function removeFromArray(arr, elem){
+    var index = arr.indexOf(elem)
+    if(index > -1){
+        arr.splice(index,1);
+    }
   }
-}
 //================================================================
 // Helper functions to create all possible combinations between two arrays
     const f = (a, b) => [].concat(...a.map(d => b.map(e => [].concat(d, e))));
@@ -91,7 +92,7 @@ function generateAllCombinations(){
       console.log("This is all combinations array ");
       console.log(state.allCombinations);
       setTimeout(1000,displayTable());
-    });
+    })
 
   }
 
@@ -117,36 +118,36 @@ function mixer(arr){
     };
 //================================================================
 // Displays all classes in the database with a value of true
-function displayTable(){
-  console.log(state.allCombinations);
-  console.log(state.allCombinations[state.indexOfSchedule].length);
-  if(state.allCombinations[state.indexOfSchedule].length){
-    for(var i = 0; i < state.allCombinations[state.indexOfSchedule].length; i++){
-        var startTimeArray = state.allCombinations[state.indexOfSchedule][i].start_time.split(":");
-        var endTimeArray = state.allCombinations[state.indexOfSchedule][i].end_time.split(":");
-        var name = state.allCombinations[state.indexOfSchedule][i].subject_code + " " + state.allCombinations[state.indexOfSchedule][i].number_title;
-        console.log(startTimeArray);
-        console.log(endTimeArray);
-        console.log(name);
-      for(var j in dayCode){
-        if(state.allCombinations[state.indexOfSchedule][i].day_code.includes(dayCode[j])){
-          appendToTimetable(name, dayEquivalence(dayCode[j]), startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
+    function displayTable(){
+      console.log(state.allCombinations);
+      console.log(state.allCombinations[state.indexOfSchedule].length);
+      if(state.allCombinations[state.indexOfSchedule].length){
+        for(var i = 0; i < state.allCombinations[state.indexOfSchedule].length; i++){
+            var startTimeArray = state.allCombinations[state.indexOfSchedule][i].start_time.split(":");
+            var endTimeArray = state.allCombinations[state.indexOfSchedule][i].end_time.split(":");
+            var name = state.allCombinations[state.indexOfSchedule][i].subject_code + " " + state.allCombinations[state.indexOfSchedule][i].number_title;
+            console.log(startTimeArray);
+            console.log(endTimeArray);
+            console.log(name);
+          for(var j in dayCode){
+            if(state.allCombinations[state.indexOfSchedule][i].day_code.includes(dayCode[j])){
+              appendToTimetable(name, dayEquivalence(dayCode[j]), startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
+            }
+          }
+          renderer.draw('.timetable');
         }
+      } else {
+            var startTimeArray = state.allCombinations[state.indexOfSchedule].start_time.split(":");
+            var endTimeArray = state.allCombinations[state.indexOfSchedule].end_time.split(":");
+            var name = state.allCombinations[state.indexOfSchedule].subject_code + " " + state.allCombinations[state.indexOfSchedule].number_title;
+          for(var j in dayCode){
+            if(state.allCombinations[state.indexOfSchedule].day_code.includes(dayCode[j])){
+              appendToTimetable(name, dayEquivalence(dayCode[j]), startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
+            }
+          }
+          renderer.draw('.timetable');
       }
-      renderer.draw('.timetable');
     }
-  } else {
-        var startTimeArray = state.allCombinations[state.indexOfSchedule].start_time.split(":");
-        var endTimeArray = state.allCombinations[state.indexOfSchedule].end_time.split(":");
-        var name = state.allCombinations[state.indexOfSchedule].subject_code + " " + state.allCombinations[state.indexOfSchedule].number_title;
-      for(var j in dayCode){
-        if(state.allCombinations[state.indexOfSchedule].day_code.includes(dayCode[j])){
-          appendToTimetable(name, dayEquivalence(dayCode[j]), startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
-        }
-      }
-      renderer.draw('.timetable');
-  }
-}
 //================================================================================== 
 // Display Classes
     $(".subject-btn").on("click", function(event) {
@@ -181,8 +182,8 @@ function displayTable(){
             classDiv.append(addBtn);
             $("#classes-list").append(classDiv);
 
-            let subclassDiv = $("<ul>");
-            subclassDiv.addClass("list-group");
+            let subclassDiv = $("<li>");
+            subclassDiv.addClass("list-group-item");
             subclassDiv.attr("id","subclass-" + classId);
             $("#classes-list").append(subclassDiv);
           }
@@ -233,14 +234,14 @@ function displayTable(){
     });
 //==================================================================================
 // Appends the classes corresponding to a specific subject
-    $(document).on("click", '.open', function() {
+    $(document).on("click", '.open' ,function() {
       let id = $(this).data("id");
       // This subclass div is where we append the class instances (coming from alldata)
-      let classDiv = $("#subclass-" + id);
+      var classDiv = $("#subclass-" + id);
       $.ajax("/class/" + id, {
         type: "GET"
       }).then(function(result) {
-        classDiv.empty();
+        $("#subclass-" + id).empty();
         $(".classes-display").show();
           for(var i in result){
             let startTime = result[i].start_time;
@@ -251,8 +252,10 @@ function displayTable(){
             let className = result[i].number_title;
             let classId = result[i].id;
             let classDivChild = $("<li>");
-            classDivChild.addClass("list-group-item smaller");
+            classDivChild.addClass("list-group-item");
             classDivChild.attr("class-id", classId);
+            classDivChild.append(className);
+            classDivChild.append("<br>");
             classDivChild.append(time);
 
             let addBtn = $("<button><i></i></button>");
@@ -282,6 +285,9 @@ function displayTable(){
         state.alldata.push(id);
       }
       console.log(state.alldata);
+      var scheduleState = {
+        inSchedule: true
+      };
 
       let deleteBtn = $("<button><i></i></button>");
       deleteBtn.addClass("btn btn-link btn-sm remove-class fa fa-times");
@@ -304,30 +310,31 @@ function displayTable(){
 
       console.log("The current number of general classes in state are : " + state.classes);
       generateAllCombinations();
+      // displayTable();
     });
 
 // ==================================================================================
 // Remove Single Class from Schedule
-$(document).on("click", ".remove-class", function() {
-  let id = $(this).data("id");
-  let classType = $(this).attr("schedule-type");
-  console.log(id);
-  console.log(classType);
-  // Removes the specific class from the alldata array of the state OR the classes array
-  if(classType == "general-class")
-    removeFromArray(state.classes,parseInt(id));
-  else if(classType == "specific-class")
-    removeFromArray(state.alldata,parseInt(id));
-  console.log(state.classes);
-  console.log(state.alldata);
-  $("#class-list-id-" + id).remove();
-  // updateTable(scheduleState, id);
-  renderTimetable();
-  generateAllCombinations();
-  renderer.draw('.timetable');
-  // displayTable();
-  // renderer.draw('.timetable');
-});
+    $(document).on("click", ".remove-class", function() {
+      let id = $(this).data("id");
+      let classType = $(this).attr("schedule-type");
+      console.log(id);
+      console.log(classType);
+      // Removes the specific class from the alldata array of the state OR the classes array
+      if(classType == "general-class")
+        removeFromArray(state.classes,parseInt(id));
+      else if(classType == "specific-class")
+        removeFromArray(state.alldata,parseInt(id));
+      console.log(state.classes);
+      console.log(state.alldata);
+      $("#class-list-id-" + id).remove();
+      // updateTable(scheduleState, id);
+      renderTimetable();
+      generateAllCombinations();
+      renderer.draw('.timetable');
+      // displayTable();
+      // renderer.draw('.timetable');
+    });
 
 // ==================================================================================
 // Save Class Schedule
@@ -336,25 +343,25 @@ $(document).on("click", ".remove-class", function() {
     });
 // ==================================================================================
 // Clear Class Schedule
-$(".clear-btn").on("click", function() {
-  var scheduleState = {
-    inSchedule: false
-  };
-  $.ajax("/classes/clear/", {
-    type: "PUT",
-    data: scheduleState
-  }).then(function () {
-    // displayTable();  
-    renderTimetable();
-    renderer.draw('.timetable');
-    $("#classes-list").empty();
-    $("#classes-scheduled").empty();
-    // generateAllCombinations();
-    state.alldata = [];
-    state.indexOfSchedule = 0;
-    state.classes = [];
-  });
-});
+    $(".clear-btn").on("click", function() {
+      var scheduleState = {
+        inSchedule: false
+      };
+      $.ajax("/classes/clear/", {
+        type: "PUT",
+        data: scheduleState
+      }).then(function () {
+        // displayTable();  
+        renderTimetable();
+        renderer.draw('.timetable');
+        $("#classes-list").empty();
+        $("#classes-scheduled").empty();
+        // generateAllCombinations();
+        state.alldata = [];
+        state.indexOfSchedule = 0;
+        state.classes = [];
+      });
+    });
 //==========================================
 // Render Timetable
     function renderTimetable (){
@@ -366,28 +373,7 @@ $(".clear-btn").on("click", function() {
 //==========================================
 // Open/Close Nav Bar
     $("#navOpen").on("click", function() {
-      if (state.navbar) {
-        $(".navbar").css("width", "200px");
-        state.navbar = false;
-      }
-      else {
-        $(".navbar").css("width", "50px");
-        $(".navbar").css("width", "50px");
-        state.navbar = true;
-      }
-    });
-//==========================================
-// Previous Permutation Function
-    $(".control-prev").on("click", function() {
-      state.indexOfSchedule--;
-      console.log(state.indexOfSchedule);
-    });
-//==========================================
-// Next Permutation Function
-    $(".control-next").on("click", function() {
-      state.indexOfSchedule++;
-      console.log(state.indexOfSchedule);
-    });
-
+      
+    })
   });
 });
