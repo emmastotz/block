@@ -16,26 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `students`
+-- Table structure for table `savedscheduleslines`
 --
 
-DROP TABLE IF EXISTS `students`;
+DROP TABLE IF EXISTS `savedscheduleslines`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `students` (
+CREATE TABLE `savedscheduleslines` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  `saved_schedules_id` int(11) DEFAULT NULL,
+  `alldata_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `saved_schedules_id` (`saved_schedules_id`),
+  KEY `alldata_id` (`alldata_id`),
+  CONSTRAINT `savedscheduleslines_ibfk_1` FOREIGN KEY (`saved_schedules_id`) REFERENCES `savedschedules` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `savedscheduleslines_ibfk_2` FOREIGN KEY (`alldata_id`) REFERENCES `alldata` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `students`
+-- Dumping data for table `savedscheduleslines`
 --
 
+LOCK TABLES `savedscheduleslines` WRITE;
+/*!40000 ALTER TABLE `savedscheduleslines` DISABLE KEYS */;
+/*!40000 ALTER TABLE `savedscheduleslines` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -46,4 +54,4 @@ CREATE TABLE `students` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-21 23:54:51
+-- Dump completed on 2019-12-11 12:44:07

@@ -17,11 +17,17 @@ module.exports = function(sequelize, DataTypes) {
 
   AllData.associate = function(models) {
     AllData.belongsTo(models.Classes, { 
-      foreignKey: "ClassId"
-    })
-  AllData.belongsTo(models.Subjects, { 
-      foreignKey: "SubjectId"
-    })
+        foreignKey: "ClassId"
+      })
+
+    AllData.belongsTo(models.Subjects, { 
+        foreignKey: "SubjectId"
+      })
+
+    AllData.belongsTo(models.Instructor, {
+        foreignKey: "InstructorID"
+      })
   };
+
   return AllData;
 };

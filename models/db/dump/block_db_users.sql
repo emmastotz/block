@@ -26,18 +26,21 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` VALUES (1,'fjvannini@gmail.com','123456','2019-11-22 04:25:35','2019-11-22 04:25:35'),(2,'fv28@hotmail.com','123456','2019-11-22 04:27:02','2019-11-22 04:27:02'),(3,'fcojvanninir@caf.com.ni','123456','2019-11-22 04:28:42','2019-11-22 04:28:42'),(4,'stotz.emma@gmail.com','123','2019-11-22 04:30:00','2019-11-22 04:30:00'),(5,'abc','123456','2019-11-22 04:40:16','2019-11-22 04:40:16');
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -48,4 +51,4 @@ INSERT INTO `users` VALUES (1,'fjvannini@gmail.com','123456','2019-11-22 04:25:3
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-21 23:54:52
+-- Dump completed on 2019-12-11 12:44:07

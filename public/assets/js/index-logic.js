@@ -286,24 +286,34 @@ function displayTable(){
         classDiv.empty();
         $(".classes-display").show();
           for(var i in result){
-            let startTime = result[i].start_time;
-            let endTime = result[i].end_time;
+            console.log(result);
+            let start = result[i].start_time.split(":");
+            let end = result[i].end_time.split(":");
+
+            let startTime = start[0] + ":" + start[1];
+            let endTime = end[0] + ":" + end[1];
+
             let dayCode = result[i].day_code;
-            let time = dayCode + ": " + startTime + " - " + endTime;
+            let instructorName = result[i].Instructor.name;
+
+            let displayText = instructorName + "., " + dayCode + ": " + startTime + " - " + endTime;
+            // let time = dayCode + ": " + startTime + " - " + endTime;
 
             let className = result[i].number_title;
             let classId = result[i].id;
+
             let classDivChild = $("<li>");
             classDivChild.addClass("list-group-item smaller");
             classDivChild.attr("class-id", classId);
-            classDivChild.append(time);
+            // classDivChild.append(instructorName);
+            classDivChild.append(displayText);
 
             let addBtn = $("<button><i></i></button>");
             addBtn.addClass("btn btn-link btn-sm add-class fa fa-plus");
             addBtn.attr("type", "submit");
             addBtn.attr("data-id", classId);
             addBtn.attr("data-name", className);
-            addBtn.attr("data-time", time);
+            addBtn.attr("data-time", displayText);
 
             classDivChild.append(addBtn);
             classDiv.append(classDivChild);
@@ -412,7 +422,6 @@ function displayTable(){
         $(".student-schedule").css("margin-left", "200px");
         $(".collapsible").css("visibility", "visible");
         $(".full-menu").css("visibility", "visible");
-        $(".fa-history").css("color", "#000000");
         $(".icon-menu").css("padding-right", "0");
         state.navbar = false;
       }
@@ -423,7 +432,6 @@ function displayTable(){
         $(".collapsible").css("visibility", "hidden");
         $(".full-menu").css("visibility", "hidden");
         $(".fa-history").css("color", "#2E7FAD");
-        $(".icon-menu").css("padding-right", "35px");
         state.navbar = true;
       }
     });
@@ -432,6 +440,9 @@ function displayTable(){
     $(".control-prev").on("click", function() {
       if(state.allCombinations.length){
         state.indexOfSchedule--;
+        if(state.indexOfSchedule < 0){
+          state.indexOfSchedule = state.allCombinations.length - 1;
+        }
         state.indexOfSchedule = state.indexOfSchedule % state.allCombinations.length;
         state.collision = detectCollision();
       }
