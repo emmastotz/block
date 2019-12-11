@@ -465,14 +465,19 @@ function displayTable(){
 // View Saved Schedule
     $(document).on("click", ".view-saved", function() {
       renderTimetable();
-      let scheduleData = {
-        user_id: parseInt(sessionStorage.getItem('user_id')),
-      }
-      $.ajax("/api/saved_schedules/" + scheduleData.user_id, {
-        type: "GET"
-      }).then(function(data) {
-        for (var i in data) {
-          $.ajax("/api/saved_schedules_lines/" + data[i].id, {
+      let scheduledId = $(this).attr("id");
+      console.log(scheduledId);
+
+      // let scheduleData = {
+      //   user_id: parseInt(sessionStorage.getItem('user_id')),
+      // }
+
+      // $.ajax("/api/saved_schedules/" + scheduleData.user_id, {
+      //   type: "GET"
+      // }).then(function(data) {
+      //   for (var i in data) {
+
+          $.ajax("/api/saved_schedules_lines/" + scheduledId, {
             type: "GET"
           }).then(function(res) {
             for (var j in res) {
@@ -488,8 +493,10 @@ function displayTable(){
             }
             renderer.draw('.timetable');
           });
-        };
-      });
+
+      //   };
+      // });
+      
     });
 // =================================================================================
 // Dropdown Generator
