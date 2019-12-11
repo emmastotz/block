@@ -110,5 +110,48 @@ module.exports = function(app) {
     });
   });
   // ====================================================
+  // Saved a schedule
+  app.post("/api/schedule", function(req, res){
+    db.savedSchedules.create({
+      user_id: req.body.user_id
+    }).then(function(data){
+      console.log(data);
+      for(var i = 0; i < req.body.current_schedule.length; i++){
+        db.savedSchedulesLines.create({
+          saved_schedules_id: data.id,
+          alldata_id: parseInt(req.body.current_schedule[i].id)
+        })
+      }
+    }).catch(function(err){
+        console.log("Here is the error section at routes!");
+        throw err;
+    });
+  });
+  // ====================================================
+  // Retrieve ALL headers for ALL saved schedules corresponding to ONE user
+  // ====================================================
+    app.get("/api/saved_schedules/:user_id",function(req,res){
+      db.savedSchedules.findAll({
+          where : {
+            user_id : req.params.user_id
+          },
+          include: [{model: db.savedSchedulesLines, include: [db.AllData]}]
+      }).then(function(data){
+          res.json(data);
+      });
+    });
+  // ====================================================
+  // Retrieve the class information corresponding to A particular saved schedule
+  // ====================================================
+  app.get("/api/saved_schedules_lines/:saved_schedules_id",function(req,res){
+    db.savedSchedulesLines.findAll({
+        where : {
+          saved_schedules_id : req.params.saved_schedules_id
+        },
+        include: [db.AllData]
+    }).then(function(data){
+        res.json(data);
+    });
+  });
 };
 // ====================================================

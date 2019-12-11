@@ -366,22 +366,24 @@ $(document).on("click", ".remove-class", function() {
   $("#schedule-counter").text(counter + " of " + state.allCombinations.length);
   renderer.draw('.timetable');
 });
-
-// =================================================================================
-// Save Class Schedule
-    $(".save-btn").on("click", function(){
-      console.log("Save schedule button clicked");
-    });
+//==========================================
+// Save class schedule for user
+$(".save-btn").on("click", function() {
+  console.log("Here in saved sechedule");
+  let scheduleData = {
+    user_id: parseInt(sessionStorage.getItem('user_id')),
+    current_schedule: state.allCombinations[state.indexOfSchedule]
+  }
+  $.ajax("/api/schedule", {
+    type: "POST",
+    data: scheduleData
+  }).then(function (data) {
+    console.log(data);
+  });
+});
 // =================================================================================
 // Clear Class Schedule
 $(".clear-btn").on("click", function() {
-  var scheduleState = {
-    inSchedule: false
-  };
-  $.ajax("/classes/clear/", {
-    type: "PUT",
-    data: scheduleState
-  }).then(function () {
     renderTimetable();
     renderer.draw('.timetable');
     $("#classes-list").empty();
@@ -391,7 +393,7 @@ $(".clear-btn").on("click", function() {
     state.classes = [];
     state.allCombinations = [];
     $("#schedule-counter").text(state.indexOfSchedule + " of " + state.allCombinations.length);
-  });
+
 });
 //==========================================
 // Render Timetable
@@ -448,6 +450,5 @@ $(".clear-btn").on("click", function() {
       renderTimetable();
       displayTable();
     });
-
   });
 });
