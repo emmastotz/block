@@ -16,7 +16,7 @@ div#navbar-wrap {
 }
 
 nav.navbar {
-  background-color: rgba(0, 0, 0, .5) !important;
+  background-color: rgba(0, 0, 0, 1) !important;
   color: white;
   position: absolute;
   left: 100%;
@@ -25,6 +25,7 @@ nav.navbar {
   height: 100%;
   padding: 0px;
   overflow-x: hidden;
+  z-index: -1;
 }
 
 nav.ul {
@@ -65,16 +66,12 @@ i.icon-menu {
   background-color: #ccc;
 }
 
-/* Style the collapsible content. Note: hidden by default */
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
-
 a.fa {
   color: #2E7FAD;
+}
+
+li.saved {
+  padding: 0;
 }
 /* ======================================================= */
 div.jumbo-logo {

@@ -7,7 +7,8 @@ $(document).ready(function() {
     classes: [],
     alldata: [],
     navbar: true,   
-    collision: false   
+    collision: false,
+    dropdown: true
   };
   // Array of chars representings days of the week
   var dayCode = ['M','T','W','R','F','S'];
@@ -482,22 +483,34 @@ function displayTable(){
 // =================================================================================
 // Dropdown Generator
     $(".dropdown-toggle").on("click", function () {
-      $(".view-saved").remove();
-      let scheduleData = {
-        user_id: parseInt(sessionStorage.getItem('user_id')),
-      }
-      $.ajax("/api/saved_schedules/" + scheduleData.user_id, {
-        type: "GET"
-      }).then(function(data) {
-        for (var i in data) {
-          let dropdownItem = $("<a>");
-          dropdownItem.attr("id", data[i].id);
-          dropdownItem.attr("href", "#");
-          dropdownItem.addClass("dropdown-item view-saved");
-          dropdownItem.text("Schedule #" + data[i].id);
-          $(".dropdown-menu").append(dropdownItem);
+      if (state.dropdown) {
+        $(".saved").remove();
+        state.dropdown = false;
+
+        let scheduleData = {
+          user_id: parseInt(sessionStorage.getItem('user_id')),
         }
-      })
+
+        $.ajax("/api/saved_schedules/" + scheduleData.user_id, {
+          type: "GET"
+        }).then(function(data) {
+          for (var i in data) {
+            let dropdownItem = $("<li>");
+            dropdownItem.addClass("list-group-item saved");
+  
+            let buttonLink = $("<button>");
+            buttonLink.addClass("btn btn-link btn-sm view-saved");
+            buttonLink.text("Schedule #" + data[i].id);
+            buttonLink.attr("id", data[i].id);
+  
+            dropdownItem.append(buttonLink);
+            $(".list-group").append(dropdownItem);
+          };
+        })
+      } else {
+        state.dropdown = true;
+        $(".saved-schedules").empty();
+      };
     });
 // =================================================================================
   });
