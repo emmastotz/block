@@ -515,7 +515,7 @@ function displayTable(){
             buttonLink.attr("id", data[i].id);
   
             dropdownItem.append(buttonLink);
-            $(".list-group").append(dropdownItem);
+            $(".saved-schedules").append(dropdownItem);
           };
         })
       } else {
