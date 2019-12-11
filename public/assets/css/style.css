@@ -21,11 +21,11 @@ nav.navbar {
   position: absolute;
   left: 100%;
   flex-direction: column;
+  display: inline-block;
   width: 50px;
   height: 100%;
   padding: 0px;
   overflow-x: hidden;
-  z-index: -1;
 }
 
 nav.ul {
@@ -33,14 +33,13 @@ nav.ul {
 }
 
 nav.a {
-  display: block;
+  /* display: block; */
   margin-top: 10px;
 }
 
 i.icon-menu {
   color: #2E7FAD;
   vertical-align: middle;
-  padding-right: 35px;
 }
 
 .full-menu {
@@ -49,7 +48,7 @@ i.icon-menu {
 
 /* Style the button that is used to open and close the collapsible content */
 .collapsible {
-  background-color: #2E7FAD;
+  background-color: transparent;
   color: #000000;
   cursor: pointer;
   padding: 10px;
@@ -61,18 +60,42 @@ i.icon-menu {
   visibility: hidden;
 }
 
+.bars {
+  background-color: transparent;
+  text-align: center;
+  outline: none;
+  border: none;
+  padding: 10px;
+  width: 100%;
+}
+
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
   background-color: #ccc;
-}
-
-a.fa {
-  color: #2E7FAD;
+  border: none;
 }
 
 li.saved {
   padding: 0;
 }
+
+button.view-saved:hover {
+  color: white;
+}
+
+img.navbar-logo {
+  height: auto;
+  width: 50%;
+}
+
+button.dropdown-toggle {
+  color: #2E7FAD;
+}
+
+i.fa-history {
+  color: #2E7FAD;
+}
+
 /* ======================================================= */
 div.jumbo-logo {
   text-align: center;
@@ -80,11 +103,6 @@ div.jumbo-logo {
   margin: 0;
   padding-top: 1%;
   padding-bottom: 1%;
-}
-
-img.navbar-logo {
-  height: auto;
-  width: 50%;
 }
 
 img.block-logo {
@@ -105,6 +123,11 @@ div.login-card {
 li.list-group-item {
   background-color: transparent;
   text-align: center;
+  padding: 0;
+}
+
+ul#classes-scheduled{
+  font-size: small;
 }
 
 a:link {
@@ -221,6 +244,7 @@ div.classes-display {
 
 li.smaller {
   font-size: smaller;
+  padding: 0;
 }
 
 div.student-schedule {
@@ -289,7 +313,7 @@ hr.top {
 /* ======================================================= */
 /* SCROLLBARS */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
