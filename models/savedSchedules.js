@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
             autoIncrement: true
         }
     });
-      
+    
     savedSchedules.associate = function(models) {
         savedSchedules.belongsTo(models.User, {
             foreignKey: "user_id"
@@ -16,4 +16,4 @@ module.exports = function(sequelize, DataTypes) {
     };
 
     return savedSchedules;
-  };
+};

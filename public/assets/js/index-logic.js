@@ -347,55 +347,54 @@ function displayTable(){
     });
 // =================================================================================
 // Remove Single Class from Schedule
-$(document).on("click", ".remove-class", function() {
-  let id = $(this).data("id");
-  let classType = $(this).attr("schedule-type");
-  console.log(id);
-  console.log(classType);
-  // Removes the specific class from the alldata array of the state OR the classes array
-  if(classType == "general-class")
-    removeFromArray(state.classes,parseInt(id));
-  else if(classType == "specific-class")
-    removeFromArray(state.alldata,parseInt(id));
-  console.log(state.classes);
-  console.log(state.alldata);
-  $("#class-list-id-" + id).remove();
-  renderTimetable();
-  generateAllCombinations();
-  let counter = state.indexOfSchedule + 1;
-  $("#schedule-counter").text(counter + " of " + state.allCombinations.length);
-  renderer.draw('.timetable');
-});
-//==========================================
-// Save class schedule for user
-$(".save-btn").on("click", function() {
-  console.log("Here in saved sechedule");
-  let scheduleData = {
-    user_id: parseInt(sessionStorage.getItem('user_id')),
-    current_schedule: state.allCombinations[state.indexOfSchedule]
-  }
-  $.ajax("/api/schedule", {
-    type: "POST",
-    data: scheduleData
-  }).then(function (data) {
-    console.log(data);
-  });
-});
+    $(document).on("click", ".remove-class", function() {
+      let id = $(this).data("id");
+      let classType = $(this).attr("schedule-type");
+      // Removes the specific class from the alldata array of the state OR the classes array
+      if(classType == "general-class")
+        removeFromArray(state.classes,parseInt(id));
+      else if(classType == "specific-class")
+        removeFromArray(state.alldata,parseInt(id));
+      $("#class-list-id-" + id).remove();
+      renderTimetable();
+      generateAllCombinations();
+      let counter = state.indexOfSchedule + 1;
+      $("#schedule-counter").text(counter + " of " + state.allCombinations.length);
+      if(state.classes.length == 0 & state.alldata.length==0){
+        $("#schedule-counter").text(0 + " of " + 0);
+      };
+      renderer.draw('.timetable');
+    });
+    // =============================================================================
+    // Save class schedule for user
+    $(".save-btn").on("click", function() {
+      console.log("Here in saved sechedule");
+      let scheduleData = {
+        user_id: parseInt(sessionStorage.getItem('user_id')),
+        current_schedule: state.allCombinations[state.indexOfSchedule]
+      }
+      $.ajax("/api/schedule", {
+        type: "POST",
+        data: scheduleData
+      }).then(function (data) {
+        console.log(data);
+      });
+    });
 // =================================================================================
 // Clear Class Schedule
-$(".clear-btn").on("click", function() {
-    renderTimetable();
-    renderer.draw('.timetable');
-    $("#classes-list").empty();
-    $("#classes-scheduled").empty();
-    state.alldata = [];
-    state.indexOfSchedule = 0;
-    state.classes = [];
-    state.allCombinations = [];
-    $("#schedule-counter").text(state.indexOfSchedule + " of " + state.allCombinations.length);
+    $(".clear-btn").on("click", function() {
+        renderTimetable();
+        renderer.draw('.timetable');
+        $("#classes-list").empty();
+        $("#classes-scheduled").empty();
+        state.alldata = [];
+        state.indexOfSchedule = 0;
+        state.classes = [];
+        state.allCombinations = [];
+        $("#schedule-counter").text(state.indexOfSchedule + " of " + state.allCombinations.length);
 
-});
-//==========================================
+    });
+// =================================================================================
 // Render Timetable
     function renderTimetable (){
       timetable = new Timetable();
@@ -403,7 +402,7 @@ $(".clear-btn").on("click", function() {
       timetable.setScope(8,21);
       timetable.addLocations(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
     };
-//==========================================
+// =================================================================================
 // Open/Close Nav Bar
     $("#navOpen").on("click", function() {
       if (state.navbar) {
@@ -427,7 +426,7 @@ $(".clear-btn").on("click", function() {
         state.navbar = true;
       }
     });
-//==========================================
+// =================================================================================
 // Previous Permutation Function
     $(".control-prev").on("click", function() {
       if(state.allCombinations.length){
@@ -438,7 +437,7 @@ $(".clear-btn").on("click", function() {
       renderTimetable();
       displayTable();
     });
-//==========================================
+// =================================================================================
 // Next Permutation Function
     $(".control-next").on("click", function() {
       if(state.allCombinations.length){
@@ -450,5 +449,57 @@ $(".clear-btn").on("click", function() {
       renderTimetable();
       displayTable();
     });
+// =================================================================================
+// View Saved Schedule
+    $(document).on("click", ".view-saved", function() {
+      renderTimetable();
+      let scheduleData = {
+        user_id: parseInt(sessionStorage.getItem('user_id')),
+      }
+      $.ajax("/api/saved_schedules/" + scheduleData.user_id, {
+        type: "GET"
+      }).then(function(data) {
+        for (var i in data) {
+          $.ajax("/api/saved_schedules_lines/" + data[i].id, {
+            type: "GET"
+          }).then(function(res) {
+            for (var j in res) {
+              let dayCode = res[j].AllDatum.day_code;
+              let startTimeArray = res[j].AllDatum.start_time.split(":");
+              let endTimeArray = res[j].AllDatum.end_time.split(":");
+              let name = res[j].AllDatum.number_title;
+              for(var j in dayCode){
+                if(dayCode.includes(dayCode[j])){
+                  appendToTimetable(name, dayEquivalence(dayCode[j]), startTimeArray[0], startTimeArray[1], endTimeArray[0], endTimeArray[1]);
+                }
+              }
+            }
+            renderer.draw('.timetable');
+          });
+        };
+      });
+    });
+// =================================================================================
+// Dropdown Generator
+    $(".dropdown-toggle").on("click", function () {
+      $(".view-saved").remove();
+      let scheduleData = {
+        user_id: parseInt(sessionStorage.getItem('user_id')),
+      }
+      $.ajax("/api/saved_schedules/" + scheduleData.user_id, {
+        type: "GET"
+      }).then(function(data) {
+        for (var i in data) {
+          let dropdownItem = $("<a>");
+          dropdownItem.attr("id", data[i].id);
+          dropdownItem.attr("href", "#");
+          dropdownItem.addClass("dropdown-item view-saved");
+          dropdownItem.text("Schedule #" + data[i].id);
+          $(".dropdown-menu").append(dropdownItem);
+        }
+      })
+    });
+// =================================================================================
   });
 });
+// =================================================================================

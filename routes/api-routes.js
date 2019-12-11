@@ -134,8 +134,7 @@ module.exports = function(app) {
       db.savedSchedules.findAll({
           where : {
             user_id : req.params.user_id
-          },
-          include: [{model: db.savedSchedulesLines, include: [db.AllData]}]
+          }
       }).then(function(data){
           res.json(data);
       });

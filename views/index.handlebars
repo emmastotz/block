@@ -1,14 +1,33 @@
 {{!-- NAVBAR --}}
 <div class="container" id="navbar-wrap">
   <nav class="navbar navbar-menu">
-    <a id="navOpen" href="#"><i class="icon-menu fa fa-bars"></i></a>
-    <a class="full-menu" href="/index"><i class="icon-menu fa fa-plus"></i> Create New Schedule</a>
-    <button type="button" class="collapsible"><i class=" icon-menu fa fa-history"></i> Previous Schedules</button>
-      <div class="content">
-        <p>Fall 2019</p>
-      </div>
-    <a class="full-menu" href="#"><i class="icon-menu fa fa-cog"></i> Preferences</a>
-    <a class="full-menu" href="#"><i class="icon-menu fa fa-sign-out"></i> Log Out</a>
+    <a id="navOpen" href="#">
+      <i class="icon-menu fa fa-bars"></i>
+    </a>
+    <a class="full-menu" href="/index">
+      <i class="icon-menu fa fa-plus"></i> 
+      Create New Schedule
+    </a>
+
+    <button type="button" class="collapsible dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+      <i class=" icon-menu fa fa-history"></i> 
+      Previous Schedules
+    </button>
+    <ul class="list-group">
+      <li class="nav-item dropdown-menu">
+        {{!-- Saved Schedule Options Here --}}
+      </li>  
+    </ul>
+  
+
+    <a class="full-menu" href="#">
+      <i class="icon-menu fa fa-cog"></i> 
+      Preferences
+    </a>
+    <a class="full-menu" href="/">
+      <i class="icon-menu fa fa-sign-out"></i> 
+      Log Out
+    </a>
     <img class="navbar-logo full-menu" src="/assets/img/block-logos_mini.svg" href="#">
   </nav>
 </div>
