@@ -31,7 +31,8 @@ module.exports = function(app) {
     db.AllData.findAll({
       where: {
         ClassId: req.params.classKey
-      }
+      },
+      include: [db.Instructor]
     }).then(function(result){
       res.json(result);
     }).catch(function(err){
@@ -43,7 +44,8 @@ module.exports = function(app) {
     db.AllData.findAll({
       where: {
         id: req.params.AllDataId
-      }
+      },
+      include: [db.Instructor]
     }).then(function(result){
       res.json(result);
     }).catch(function(err){
