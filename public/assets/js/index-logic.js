@@ -33,6 +33,10 @@ function detectCollision(){
 
   for(var i = 0; i < state.allCombinations[state.indexOfSchedule].length; i++){
 
+    // TODO: Add the collision detection for preferences of time less than preference.
+    // TODO: Add the collision detection for preferences of time greater than preference.
+    // TODO: Add the collision for rate my professor on rating and difficulty.
+
     let startTimeArraySource = state.allCombinations[state.indexOfSchedule][i].start_time.split(":");
     let endTimeArraySource = state.allCombinations[state.indexOfSchedule][i].end_time.split(":");
     console.log("S0:" + startTimeArraySource.toString());
@@ -69,36 +73,37 @@ function detectCollision(){
 
 //================================================================
 // Helper functions to create all possible combinations between two arrays
-    const f = (a, b) => [].concat(...a.map(d => b.map(e => [].concat(d, e))));
-    const cartesian = (a, b, ...c) => (b ? cartesian(f(a, b), ...c) : a);
+const f = (a, b) => [].concat(...a.map(d => b.map(e => [].concat(d, e))));
+const cartesian = (a, b, ...c) => (b ? cartesian(f(a, b), ...c) : a);
+
 //================================================================
 // Day Code Function
-    function dayEquivalence(param){
-      var day;
-      switch(param){
-        case 'M':
-          day = "Monday";
-          break;
-        case 'T':
-          day = "Tuesday";
-          break;
-        case 'W':
-          day = "Wednesday";
-          break;
-        case 'R':
-          day = "Thursday";
-          break;
-        case 'F':
-          day = "Friday";
-          break;
-        case 'S':
-          day = "Saturday";
-          break;
-        default:
-          day = "";
-      }
-    return day;
-    };
+function dayEquivalence(param){
+  var day;
+  switch(param){
+    case 'M':
+      day = "Monday";
+      break;
+    case 'T':
+      day = "Tuesday";
+      break;
+    case 'W':
+      day = "Wednesday";
+      break;
+    case 'R':
+      day = "Thursday";
+      break;
+    case 'F':
+      day = "Friday";
+      break;
+    case 'S':
+      day = "Saturday";
+      break;
+    default:
+      day = "";
+  }
+return day;
+};
 //==================================================================================
 // Create combination of classes and class instances
 function generateAllCombinations(){
@@ -155,7 +160,7 @@ function mixer(arr){
 function appendToTimetable (name, day, startTimeHour, startTimeMin, endTimeHour, endTimeMin) {
   timetable.addEvent(name, day, new Date(2015,7,17, startTimeHour, startTimeMin), new Date(2015,7,17,endTimeHour,endTimeMin)); 
   renderer.draw('.timetable');
-};
+}
 //================================================================
 // Displays all classes in the database with a value of true
 function displayTable(){
@@ -201,28 +206,41 @@ function displayTable(){
   }
 
 }
+
 //================================================================================== 
-// Display Classes
+// Display Classes corresponding to a Subject category when the subject link is clicked.
     $(".subject-btn").on("click", function(event) {
+      // Empties the classes list
       $("#classes-list").empty();
+      // Gets the ID corresponding to the subject hyper link that has been clicked.
       let id = $(this).data("id");
-  
+      // Uses the ID of the subject and passes it to the routes in order to retrieve the classes corresponding to that subject
       $.ajax("/classes/" + id, {
         type: "GET"
       }).then(function(result) {
+        // TODO: What is the reason behind the show() below?
         $(".classes-display").show();
         console.log(result);
+          // Iterates over the result set of the classes and appends each class to the classes list
           for(var i in result){
+            // The name of the class
             let className = result[i].class_name;
+            // The id of the class in the All Data table
             let classId = result[i].id;
+            // The classes will be a List Item in ordered / unordered lists
             let classDiv = $("<li>");
+            // Add an html class to the List Item HTML element that will be used for styling purposes
             classDiv.addClass("list-group-item");
+            // Add's an attribute called class-id to used for unique identification
             classDiv.attr("class-id", classId);
-
+            // The button that will be used to display all specific instances of a class. 
+            // This information is contained in the All Data table
             let openBtn = $("<button>");
             openBtn.addClass("btn btn-link btn-sm open");
             openBtn.attr("type","button");
+            // The class name text is displayed on the button of the class
             openBtn.text(className);
+            // A unique identifier for the button that controls the display of classes instances when a class is clicked
             openBtn.attr("data-id",classId);
 
             let addBtn = $("<button><i></i></button>");
@@ -254,25 +272,27 @@ function displayTable(){
       // If the classes id is not in the class array add it
       if(state.classes.indexOf(id) == -1){
         state.classes.push(id);
+
+        console.log(state.classes);
+
+        let deleteBtn = $("<button><i></i></button>");
+        deleteBtn.addClass("btn btn-link btn-sm remove-class fa fa-times");
+        deleteBtn.attr("type","clear");
+        deleteBtn.attr("data-id",id);
+        deleteBtn.attr("schedule-type","general-class");
+  
+        let listItem = $("<li>")
+        listItem.addClass("list-group-item");
+        listItem.attr("id", "class-list-id-" + id)
+        listItem.append(className);
+        listItem.append(deleteBtn);
+        listItem.attr("schedule-type","general-class");
+  
+        $("#classes-scheduled").append(listItem);
+        console.log("The current number of general classes in state are : " + state.classes);
+        generateAllCombinations();
       }
-      console.log(state.classes);
 
-      let deleteBtn = $("<button><i></i></button>");
-      deleteBtn.addClass("btn btn-link btn-sm remove-class fa fa-times");
-      deleteBtn.attr("type","clear");
-      deleteBtn.attr("data-id",id);
-      deleteBtn.attr("schedule-type","general-class");
-
-      let listItem = $("<li>")
-      listItem.addClass("list-group-item");
-      listItem.attr("id", "class-list-id-" + id)
-      listItem.append(className);
-      listItem.append(deleteBtn);
-      listItem.attr("schedule-type","general-class");
-
-      $("#classes-scheduled").append(listItem);
-      console.log("The current number of general classes in state are : " + state.classes);
-      generateAllCombinations();
     });
 //==================================================================================
 // Appends the classes corresponding to a specific subject
@@ -333,29 +353,32 @@ function displayTable(){
       // If the specific class id is not in the alldata array add it
       if(state.classes.indexOf(id) == -1){
         state.alldata.push(id);
+
+        console.log(state.alldata);
+
+        let deleteBtn = $("<button><i></i></button>");
+        deleteBtn.addClass("btn btn-link btn-sm remove-class fa fa-times");
+        deleteBtn.attr("type","clear");
+        deleteBtn.attr("data-id",id);
+        deleteBtn.attr("schedule-type","specific-class");
+  
+        let listItem = $("<li>")
+        listItem.addClass("list-group-item");
+        listItem.attr("id", "class-list-id-" + id)
+        listItem.append(className);
+        listItem.append($("<br>"));
+        listItem.append(classTime);
+        listItem.append(deleteBtn);
+        listItem.attr("schedule-type","specific-class");
+  
+        $("#classes-scheduled").append(listItem);
+  
+        console.log("The current number of general classes in state are : " + state.classes);
+        generateAllCombinations();
       }
-      console.log(state.alldata);
 
-      let deleteBtn = $("<button><i></i></button>");
-      deleteBtn.addClass("btn btn-link btn-sm remove-class fa fa-times");
-      deleteBtn.attr("type","clear");
-      deleteBtn.attr("data-id",id);
-      deleteBtn.attr("schedule-type","specific-class");
-
-      let listItem = $("<li>")
-      listItem.addClass("list-group-item");
-      listItem.attr("id", "class-list-id-" + id)
-      listItem.append(className);
-      listItem.append($("<br>"));
-      listItem.append(classTime);
-      listItem.append(deleteBtn);
-      listItem.attr("schedule-type","specific-class");
-
-      $("#classes-scheduled").append(listItem);
-
-      console.log("The current number of general classes in state are : " + state.classes);
-      generateAllCombinations();
     });
+
 // =================================================================================
 // Remove Single Class from Schedule
     $(document).on("click", ".remove-class", function() {
@@ -376,8 +399,8 @@ function displayTable(){
       };
       renderer.draw('.timetable');
     });
-    // =============================================================================
-    // Save class schedule for user
+// =============================================================================
+// Save class schedule for user
     $(".save-btn").on("click", function() {
       console.log("Here in saved sechedule");
       let scheduleData = {
