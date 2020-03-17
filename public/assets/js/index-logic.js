@@ -33,9 +33,14 @@ function detectCollision(){
 
   for(var i = 0; i < state.allCombinations[state.indexOfSchedule].length; i++){
 
-    // TODO: Add the collision detection for preferences of time less than preference.
-    // TODO: Add the collision detection for preferences of time greater than preference.
-    // TODO: Add the collision for rate my professor on rating and difficulty.
+    // TODO: Check to see if before validation is active
+    let timeStartValidation = 10;
+
+    // TODO: Check to see if after validation is activate
+    let timeAfterValidation = 15;
+
+    // TODO: No instructors below this rating
+    // TODO: Only instructors below this rating
 
     let startTimeArraySource = state.allCombinations[state.indexOfSchedule][i].start_time.split(":");
     let endTimeArraySource = state.allCombinations[state.indexOfSchedule][i].end_time.split(":");
@@ -46,6 +51,22 @@ function detectCollision(){
     console.log("S0 number:" + startTimeNumberSource);
     console.log("E0 number:" + endTimeNumberSource);
 
+
+    // TODO: Add the collision detection for preferences of time less than preference.
+    if(startTimeNumberSource <= timeStartValidation){
+      $(".time-entry").css("background-color", "red");
+      $(".error-message").text(state.allCombinations[state.indexOfSchedule][i].number_title + " starts before " + timeStartValidation);
+      return true
+    }
+
+    // TODO: Add the collision detection for preferences of time greater than preference.
+    if(startTimeNumberSource >= timeAfterValidation){
+      $(".time-entry").css("background-color", "red");
+      $(".error-message").text(state.allCombinations[state.indexOfSchedule][i].number_title + " starts after " + timeAfterValidation);
+      return true
+    }
+
+    // TODO: Add the collision for rate my professor on rating and difficulty.
     for(var j = i; j < state.allCombinations[state.indexOfSchedule].length - 1; j++){
       let startTimeArrayTarget = state.allCombinations[state.indexOfSchedule][j+1].start_time.split(":");
       let endTimeArrayTarget = state.allCombinations[state.indexOfSchedule][j+1].end_time.split(":");
@@ -421,6 +442,7 @@ function displayTable(){
         renderer.draw('.timetable');
         $("#classes-list").empty();
         $("#classes-scheduled").empty();
+        $(".error-message").empty();
         state.alldata = [];
         state.indexOfSchedule = 0;
         state.classes = [];
