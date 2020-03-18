@@ -19,7 +19,7 @@ $(document).ready(function() {
     $(".classes-display").hide();
     renderTimetable();
     renderer.draw('.timetable');
-//================================================================
+//==============================================================
 // Helper functions to remove an element from an array
 function removeFromArray(arr, elem){
   var index = arr.indexOf(elem)
@@ -27,18 +27,64 @@ function removeFromArray(arr, elem){
       arr.splice(index,1);
   }
 }
-//================================================================
-// Function that detects if the current schedule has a collision
-function detectCollision(){
-
+//==============================================================
+// Function that detects if the current schedule has a instructor rating validation error
+function detectRatingPreferenceConflict(){
+  // TODO: Check to see if before validation is active
+  let instructorRatingPreference = 6;
+  console.log("My prof rating is...........................")
   for(var i = 0; i < state.allCombinations[state.indexOfSchedule].length; i++){
+    let instructorName = state.allCombinations[state.indexOfSchedule][i].Instructor.name
+    let instructorRating = state.allCombinations[state.indexOfSchedule][i].Instructor.rating
+    console.log("My rating is: " + instructorRating)
 
+    if(!instructorRating){
+      if(instructorRating <= instructorRatingPreference){
+        console.log(`The instructor ${instructorName} rating is less than the given preference of ${instructorRatingPreference}`)
+        let ratingText = $("<p>")
+        $(".time-entry").css("background-color", "red");
+        ratingText.text(`The instructor ${instructorName} rating is less than the given preference of ${instructorRatingPreference}`);
+        $(".error-message").append(ratingText)
+      }
+    }
+
+  }
+}
+//==============================================================
+// Function that detects if the current schedule has a collision
+function datectTimePreferenceConflict(){
+  for(var i = 0; i < state.allCombinations[state.indexOfSchedule].length; i++){
     // TODO: Check to see if before validation is active
     let timeStartValidation = 10;
-
     // TODO: Check to see if after validation is activate
     let timeAfterValidation = 15;
 
+    let startTimeArraySource = state.allCombinations[state.indexOfSchedule][i].start_time.split(":");
+    let startTimeNumberSource = parseFloat(startTimeArraySource[0]) + parseFloat(startTimeArraySource[1]) / 60;   
+
+    // TODO: Add the collision detection for preferences of time less than preference.
+    if(startTimeNumberSource < timeStartValidation){
+      let timeStartBeforeValidation = $("<p>")
+      $(".time-entry").css("background-color", "red");
+      timeStartBeforeValidation.text(state.allCombinations[state.indexOfSchedule][i].number_title + " starts before " + timeStartValidation);
+      $(".error-message").append(timeStartBeforeValidation)
+    }
+
+    // TODO: Add the collision detection for preferences of time greater than preference.
+    if(startTimeNumberSource > timeAfterValidation){
+      let timeStartAfterValidation = $("<p>")
+      $(".time-entry").css("background-color", "red");
+      timeStartAfterValidation.text(state.allCombinations[state.indexOfSchedule][i].number_title + " starts after " + timeAfterValidation);
+      $(".error-message").append(timeStartAfterValidation)
+    }
+  }
+}
+//==============================================================
+// Function that detects if the current schedule has a collision
+function detectCollision(){
+  $(".error-message").empty();
+
+  for(var i = 0; i < state.allCombinations[state.indexOfSchedule].length; i++){
     // TODO: No instructors below this rating
     // TODO: Only instructors below this rating
 
@@ -50,21 +96,6 @@ function detectCollision(){
     let endTimeNumberSource = parseFloat(endTimeArraySource[0]) + parseFloat(endTimeArraySource[1]) / 60;
     console.log("S0 number:" + startTimeNumberSource);
     console.log("E0 number:" + endTimeNumberSource);
-
-
-    // TODO: Add the collision detection for preferences of time less than preference.
-    if(startTimeNumberSource <= timeStartValidation){
-      $(".time-entry").css("background-color", "red");
-      $(".error-message").text(state.allCombinations[state.indexOfSchedule][i].number_title + " starts before " + timeStartValidation);
-      return true
-    }
-
-    // TODO: Add the collision detection for preferences of time greater than preference.
-    if(startTimeNumberSource >= timeAfterValidation){
-      $(".time-entry").css("background-color", "red");
-      $(".error-message").text(state.allCombinations[state.indexOfSchedule][i].number_title + " starts after " + timeAfterValidation);
-      return true
-    }
 
     // TODO: Add the collision for rate my professor on rating and difficulty.
     for(var j = i; j < state.allCombinations[state.indexOfSchedule].length - 1; j++){
@@ -81,14 +112,15 @@ function detectCollision(){
         (startTimeNumberTarget >= startTimeNumberSource) && 
         (startTimeNumberTarget <= endTimeNumberSource) && 
         (state.allCombinations[state.indexOfSchedule][i].day_code == state.allCombinations[state.indexOfSchedule][j+1].day_code)){
+          let collisionText = $("<p>")
           $(".time-entry").css("background-color", "red");
-          $(".error-message").text(state.allCombinations[state.indexOfSchedule][i].number_title + " and " + state.allCombinations[state.indexOfSchedule][j+1].number_title + " overlap in this schedule.");
+          collisionText.text(state.allCombinations[state.indexOfSchedule][i].number_title + " and " + state.allCombinations[state.indexOfSchedule][j+1].number_title + " overlap in this schedule.");
+          $(".error-message").append(collisionText)
           return true;
       }
       
     }
   }
-  $(".error-message").empty();
   return false;
 };
 
@@ -222,8 +254,9 @@ function displayTable(){
   // If the current schedule selected has conflicting classes then return true;
   if(state.allCombinations.length){
     console.log("The number of elements in all combinations is : " + state.allCombinations.length);
-    state.collision = detectCollision();
-    console.log("The state of collision : " + state.collision);
+    detectCollision();
+    datectTimePreferenceConflict();
+    detectRatingPreferenceConflict();
   }
 
 }
@@ -372,7 +405,7 @@ function displayTable(){
       let classTime = $(this).data("time");
 
       // If the specific class id is not in the alldata array add it
-      if(state.classes.indexOf(id) == -1){
+      if(state.alldata.indexOf(id) == -1){
         state.alldata.push(id);
 
         console.log(state.alldata);
@@ -489,7 +522,7 @@ function displayTable(){
           state.indexOfSchedule = state.allCombinations.length - 1;
         }
         state.indexOfSchedule = state.indexOfSchedule % state.allCombinations.length;
-        state.collision = detectCollision();
+        // state.collision = detectCollision();
       }
       renderTimetable();
       displayTable();
@@ -500,7 +533,7 @@ function displayTable(){
       if(state.allCombinations.length){
         state.indexOfSchedule++;
         state.indexOfSchedule = state.indexOfSchedule % state.allCombinations.length;
-        state.collision = detectCollision();
+        // state.collision = detectCollision();
       }
       
       renderTimetable();

@@ -10,6 +10,21 @@ module.exports = function(sequelize, DataType){
             type: DataType.STRING,
             unique: true,
             allowNull: false
+        },
+        rating: {
+            type: DataType.DECIMAL(10,2),
+            unique: false,
+            allowNull: true
+        },
+        difficulty: {
+            type: DataType.DECIMAL(10,2),
+            unique: false,
+            allowNull: true
+        },
+        take_again_percent: {
+            type: DataType.DECIMAL(10,2),
+            unique: false,
+            allowNull: true
         }
     });
 
