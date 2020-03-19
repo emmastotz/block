@@ -34,7 +34,7 @@ $(document).ready(function() {
       let instructorRatingPreference = 0.00
       // TODO: Check to see if before validation is active
       if(localStorage.getItem("userPreferences") != null) 
-        instructorRatingPreference = JSON.parse(localStorage.getItem("userPreferences")).rating | 0.00;
+        instructorRatingPreference = parseFloat(JSON.parse(localStorage.getItem("userPreferences")).profRating) | 0.00;
 
       console.log(`My prof rating preference rating is: ${instructorRatingPreference}`);
       for (
@@ -49,7 +49,7 @@ $(document).ready(function() {
         console.log("My rating is: " + instructorRating);
 
         if (!instructorRating) {
-          if (instructorRating <= instructorRatingPreference) {
+          if (instructorRating < instructorRatingPreference) {
             console.log(
               `The instructor ${instructorName} rating is less than the given preference of ${instructorRatingPreference}`
             );
