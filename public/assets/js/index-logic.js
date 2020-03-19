@@ -166,13 +166,13 @@ $(document).ready(function() {
         // TODO: Add the collision for rate my professor on rating and difficulty.
         for (
           var j = i;
-          j < allCombos[state.indexOfS].length - 1;
+          j < allCombos[state.indexOfSchedule].length - 1;
           j++
         ) {
           let startTimeArrayTarget = allCombos[
-            state.indexOfS
+            state.indexOfSchedule
           ][j + 1].start_time.split(":");
-          let endTimeArrayTarget = allCombos[state.indexOfS][
+          let endTimeArrayTarget = allCombos[state.indexOfSchedule][
             j + 1
           ].end_time.split(":");
           let startTimeNumberTarget =
@@ -184,24 +184,24 @@ $(document).ready(function() {
           console.log("S1 number : " + startTimeNumberTarget);
           console.log("E1 number : " + endTimeNumberTarget);
           console.log(
-            "D0" + allCombos[state.indexOfS][i].day_code
+            "D0" + allCombos[state.indexOfSchedule][i].day_code
           );
           console.log(
-            "D1" + allCombos[state.indexOfS][j].day_code
+            "D1" + allCombos[state.indexOfSchedule][j].day_code
           );
 
           if (
             startTimeNumberTarget >= startTimeNumberSource &&
             startTimeNumberTarget <= endTimeNumberSource &&
-            allCombos[state.indexOfS][i].day_code ==
-              allCombos[state.indexOfS][j + 1].day_code
+            allCombos[state.indexOfSchedule][i].day_code ==
+              allCombos[state.indexOfSchedule][j + 1].day_code
           ) {
             let collisionText = $("<p>");
             $(".time-entry").css("background-color", "red");
             collisionText.text(
-              allCombos[state.indexOfS][i].number_title +
+              allCombos[state.indexOfSchedule][i].number_title +
                 " and " +
-                allCombos[state.indexOfS][j + 1]
+                allCombos[state.indexOfSchedule][j + 1]
                   .number_title +
                 " overlap in this schedule."
             );
