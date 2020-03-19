@@ -2,7 +2,6 @@ body {
   background-image: url(../img/white-carbon.png);
   background-repeat: repeat;
   text-align: center;
-  color: black;
 }
 /* ======================================================= */
 /* NAVBAR */
@@ -128,10 +127,6 @@ li.list-group-item {
   padding: 0;
 }
 
-ul#classes-scheduled {
-  font-size: small;
-}
-
 a:link {
   color: #2e7fad;
   text-decoration: none;
@@ -152,13 +147,9 @@ a:active {
   text-decoration: none;
 }
 
-button.btn-sm {
-  margin-bottom: 1%;
-  color: #2e7fad;
-}
-
 button.btn-link {
   text-decoration: none;
+  color: black;
 }
 
 button.btn-link:visited {
@@ -168,7 +159,7 @@ button.btn-link:visited {
 
 button.btn-link:hover {
   text-decoration: none;
-  color: #000000;
+  color: #2e7fad;
 }
 
 button.btn-link:active {
@@ -232,7 +223,6 @@ div.subject-display {
   text-align: center;
   background-color: rgb(220, 220, 220);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  color: black;
   padding-top: 2%;
   padding-bottom: 2%;
   margin-left: 50px;
@@ -244,14 +234,12 @@ div.classes-display {
   background-color: rgb(220, 220, 220);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding-top: 2%;
-  color: black;
   text-align: center;
   padding-bottom: 0;
   overflow-y: scroll;
 }
 
 li.smaller {
-  font-size: smaller;
   padding: 0;
 }
 
@@ -259,7 +247,6 @@ div.student-schedule {
   background-color: rgb(220, 220, 220);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding-top: 1%;
-  color: black;
   text-align: center;
   padding-bottom: 0;
   margin-left: 50px;
@@ -274,7 +261,6 @@ p#schedule-counter {
 p.error-message {
   margin-top: 0.5rem;
   margin-bottom: 0;
-  color: black;
   background-color: rgb(220, 220, 220);
   border-radius: 5px;
 }
@@ -287,7 +273,6 @@ div.class-list {
   background-color: rgb(220, 220, 220);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding-top: 1%;
-  color: black;
   text-align: center;
   padding-bottom: 0;
   margin-top: 4%;
@@ -297,18 +282,6 @@ div.class-list {
 
 h4 {
   text-align: center;
-  color: black;
-}
-
-div.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  color: white;
-  text-align: center;
-  padding-bottom: 1%;
-  font-size: 8pt;
 }
 
 h5.card-title {
