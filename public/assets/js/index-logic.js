@@ -31,9 +31,12 @@ $(document).ready(function() {
     //==============================================================
     // Function that detects if the current schedule has a instructor rating validation error
     function detectRatingPreferenceConflict() {
+      let instructorRatingPreference = 0.00
       // TODO: Check to see if before validation is active
-      let instructorRatingPreference = 6;
-      console.log("My prof rating is...........................");
+      if(localStorage.getItem("userPreferences") != null) 
+        instructorRatingPreference = JSON.parse(localStorage.getItem("userPreferences")).rating | 0.00;
+
+      console.log(`My prof rating preference rating is: ${instructorRatingPreference}`);
       for (
         var i = 0;
         i < state.allCombinations[state.indexOfSchedule].length;
@@ -63,15 +66,37 @@ $(document).ready(function() {
     //==============================================================
     // Function that detects if the current schedule has a collision
     function datectTimePreferenceConflict() {
+      let timeStartValidationText = "01:00"
+      let timeAfterValidationText = "23:00"
+
+      console.log(timeStartValidationText.split(":")[0])
+
+      // If the userPreferences at local storage at NOT null then we can perform the extraction of the logic
+      if(localStorage.getItem("userPreferences")){
+        console.log("I am here at local storage")
+        var timeStartValidation = JSON.parse(localStorage.getItem("userPreferences")).timeBefore;
+        var timeAfterValidation = JSON.parse(localStorage.getItem("userPreferences")).timeAfter;
+      } else {
+        console.log("I am here at local storage else")
+        var timeStartValidation = timeStartValidationText;
+        var timeAfterValidation = timeAfterValidationText;
+      }
+
+      console.log(timeStartValidation)
+
+      // timeStartValidation = 
+      //   parseFloat(timeStartValidation.split(":")[0]) + 
+      //   parseFloat(timeStartValidation.split(":")[1]) / 60;
+
+      // timeAfterValidation = 
+      //   parseFloat(timeAfterValidation.split(":")[0]) + 
+      //   parseFloat(timeAfterValidation.split(":")[1]) / 60;
+
       for (
         var i = 0;
         i < state.allCombinations[state.indexOfSchedule].length;
         i++
       ) {
-        // TODO: Check to see if before validation is active
-        let timeStartValidation = 10;
-        // TODO: Check to see if after validation is activate
-        let timeAfterValidation = 15;
 
         let startTimeArraySource = state.allCombinations[state.indexOfSchedule][
           i
@@ -109,6 +134,9 @@ $(document).ready(function() {
     // Function that detects if the current schedule has a collision
     function detectCollision() {
       $(".error-message").empty();
+      var allCombos = state.allCombinations;
+      var scheduleIndex = state.indexOfSchedule;
+      var collisionText = "";
 
       for (
         var i = 0;
@@ -118,10 +146,10 @@ $(document).ready(function() {
         // TODO: No instructors below this rating
         // TODO: Only instructors below this rating
 
-        let startTimeArraySource = state.allCombinations[state.indexOfSchedule][
+        let startTimeArraySource = allCombos[state.indexOfS][
           i
         ].start_time.split(":");
-        let endTimeArraySource = state.allCombinations[state.indexOfSchedule][
+        let endTimeArraySource = allCombos[state.indexOfS][
           i
         ].end_time.split(":");
         console.log("S0:" + startTimeArraySource.toString());
@@ -138,13 +166,13 @@ $(document).ready(function() {
         // TODO: Add the collision for rate my professor on rating and difficulty.
         for (
           var j = i;
-          j < state.allCombinations[state.indexOfSchedule].length - 1;
+          j < allCombos[state.indexOfS].length - 1;
           j++
         ) {
-          let startTimeArrayTarget = state.allCombinations[
-            state.indexOfSchedule
+          let startTimeArrayTarget = allCombos[
+            state.indexOfS
           ][j + 1].start_time.split(":");
-          let endTimeArrayTarget = state.allCombinations[state.indexOfSchedule][
+          let endTimeArrayTarget = allCombos[state.indexOfS][
             j + 1
           ].end_time.split(":");
           let startTimeNumberTarget =
@@ -156,27 +184,30 @@ $(document).ready(function() {
           console.log("S1 number : " + startTimeNumberTarget);
           console.log("E1 number : " + endTimeNumberTarget);
           console.log(
-            "D0" + state.allCombinations[state.indexOfSchedule][i].day_code
+            "D0" + allCombos[state.indexOfS][i].day_code
           );
           console.log(
-            "D1" + state.allCombinations[state.indexOfSchedule][j].day_code
+            "D1" + allCombos[state.indexOfS][j].day_code
           );
 
           if (
             startTimeNumberTarget >= startTimeNumberSource &&
             startTimeNumberTarget <= endTimeNumberSource &&
-            state.allCombinations[state.indexOfSchedule][i].day_code ==
-              state.allCombinations[state.indexOfSchedule][j + 1].day_code
+            allCombos[state.indexOfS][i].day_code ==
+              allCombos[state.indexOfS][j + 1].day_code
           ) {
             let collisionText = $("<p>");
             $(".time-entry").css("background-color", "red");
             collisionText.text(
-              state.allCombinations[state.indexOfSchedule][i].number_title +
+              allCombos[state.indexOfS][i].number_title +
                 " and " +
-                state.allCombinations[state.indexOfSchedule][j + 1]
+                allCombos[state.indexOfS][j + 1]
                   .number_title +
                 " overlap in this schedule."
             );
+            collisionTextLog = allCombos[scheduleIndex][i].number_title + " and " + allCombos[scheduleIndex][j + 1].number_title + " overlap in this schedule.";
+            console.log("Collision Text: ", collisionTextLog);
+
             $(".error-message").append(collisionText);
             return true;
           }
