@@ -210,7 +210,6 @@ div.user-input-container {
 
 div.form-group {
   text-align: left;
-  margin: 0;
 }
 
 div.email {
@@ -309,4 +308,10 @@ hr.top {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+/* ======================================================= */
+/* ALERT */
+.alert-success {
+  text-align: center;
+  z-index: 5;
 }
