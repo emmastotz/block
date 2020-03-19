@@ -12,6 +12,7 @@ $(document).ready(function() {
   };
   // Array of chars representings days of the week
   var dayCode = ["M", "T", "W", "R", "F", "S"];
+  // $(".alert").hide();
 
   $(function() {
     var timetable = new Timetable();
@@ -750,9 +751,35 @@ $(document).ready(function() {
       }
     });
     // =================================================================================
-    // MODAL TRIGGER
+    // MODAL OPEN
     $("#myModal").on("shown.bs.modal", function() {
       $("#myInput").trigger("focus");
+    });
+    // =================================================================================
+    // SAVE PREFERENCES
+    $(".save-preferences-btn").on("click", function() {
+      // Saving preferences in an object
+      const userPref = {
+        timeBefore: $("#time-before").val(),
+        timeAfter: $("#time-after").val(),
+        profRating: $("#prof-rating").val(),
+        omitConflicts: $("#omit-conflicts").is(":checked")
+      };
+
+      // Stringifying object for storage & sending it to local storage
+      const stringifiedUserPref = JSON.stringify(userPref);
+      localStorage.setItem("userPreferences", stringifiedUserPref);
+
+      // Hiding modal
+      $("#myModal").modal("hide");
+
+      // Alerting save success
+      // $(".alert-success").addClass("show");
+
+      // Retrieving saved data from local storage
+      const savedPref = JSON.parse(localStorage.getItem("userPreferences"));
+
+      // TODO: update the value of inputs with users saved preferences
     });
     // =================================================================================
   });
