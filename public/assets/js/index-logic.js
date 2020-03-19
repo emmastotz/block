@@ -146,10 +146,10 @@ $(document).ready(function() {
         // TODO: No instructors below this rating
         // TODO: Only instructors below this rating
 
-        let startTimeArraySource = allCombos[state.indexOfS][
+        let startTimeArraySource = allCombos[state.indexOfSchedule][
           i
         ].start_time.split(":");
-        let endTimeArraySource = allCombos[state.indexOfS][
+        let endTimeArraySource = allCombos[state.indexOfSchedule][
           i
         ].end_time.split(":");
         console.log("S0:" + startTimeArraySource.toString());
