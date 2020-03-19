@@ -84,13 +84,13 @@ $(document).ready(function() {
 
       console.log(timeStartValidation)
 
-      // timeStartValidation = 
-      //   parseFloat(timeStartValidation.split(":")[0]) + 
-      //   parseFloat(timeStartValidation.split(":")[1]) / 60;
+      timeStartValidation = 
+        parseFloat(timeStartValidation.split(":")[0]) + 
+        parseFloat(timeStartValidation.split(":")[1]) / 60;
 
-      // timeAfterValidation = 
-      //   parseFloat(timeAfterValidation.split(":")[0]) + 
-      //   parseFloat(timeAfterValidation.split(":")[1]) / 60;
+      timeAfterValidation = 
+        parseFloat(timeAfterValidation.split(":")[0]) + 
+        parseFloat(timeAfterValidation.split(":")[1]) / 60;
 
       for (
         var i = 0;
