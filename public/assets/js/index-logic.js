@@ -18,6 +18,7 @@ $(document).ready(function() {
     var timetable = new Timetable();
     var renderer = new Timetable.Renderer(timetable);
     $(".classes-display").hide();
+    $(".collision").hide();
     renderTimetable();
     renderer.draw(".timetable");
     //==============================================================
@@ -133,46 +134,31 @@ $(document).ready(function() {
     //==============================================================
     // Function that detects if the current schedule has a collision
     function detectCollision() {
-      $(".error-message").empty();
       var allCombos = state.allCombinations;
       var scheduleIndex = state.indexOfSchedule;
-      var collisionText = "";
+      let emptyString = "";
+      $(".collision").attr("data-original-title", emptyString);
+      $(".collision").hide();
 
-      for (
-        var i = 0;
-        i < state.allCombinations[state.indexOfSchedule].length;
-        i++
-      ) {
-        // TODO: No instructors below this rating
-        // TODO: Only instructors below this rating
-
-        let startTimeArraySource = allCombos[state.indexOfSchedule][
-          i
-        ].start_time.split(":");
-        let endTimeArraySource = allCombos[state.indexOfSchedule][
-          i
-        ].end_time.split(":");
-        console.log("S0:" + startTimeArraySource.toString());
-        console.log("E0:" + endTimeArraySource.toString());
+      for (var i = 0; i < allCombos[scheduleIndex].length; i++) {
+        let startTimeArraySource = allCombos[scheduleIndex][i].start_time.split(
+          ":"
+        );
+        let endTimeArraySource = allCombos[scheduleIndex][i].end_time.split(
+          ":"
+        );
         let startTimeNumberSource =
           parseFloat(startTimeArraySource[0]) +
           parseFloat(startTimeArraySource[1]) / 60;
         let endTimeNumberSource =
           parseFloat(endTimeArraySource[0]) +
           parseFloat(endTimeArraySource[1]) / 60;
-        console.log("S0 number:" + startTimeNumberSource);
-        console.log("E0 number:" + endTimeNumberSource);
 
-        // TODO: Add the collision for rate my professor on rating and difficulty.
-        for (
-          var j = i;
-          j < allCombos[state.indexOfSchedule].length - 1;
-          j++
-        ) {
-          let startTimeArrayTarget = allCombos[
-            state.indexOfSchedule
-          ][j + 1].start_time.split(":");
-          let endTimeArrayTarget = allCombos[state.indexOfSchedule][
+        for (var j = i; j < allCombos[scheduleIndex].length - 1; j++) {
+          let startTimeArrayTarget = allCombos[scheduleIndex][
+            j + 1
+          ].start_time.split(":");
+          let endTimeArrayTarget = allCombos[scheduleIndex][
             j + 1
           ].end_time.split(":");
           let startTimeNumberTarget =
@@ -181,34 +167,29 @@ $(document).ready(function() {
           let endTimeNumberTarget =
             parseFloat(endTimeArrayTarget[0]) +
             parseFloat(endTimeArrayTarget[1]) / 60;
-          console.log("S1 number : " + startTimeNumberTarget);
-          console.log("E1 number : " + endTimeNumberTarget);
-          console.log(
-            "D0" + allCombos[state.indexOfSchedule][i].day_code
-          );
-          console.log(
-            "D1" + allCombos[state.indexOfSchedule][j].day_code
-          );
 
           if (
             startTimeNumberTarget >= startTimeNumberSource &&
             startTimeNumberTarget <= endTimeNumberSource &&
-            allCombos[state.indexOfSchedule][i].day_code ==
-              allCombos[state.indexOfSchedule][j + 1].day_code
+            allCombos[scheduleIndex][i].day_code ==
+              allCombos[scheduleIndex][j + 1].day_code
           ) {
-            let collisionText = $("<p>");
             $(".time-entry").css("background-color", "red");
-            collisionText.text(
-              allCombos[state.indexOfSchedule][i].number_title +
-                " and " +
-                allCombos[state.indexOfSchedule][j + 1]
-                  .number_title +
-                " overlap in this schedule."
-            );
-            collisionTextLog = allCombos[scheduleIndex][i].number_title + " and " + allCombos[scheduleIndex][j + 1].number_title + " overlap in this schedule.";
-            console.log("Collision Text: ", collisionTextLog);
+            $(".collision").show();
+            let collisionItemStart = "<li>";
+            let collisionItemClose = "</li>";
+            let collisionText =
+              allCombos[scheduleIndex][i].number_title +
+              " and " +
+              allCombos[scheduleIndex][j + 1].number_title +
+              " overlap at " +
+              allCombos[scheduleIndex][i].start_time;
 
-            $(".error-message").append(collisionText);
+            let collisionString =
+              collisionItemStart + collisionText + collisionItemClose;
+            // $(".collision").removeAttr("data-original-title");
+            $(".collision").attr("data-original-title", collisionString);
+
             return true;
           }
         }
@@ -400,8 +381,8 @@ $(document).ready(function() {
       // If the current schedule selected has conflicting classes then return true;
       if (state.allCombinations.length) {
         detectCollision();
-        datectTimePreferenceConflict();
-        detectRatingPreferenceConflict();
+        // detectTimePreferenceConflict();
+        // detectRatingPreferenceConflict();
       }
     }
 
@@ -782,12 +763,17 @@ $(document).ready(function() {
       }
     });
     // =================================================================================
-    // MODAL OPEN
+    // Modal Open
     $("#myModal").on("shown.bs.modal", function() {
       $("#myInput").trigger("focus");
     });
     // =================================================================================
-    // SAVE PREFERENCES
+    // Tooltip Hover
+    $(function() {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+    // =================================================================================
+    // Save Preferences
     $(".save-preferences-btn").on("click", function() {
       // Saving preferences in an object
       const userPref = {
