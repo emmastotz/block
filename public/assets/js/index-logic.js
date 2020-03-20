@@ -50,22 +50,26 @@ $(document).ready(function() {
           state.allCombinations[state.indexOfSchedule][i].Instructor.rating;
 
         if (instructorRating != null) {
-          if (instructorRating < instructorRatingPreference) {            
-            let displayText = 
-            `The instructor ${instructorName} rating of ${instructorRating} ` +
-            `is less than the given preference of ${instructorRatingPreference}`
-  
-            $(".time-entry").css("background-color", "red");                  
+          if (instructorRating < instructorRatingPreference) {
+            let displayText =
+              `The instructor ${instructorName} rating of ${instructorRating} ` +
+              `is less than the given preference of ${instructorRatingPreference}`;
+
+            $(".time-entry").css("background-color", "red");
             $(".collision").show();
-            let collisionCurrent = $(".collision").attr("title")
-            console.log(this.$(".collision").attr("data-original-title"))
-            console.log(collisionCurrent)
+            let collisionCurrent = $(".collision").attr("title");
+            console.log(this.$(".collision").attr("data-original-title"));
+            console.log(collisionCurrent);
             let collisionItemStart = "<li>";
             let collisionItemClose = "</li>";
-            
-            let collisionString = collisionCurrent + " " +
-              collisionItemStart + displayText + collisionItemClose;
-            $(".collision").attr("data-original-title", collisionString); 
+
+            let collisionString =
+              collisionCurrent +
+              " " +
+              collisionItemStart +
+              displayText +
+              collisionItemClose;
+            $(".collision").attr("data-original-title", collisionString);
           }
         }
       }
@@ -111,42 +115,50 @@ $(document).ready(function() {
 
         // Validation for time less than preference.
         if (startTimeNumberSource < timeStartValidation) {
-          
-          let displayText = state.allCombinations[state.indexOfSchedule][i].number_title +
-          " starts before " + timeStartValidation;
+          let displayText =
+            state.allCombinations[state.indexOfSchedule][i].number_title +
+            " starts before " +
+            timeStartValidation;
 
-          $(".time-entry").css("background-color", "red");                  
+          $(".time-entry").css("background-color", "red");
           $(".collision").show();
           // let collisionCurrent = $(".collision").attr("data-original-title")
-          let collisionCurrent = $(".collision").attr("title")
+          let collisionCurrent = $(".collision").attr("title");
 
           let collisionItemStart = "<li>";
           let collisionItemClose = "</li>";
-          
-          let collisionString = collisionCurrent + " " +
-            collisionItemStart + displayText + collisionItemClose;
+
+          let collisionString =
+            collisionCurrent +
+            " " +
+            collisionItemStart +
+            displayText +
+            collisionItemClose;
           $(".collision").attr("data-original-title", collisionString);
           $(".collision").attr("title", collisionString);
         }
 
         // Validation for time greater than preference.
         if (startTimeNumberSource > timeAfterValidation) {
-          
-          let displayText = state.allCombinations[state.indexOfSchedule][i].number_title +
-          " starts after " + timeAfterValidation;
+          let displayText =
+            state.allCombinations[state.indexOfSchedule][i].number_title +
+            " starts after " +
+            timeAfterValidation;
 
-          $(".time-entry").css("background-color", "red");                  
+          $(".time-entry").css("background-color", "red");
           // $(".collision").show();
-          let collisionCurrent = $(".collision").attr("title")
+          let collisionCurrent = $(".collision").attr("title");
           let collisionItemStart = "<li>";
           let collisionItemClose = "</li>";
-          
-          let collisionString = collisionCurrent + " " +
-            collisionItemStart + displayText + collisionItemClose;
+
+          let collisionString =
+            collisionCurrent +
+            " " +
+            collisionItemStart +
+            displayText +
+            collisionItemClose;
           $(".collision").attr("data-original-title", collisionString);
           $(".collision").attr("title", collisionString);
-
-
         }
       }
     }
@@ -193,7 +205,7 @@ $(document).ready(function() {
           ) {
             $(".time-entry").css("background-color", "red");
             $(".collision").show();
-            let collisionCurrentText = $(".collision").attr("title")
+            let collisionCurrentText = $(".collision").attr("title");
 
             let collisionItemStart = "<li>";
             let collisionItemClose = "</li>";
@@ -204,9 +216,11 @@ $(document).ready(function() {
               " overlap at " +
               allCombos[scheduleIndex][i].start_time;
 
-            let collisionString = collisionCurrentText +
-              collisionItemStart + collisionText + collisionItemClose;
-            // $(".collision").removeAttr("data-original-title");
+            let collisionString =
+              collisionCurrentText +
+              collisionItemStart +
+              collisionText +
+              collisionItemClose;
             $(".collision").attr("data-original-title", collisionString);
             $(".collision").attr("title", collisionString);
 
@@ -264,7 +278,6 @@ $(document).ready(function() {
           godArray.push(arr);
           state.allCombinations = mixer(godArray);
           setTimeout(1000, displayTable());
-
         });
       }
 
@@ -283,27 +296,30 @@ $(document).ready(function() {
           godArray.push(tempArray);
           state.allCombinations = mixer(godArray);
           setTimeout(1000, displayTable());
-
         });
       }
-
     }
     //==================================================================================
     // Function used to mix an array of arrays
     function mixer(arr) {
       var mix_result = [];
       for (var i = 0; i < arr.length; i++) {
-        console.log(arr[i])
+        console.log(arr[i]);
         if (i == 0) {
           mix_result = arr[i];
         } else {
           mix_result = cartesian(mix_result, arr[i]);
-          console.log(mix_result)
+          console.log(mix_result);
         }
       }
 
-      if(localStorage.getItem("userPreferences") != null & JSON.parse(localStorage.getItem("userPreferences")).omitConflicts)
-        mix_result = mix_result.filter(schedule => detectConflict(schedule) == false)
+      if (
+        (localStorage.getItem("userPreferences") != null) &
+        JSON.parse(localStorage.getItem("userPreferences")).omitConflicts
+      )
+        mix_result = mix_result.filter(
+          schedule => detectConflict(schedule) == false
+        );
 
       return mix_result;
     }
@@ -413,7 +429,6 @@ $(document).ready(function() {
         detectRatingPreferenceConflict();
         $(".collision").attr("title", "");
       }
-
     }
 
     //==================================================================================
@@ -692,7 +707,6 @@ $(document).ready(function() {
       }
       renderTimetable();
       displayTable();
-
     });
     // =================================================================================
     // Next Permutation Function
@@ -701,7 +715,10 @@ $(document).ready(function() {
         state.indexOfSchedule++;
         state.indexOfSchedule =
           state.indexOfSchedule % state.allCombinations.length;
-          console.log("State of conflict: ", detectConflict(state.allCombinations[state.indexOfSchedule]))
+        console.log(
+          "State of conflict: ",
+          detectConflict(state.allCombinations[state.indexOfSchedule])
+        );
       }
 
       renderTimetable();
@@ -736,7 +753,6 @@ $(document).ready(function() {
         }
         renderer.draw(".timetable");
       });
-
     });
     // =================================================================================
     // Dropdown Generator
@@ -798,17 +814,20 @@ $(document).ready(function() {
       // Hiding modal
       $("#myModal").modal("hide");
 
+      // Alerting save success
+      // $(".alert-success").show("show");
+
       // Retrieving saved data from local storage
       const savedPref = JSON.parse(localStorage.getItem("userPreferences"));
-      generateAllCombinations()
-      renderTimetable()
-      displayTable()
+      generateAllCombinations();
+      renderTimetable();
+      displayTable();
 
       // TODO: update the value of inputs with users saved preferences
     });
     // =================================================================================
     // Detect conflict
-    function detectConflict(schedule){
+    function detectConflict(schedule) {
       let instructorRatingPreference = 0.0;
       let timeStartValidationText = "01:00";
       let timeAfterValidationText = "23:00";
@@ -818,7 +837,7 @@ $(document).ready(function() {
           parseFloat(
             JSON.parse(localStorage.getItem("userPreferences")).profRating
           ) | 0.0;
-      
+
       // If the userPreferences at local storage at NOT null then we can perform the extraction of the logic
       if (localStorage.getItem("userPreferences")) {
         var timeStartValidation = JSON.parse(
@@ -831,31 +850,36 @@ $(document).ready(function() {
         var timeStartValidation = timeStartValidationText;
         var timeAfterValidation = timeAfterValidationText;
       }
-      
+
       timeStartValidation =
-      parseFloat(timeStartValidation.split(":")[0]) +
-      parseFloat(timeStartValidation.split(":")[1]) / 60;
+        parseFloat(timeStartValidation.split(":")[0]) +
+        parseFloat(timeStartValidation.split(":")[1]) / 60;
 
       timeAfterValidation =
-      parseFloat(timeAfterValidation.split(":")[0]) +
-      parseFloat(timeAfterValidation.split(":")[1]) / 60;
+        parseFloat(timeAfterValidation.split(":")[0]) +
+        parseFloat(timeAfterValidation.split(":")[1]) / 60;
 
-      if(schedule.length > 0){
-  
+      if (schedule.length > 0) {
         for (var i in schedule) {
           let instructorRating = schedule[i].Instructor.rating;
           let startTimeArraySource = schedule[i].start_time.split(":");
 
           let startTimeNumberSource =
-          parseFloat(startTimeArraySource[0]) +
-          parseFloat(startTimeArraySource[1]) / 60;
-  
+            parseFloat(startTimeArraySource[0]) +
+            parseFloat(startTimeArraySource[1]) / 60;
+
           // Validation for instructor ratings
-          if (instructorRating != null & (instructorRating < instructorRatingPreference))
-              return true;
-      
+          if (
+            (instructorRating != null) &
+            (instructorRating < instructorRatingPreference)
+          )
+            return true;
+
           // Validation for time less than preference or time after preference
-          if (startTimeNumberSource < timeStartValidation | startTimeNumberSource > timeAfterValidation)
+          if (
+            (startTimeNumberSource < timeStartValidation) |
+            (startTimeNumberSource > timeAfterValidation)
+          )
             return true;
 
           let endTimeArraySource = schedule[i].end_time.split(":");
@@ -864,51 +888,50 @@ $(document).ready(function() {
             parseFloat(endTimeArraySource[0]) +
             parseFloat(endTimeArraySource[1]) / 60;
 
-            for (var j = parseInt(i); j < schedule.length - 1; j++) {
-              let startTimeArrayTarget = schedule[j+1].start_time.split(":");
-              let endTimeArrayTarget = schedule[j+1].end_time.split(":");
-              let startTimeNumberTarget =
-                parseFloat(startTimeArrayTarget[0]) +
-                parseFloat(startTimeArrayTarget[1]) / 60;
-  
+          for (var j = parseInt(i); j < schedule.length - 1; j++) {
+            let startTimeArrayTarget = schedule[j + 1].start_time.split(":");
+            let endTimeArrayTarget = schedule[j + 1].end_time.split(":");
+            let startTimeNumberTarget =
+              parseFloat(startTimeArrayTarget[0]) +
+              parseFloat(startTimeArrayTarget[1]) / 60;
+
             if (
               startTimeNumberTarget >= startTimeNumberSource &&
               startTimeNumberTarget <= endTimeNumberSource &&
-              schedule[i].day_code ==
-                schedule[j+1].day_code
-              )
-                return true;
-  
-            }
+              schedule[i].day_code == schedule[j + 1].day_code
+            )
+              return true;
+          }
         }
-      
-      return false;
 
-    } else {
-
+        return false;
+      } else {
         let instructorRating = schedule.Instructor.rating;
         let startTimeArraySource = schedule.start_time.split(":");
 
         let startTimeNumberSource =
-        parseFloat(startTimeArraySource[0]) +
-        parseFloat(startTimeArraySource[1]) / 60;
+          parseFloat(startTimeArraySource[0]) +
+          parseFloat(startTimeArraySource[1]) / 60;
 
         // Validation for instructor ratings
-        if (instructorRating != null & (instructorRating < instructorRatingPreference))
-            return true;
-    
+        if (
+          (instructorRating != null) &
+          (instructorRating < instructorRatingPreference)
+        )
+          return true;
+
         // Validation for time less than preference or time after preference
-        if (startTimeNumberSource < timeStartValidation | startTimeNumberSource > timeAfterValidation)
+        if (
+          (startTimeNumberSource < timeStartValidation) |
+          (startTimeNumberSource > timeAfterValidation)
+        )
           return true;
 
         let endTimeArraySource = schedule.end_time.split(":");
-    
-    return false;
 
+        return false;
+      }
     }
-
-  }
-
   });
 });
 // =================================================================================
