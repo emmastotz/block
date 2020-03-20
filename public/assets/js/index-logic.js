@@ -32,12 +32,17 @@ $(document).ready(function() {
     //==============================================================
     // Function that detects if the current schedule has a instructor rating validation error
     function detectRatingPreferenceConflict() {
-      let instructorRatingPreference = 0.00
+      let instructorRatingPreference = 0.0;
       // TODO: Check to see if before validation is active
-      if(localStorage.getItem("userPreferences") != null) 
-        instructorRatingPreference = parseFloat(JSON.parse(localStorage.getItem("userPreferences")).profRating) | 0.00;
+      if (localStorage.getItem("userPreferences") != null)
+        instructorRatingPreference =
+          parseFloat(
+            JSON.parse(localStorage.getItem("userPreferences")).profRating
+          ) | 0.0;
 
-      console.log(`My prof rating preference rating is: ${instructorRatingPreference}`);
+      console.log(
+        `My prof rating preference rating is: ${instructorRatingPreference}`
+      );
       for (
         var i = 0;
         i < state.allCombinations[state.indexOfSchedule].length;
@@ -66,31 +71,35 @@ $(document).ready(function() {
     }
     //==============================================================
     // Function that detects if the current schedule has a collision
-    function datectTimePreferenceConflict() {
-      let timeStartValidationText = "01:00"
-      let timeAfterValidationText = "23:00"
+    function detectTimePreferenceConflict() {
+      let timeStartValidationText = "01:00";
+      let timeAfterValidationText = "23:00";
 
-      console.log(timeStartValidationText.split(":")[0])
+      console.log(timeStartValidationText.split(":")[0]);
 
       // If the userPreferences at local storage at NOT null then we can perform the extraction of the logic
-      if(localStorage.getItem("userPreferences")){
-        console.log("I am here at local storage")
-        var timeStartValidation = JSON.parse(localStorage.getItem("userPreferences")).timeBefore;
-        var timeAfterValidation = JSON.parse(localStorage.getItem("userPreferences")).timeAfter;
+      if (localStorage.getItem("userPreferences")) {
+        console.log("I am here at local storage");
+        var timeStartValidation = JSON.parse(
+          localStorage.getItem("userPreferences")
+        ).timeBefore;
+        var timeAfterValidation = JSON.parse(
+          localStorage.getItem("userPreferences")
+        ).timeAfter;
       } else {
-        console.log("I am here at local storage else")
+        console.log("I am here at local storage else");
         var timeStartValidation = timeStartValidationText;
         var timeAfterValidation = timeAfterValidationText;
       }
 
-      console.log(timeStartValidation)
+      console.log(timeStartValidation);
 
-      timeStartValidation = 
-        parseFloat(timeStartValidation.split(":")[0]) + 
+      timeStartValidation =
+        parseFloat(timeStartValidation.split(":")[0]) +
         parseFloat(timeStartValidation.split(":")[1]) / 60;
 
-      timeAfterValidation = 
-        parseFloat(timeAfterValidation.split(":")[0]) + 
+      timeAfterValidation =
+        parseFloat(timeAfterValidation.split(":")[0]) +
         parseFloat(timeAfterValidation.split(":")[1]) / 60;
 
       for (
@@ -98,7 +107,6 @@ $(document).ready(function() {
         i < state.allCombinations[state.indexOfSchedule].length;
         i++
       ) {
-
         let startTimeArraySource = state.allCombinations[state.indexOfSchedule][
           i
         ].start_time.split(":");
@@ -512,7 +520,7 @@ $(document).ready(function() {
             let classId = result[i].id;
 
             let classDivChild = $("<li>");
-            classDivChild.addClass("list-group-item smaller");
+            classDivChild.addClass("list-group-item");
             classDivChild.attr("class-id", classId);
             // classDivChild.append(instructorName);
             classDivChild.append(displayText);
@@ -669,7 +677,6 @@ $(document).ready(function() {
         }
         state.indexOfSchedule =
           state.indexOfSchedule % state.allCombinations.length;
-        // state.collision = detectCollision();
       }
       renderTimetable();
       displayTable();
@@ -681,7 +688,6 @@ $(document).ready(function() {
         state.indexOfSchedule++;
         state.indexOfSchedule =
           state.indexOfSchedule % state.allCombinations.length;
-        // state.collision = detectCollision();
       }
 
       renderTimetable();
@@ -749,7 +755,7 @@ $(document).ready(function() {
             dropdownItem.addClass("list-group-item saved");
 
             let buttonLink = $("<button>");
-            buttonLink.addClass("btn btn-link btn-sm view-saved");
+            buttonLink.addClass("btn btn-link view-saved");
             buttonLink.text("Schedule #" + data[i].id);
             buttonLink.attr("id", data[i].id);
 
