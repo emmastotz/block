@@ -253,6 +253,10 @@ div.student-schedule {
   height: 30rem;
 }
 
+div.schedule-controls {
+  margin-top: 1rem;
+}
+
 p#schedule-counter {
   margin-bottom: 0.25rem;
 }
@@ -314,4 +318,17 @@ hr.top {
 .alert-success {
   text-align: center;
   z-index: 5;
+}
+/* ======================================================= */
+/* TOOLTIP */
+button.collision {
+  border-radius: 100%;
+  height: 2rem;
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+}
+
+span.exclamation {
+  object-position: center;
 }
