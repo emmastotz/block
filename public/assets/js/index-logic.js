@@ -12,7 +12,6 @@ $(document).ready(function() {
   };
   // Array of chars representings days of the week
   var dayCode = ["M", "T", "W", "R", "F", "S"];
-  // $(".alert").hide();
 
   $(function() {
     var timetable = new Timetable();
@@ -40,9 +39,6 @@ $(document).ready(function() {
             JSON.parse(localStorage.getItem("userPreferences")).profRating
           ) | 0.0;
 
-      console.log(
-        `My prof rating preference rating is: ${instructorRatingPreference}`
-      );
       for (
         var i = 0;
         i < state.allCombinations[state.indexOfSchedule].length;
@@ -52,19 +48,24 @@ $(document).ready(function() {
           state.allCombinations[state.indexOfSchedule][i].Instructor.name;
         let instructorRating =
           state.allCombinations[state.indexOfSchedule][i].Instructor.rating;
-        console.log("My rating is: " + instructorRating);
 
-        if (!instructorRating) {
-          if (instructorRating < instructorRatingPreference) {
-            console.log(
-              `The instructor ${instructorName} rating is less than the given preference of ${instructorRatingPreference}`
-            );
-            let ratingText = $("<p>");
-            $(".time-entry").css("background-color", "red");
-            ratingText.text(
-              `The instructor ${instructorName} rating is less than the given preference of ${instructorRatingPreference}`
-            );
-            $(".error-message").append(ratingText);
+        if (instructorRating != null) {
+          if (instructorRating < instructorRatingPreference) {            
+            let displayText = 
+            `The instructor ${instructorName} rating of ${instructorRating} ` +
+            `is less than the given preference of ${instructorRatingPreference}`
+  
+            $(".time-entry").css("background-color", "red");                  
+            $(".collision").show();
+            let collisionCurrent = $(".collision").attr("title")
+            console.log(this.$(".collision").attr("data-original-title"))
+            console.log(collisionCurrent)
+            let collisionItemStart = "<li>";
+            let collisionItemClose = "</li>";
+            
+            let collisionString = collisionCurrent + " " +
+              collisionItemStart + displayText + collisionItemClose;
+            $(".collision").attr("data-original-title", collisionString); 
           }
         }
       }
@@ -75,11 +76,8 @@ $(document).ready(function() {
       let timeStartValidationText = "01:00";
       let timeAfterValidationText = "23:00";
 
-      console.log(timeStartValidationText.split(":")[0]);
-
       // If the userPreferences at local storage at NOT null then we can perform the extraction of the logic
       if (localStorage.getItem("userPreferences")) {
-        console.log("I am here at local storage");
         var timeStartValidation = JSON.parse(
           localStorage.getItem("userPreferences")
         ).timeBefore;
@@ -87,12 +85,9 @@ $(document).ready(function() {
           localStorage.getItem("userPreferences")
         ).timeAfter;
       } else {
-        console.log("I am here at local storage else");
         var timeStartValidation = timeStartValidationText;
         var timeAfterValidation = timeAfterValidationText;
       }
-
-      console.log(timeStartValidation);
 
       timeStartValidation =
         parseFloat(timeStartValidation.split(":")[0]) +
@@ -114,28 +109,44 @@ $(document).ready(function() {
           parseFloat(startTimeArraySource[0]) +
           parseFloat(startTimeArraySource[1]) / 60;
 
-        // TODO: Add the collision detection for preferences of time less than preference.
+        // Validation for time less than preference.
         if (startTimeNumberSource < timeStartValidation) {
-          let timeStartBeforeValidation = $("<p>");
-          $(".time-entry").css("background-color", "red");
-          timeStartBeforeValidation.text(
-            state.allCombinations[state.indexOfSchedule][i].number_title +
-              " starts before " +
-              timeStartValidation
-          );
-          $(".error-message").append(timeStartBeforeValidation);
+          
+          let displayText = state.allCombinations[state.indexOfSchedule][i].number_title +
+          " starts before " + timeStartValidation;
+
+          $(".time-entry").css("background-color", "red");                  
+          $(".collision").show();
+          // let collisionCurrent = $(".collision").attr("data-original-title")
+          let collisionCurrent = $(".collision").attr("title")
+
+          let collisionItemStart = "<li>";
+          let collisionItemClose = "</li>";
+          
+          let collisionString = collisionCurrent + " " +
+            collisionItemStart + displayText + collisionItemClose;
+          $(".collision").attr("data-original-title", collisionString);
+          $(".collision").attr("title", collisionString);
         }
 
-        // TODO: Add the collision detection for preferences of time greater than preference.
+        // Validation for time greater than preference.
         if (startTimeNumberSource > timeAfterValidation) {
-          let timeStartAfterValidation = $("<p>");
-          $(".time-entry").css("background-color", "red");
-          timeStartAfterValidation.text(
-            state.allCombinations[state.indexOfSchedule][i].number_title +
-              " starts after " +
-              timeAfterValidation
-          );
-          $(".error-message").append(timeStartAfterValidation);
+          
+          let displayText = state.allCombinations[state.indexOfSchedule][i].number_title +
+          " starts after " + timeAfterValidation;
+
+          $(".time-entry").css("background-color", "red");                  
+          // $(".collision").show();
+          let collisionCurrent = $(".collision").attr("title")
+          let collisionItemStart = "<li>";
+          let collisionItemClose = "</li>";
+          
+          let collisionString = collisionCurrent + " " +
+            collisionItemStart + displayText + collisionItemClose;
+          $(".collision").attr("data-original-title", collisionString);
+          $(".collision").attr("title", collisionString);
+
+
         }
       }
     }
@@ -144,8 +155,6 @@ $(document).ready(function() {
     function detectCollision() {
       var allCombos = state.allCombinations;
       var scheduleIndex = state.indexOfSchedule;
-      let emptyString = "";
-      $(".collision").attr("data-original-title", emptyString);
       $(".collision").hide();
 
       for (var i = 0; i < allCombos[scheduleIndex].length; i++) {
@@ -184,6 +193,8 @@ $(document).ready(function() {
           ) {
             $(".time-entry").css("background-color", "red");
             $(".collision").show();
+            let collisionCurrentText = $(".collision").attr("title")
+
             let collisionItemStart = "<li>";
             let collisionItemClose = "</li>";
             let collisionText =
@@ -193,10 +204,11 @@ $(document).ready(function() {
               " overlap at " +
               allCombos[scheduleIndex][i].start_time;
 
-            let collisionString =
+            let collisionString = collisionCurrentText +
               collisionItemStart + collisionText + collisionItemClose;
             // $(".collision").removeAttr("data-original-title");
             $(".collision").attr("data-original-title", collisionString);
+            $(".collision").attr("title", collisionString);
 
             return true;
           }
@@ -269,8 +281,9 @@ $(document).ready(function() {
           // Push the array containing all class instances
           godArray.push(tempArray);
           state.allCombinations = mixer(godArray);
-          console.log("This is all combinations array ");
+          console.log("This is all combinations array.....");
           console.log(state.allCombinations);
+          console.log("...................................");
           setTimeout(1000, displayTable());
         });
       }
@@ -309,8 +322,11 @@ $(document).ready(function() {
     //================================================================
     // Displays all classes in the database with a value of true
     function displayTable() {
-      console.log(state.allCombinations);
-      console.log(state.allCombinations[state.indexOfSchedule].length);
+      let emptyString = "";
+      $(".collision").attr("data-original-title", emptyString);
+      $(".collision").attr("title", emptyString);
+
+      // $(".time-entry").css("background-color", "#2e7fad");
       if (state.allCombinations[state.indexOfSchedule].length) {
         for (
           var i = 0;
@@ -327,9 +343,7 @@ $(document).ready(function() {
             state.allCombinations[state.indexOfSchedule][i].subject_code +
             " " +
             state.allCombinations[state.indexOfSchedule][i].number_title;
-          console.log(startTimeArray);
-          console.log(endTimeArray);
-          console.log(name);
+
           for (var j in dayCode) {
             if (
               state.allCombinations[state.indexOfSchedule][i].day_code.includes(
@@ -389,9 +403,11 @@ $(document).ready(function() {
       // If the current schedule selected has conflicting classes then return true;
       if (state.allCombinations.length) {
         detectCollision();
-        // detectTimePreferenceConflict();
-        // detectRatingPreferenceConflict();
+        detectTimePreferenceConflict();
+        detectRatingPreferenceConflict();
+        $(".collision").attr("title", "");
       }
+
     }
 
     //==================================================================================
@@ -460,8 +476,6 @@ $(document).ready(function() {
       if (state.classes.indexOf(id) == -1) {
         state.classes.push(id);
 
-        console.log(state.classes);
-
         let deleteBtn = $("<button><i></i></button>");
         deleteBtn.addClass("btn btn-link remove-class fa fa-times");
         deleteBtn.attr("type", "clear");
@@ -476,10 +490,6 @@ $(document).ready(function() {
         listItem.attr("schedule-type", "general-class");
 
         $("#classes-scheduled").append(listItem);
-        console.log(
-          "The current number of general classes in state are : " +
-            state.classes
-        );
         generateAllCombinations();
       }
     });
@@ -570,10 +580,6 @@ $(document).ready(function() {
 
         $("#classes-scheduled").append(listItem);
 
-        console.log(
-          "The current number of general classes in state are : " +
-            state.classes
-        );
         generateAllCombinations();
       }
     });
@@ -618,6 +624,7 @@ $(document).ready(function() {
     // =================================================================================
     // Clear Class Schedule
     $(".clear-btn").on("click", function() {
+      $(".collision").hide();
       renderTimetable();
       renderer.draw(".timetable");
       $("#classes-list").empty();
@@ -680,6 +687,7 @@ $(document).ready(function() {
       }
       renderTimetable();
       displayTable();
+
     });
     // =================================================================================
     // Next Permutation Function
@@ -692,22 +700,13 @@ $(document).ready(function() {
 
       renderTimetable();
       displayTable();
+
     });
     // =================================================================================
     // View Saved Schedule
     $(document).on("click", ".view-saved", function() {
       renderTimetable();
       let scheduledId = $(this).attr("id");
-      console.log(scheduledId);
-
-      // let scheduleData = {
-      //   user_id: parseInt(sessionStorage.getItem('user_id')),
-      // }
-
-      // $.ajax("/api/saved_schedules/" + scheduleData.user_id, {
-      //   type: "GET"
-      // }).then(function(data) {
-      //   for (var i in data) {
 
       $.ajax("/api/saved_schedules_lines/" + scheduledId, {
         type: "GET"
@@ -795,9 +794,6 @@ $(document).ready(function() {
 
       // Hiding modal
       $("#myModal").modal("hide");
-
-      // Alerting save success
-      // $(".alert-success").addClass("show");
 
       // Retrieving saved data from local storage
       const savedPref = JSON.parse(localStorage.getItem("userPreferences"));
