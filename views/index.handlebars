@@ -105,24 +105,40 @@
           {{!-- Timetable Renders Here --}}
         </div>
 
-        <p class="error-message" style="font-size: smaller;"></p>
+        {{!-- <p class="error-message" style="font-size: smaller;"></p> --}}
 
-        <button class="btn btn-secondary arrow btn-small control-prev">
-          <a href="#" role="button" data-slide="prev">
-            <span><i class="fa fa-chevron-left"></i></span>
-            <span class="sr-only">Previous</span>
-          </a>
+        <div class="schedule-controls">
+          <button class="btn btn-secondary arrow btn-small control-prev">
+            <a href="#" role="button" data-slide="prev">
+              <span><i class="fa fa-chevron-left"></i></span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </button>
+          <button class="btn btn-secondary save-btn btn-sm" type="button">Save</button>
+          <button class="btn btn-secondary clear-btn btn-sm" type="clear">Clear</button>
+
+          <button class=" btn btn-secondary arrow btn-small control-next">
+            <a href="#" role="button" data-slide="next">
+              <span><i class="fa fa-chevron-right"></i></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </button>
+        </div>
+
+        <button type="button" class="btn btn-danger collision" data-toggle="tooltip" data-html="true"
+          data-placement="left">
+          <span class="exclamation"><i class="fa fa-exclamation"></i></span>
         </button>
 
-        <button class="btn btn-secondary save-btn btn-sm" type="button">Save</button>
-        <button class="btn btn-secondary clear-btn btn-sm" type="clear">Clear</button>
-
-        <button class=" btn btn-secondary arrow btn-small control-next">
-          <a href="#" role="button" data-slide="next">
-            <span><i class="fa fa-chevron-right"></i></span>
-            <span class="sr-only">Next</span>
-          </a>
+        {{!-- <button type="button" class="btn btn-danger prof-rating" data-toggle="tooltip" data-html="true"
+          data-placement="left" title="Class conflicts go here">
+          <span><i class="fa fa-user"></i></span>
         </button>
+
+        <button type="button" class="btn btn-danger time-pref" data-toggle="tooltip" data-html="true"
+          data-placement="left" title="Class conflicts go here">
+          <span><i class="fa fa-clock"></i></span>
+        </button> --}}
 
       </div>
     </div>
