@@ -313,8 +313,8 @@ $(document).ready(function() {
         }
       }
 
-      if ((localStorage.getItem("userPreferences") != null))
-        if(JSON.parse(localStorage.getItem("userPreferences")).omitConflicts)
+      if (localStorage.getItem("userPreferences") != null)
+        if (JSON.parse(localStorage.getItem("userPreferences")).omitConflicts)
           mix_result = mix_result.filter(
             schedule => detectConflict(schedule) == false
           );
@@ -347,8 +347,7 @@ $(document).ready(function() {
       $(".collision").attr("title", emptyString);
 
       // $(".time-entry").css("background-color", "#2e7fad");
-      if(state.allCombinations[state.indexOfSchedule]){
-
+      if (state.allCombinations[state.indexOfSchedule]) {
         if (state.allCombinations[state.indexOfSchedule].length) {
           for (
             var i = 0;
@@ -368,9 +367,9 @@ $(document).ready(function() {
 
             for (var j in dayCode) {
               if (
-                state.allCombinations[state.indexOfSchedule][i].day_code.includes(
-                  dayCode[j]
-                )
+                state.allCombinations[state.indexOfSchedule][
+                  i
+                ].day_code.includes(dayCode[j])
               ) {
                 appendToTimetable(
                   name,
@@ -421,7 +420,6 @@ $(document).ready(function() {
             counter + " of " + state.allCombinations.length
           );
         }
-
       }
 
       // If the current schedule selected has conflicting classes then return true;
@@ -631,7 +629,6 @@ $(document).ready(function() {
     // =============================================================================
     // Save class schedule for user
     $(".save-btn").on("click", function() {
-      console.log("Here in saved sechedule");
       let scheduleData = {
         user_id: parseInt(sessionStorage.getItem("user_id")),
         current_schedule: state.allCombinations[state.indexOfSchedule]
@@ -821,17 +818,16 @@ $(document).ready(function() {
 
       // Retrieving saved data from local storage
       //update the value of inputs with users saved preferences
-      $(".time-before").attr("value", userPref.timeBefore)
-      $(".time-after").attr("value", userPref.timeAfter)
-      $(".prof-rating").attr("value", userPref.profRating)
-      $(".omit-conflicts").attr("value", userPref.omitConflicts)
+      $(".time-before").attr("value", userPref.timeBefore);
+      $(".time-after").attr("value", userPref.timeAfter);
+      $(".prof-rating").attr("value", userPref.profRating);
+      $(".omit-conflicts").attr("value", userPref.omitConflicts);
 
-      if(state.allCombinations.length != 0){
+      if (state.allCombinations.length != 0) {
         generateAllCombinations();
         renderTimetable();
         displayTable();
       }
-
     });
     // =================================================================================
     // Detect conflict
