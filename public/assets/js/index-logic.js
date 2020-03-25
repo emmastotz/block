@@ -313,13 +313,11 @@ $(document).ready(function() {
         }
       }
 
-      if (
-        (localStorage.getItem("userPreferences") != null) &
-        JSON.parse(localStorage.getItem("userPreferences")).omitConflicts
-      )
-        mix_result = mix_result.filter(
-          schedule => detectConflict(schedule) == false
-        );
+      if ((localStorage.getItem("userPreferences") != null))
+        if(JSON.parse(localStorage.getItem("userPreferences")).omitConflicts)
+          mix_result = mix_result.filter(
+            schedule => detectConflict(schedule) == false
+          );
 
       return mix_result;
     }
@@ -349,26 +347,61 @@ $(document).ready(function() {
       $(".collision").attr("title", emptyString);
 
       // $(".time-entry").css("background-color", "#2e7fad");
-      if (state.allCombinations[state.indexOfSchedule].length) {
-        for (
-          var i = 0;
-          i < state.allCombinations[state.indexOfSchedule].length;
-          i++
-        ) {
-          var startTimeArray = state.allCombinations[state.indexOfSchedule][
-            i
+      if(state.allCombinations[state.indexOfSchedule]){
+
+        if (state.allCombinations[state.indexOfSchedule].length) {
+          for (
+            var i = 0;
+            i < state.allCombinations[state.indexOfSchedule].length;
+            i++
+          ) {
+            var startTimeArray = state.allCombinations[state.indexOfSchedule][
+              i
+            ].start_time.split(":");
+            var endTimeArray = state.allCombinations[state.indexOfSchedule][
+              i
+            ].end_time.split(":");
+            var name =
+              state.allCombinations[state.indexOfSchedule][i].subject_code +
+              " " +
+              state.allCombinations[state.indexOfSchedule][i].number_title;
+
+            for (var j in dayCode) {
+              if (
+                state.allCombinations[state.indexOfSchedule][i].day_code.includes(
+                  dayCode[j]
+                )
+              ) {
+                appendToTimetable(
+                  name,
+                  dayEquivalence(dayCode[j]),
+                  startTimeArray[0],
+                  startTimeArray[1],
+                  endTimeArray[0],
+                  endTimeArray[1]
+                );
+              }
+            }
+            renderer.draw(".timetable");
+            let counter = state.indexOfSchedule + 1;
+            $("#schedule-counter").text(
+              counter + " of " + state.allCombinations.length
+            );
+          }
+        } else {
+          var startTimeArray = state.allCombinations[
+            state.indexOfSchedule
           ].start_time.split(":");
-          var endTimeArray = state.allCombinations[state.indexOfSchedule][
-            i
+          var endTimeArray = state.allCombinations[
+            state.indexOfSchedule
           ].end_time.split(":");
           var name =
-            state.allCombinations[state.indexOfSchedule][i].subject_code +
+            state.allCombinations[state.indexOfSchedule].subject_code +
             " " +
-            state.allCombinations[state.indexOfSchedule][i].number_title;
-
+            state.allCombinations[state.indexOfSchedule].number_title;
           for (var j in dayCode) {
             if (
-              state.allCombinations[state.indexOfSchedule][i].day_code.includes(
+              state.allCombinations[state.indexOfSchedule].day_code.includes(
                 dayCode[j]
               )
             ) {
@@ -388,38 +421,7 @@ $(document).ready(function() {
             counter + " of " + state.allCombinations.length
           );
         }
-      } else {
-        var startTimeArray = state.allCombinations[
-          state.indexOfSchedule
-        ].start_time.split(":");
-        var endTimeArray = state.allCombinations[
-          state.indexOfSchedule
-        ].end_time.split(":");
-        var name =
-          state.allCombinations[state.indexOfSchedule].subject_code +
-          " " +
-          state.allCombinations[state.indexOfSchedule].number_title;
-        for (var j in dayCode) {
-          if (
-            state.allCombinations[state.indexOfSchedule].day_code.includes(
-              dayCode[j]
-            )
-          ) {
-            appendToTimetable(
-              name,
-              dayEquivalence(dayCode[j]),
-              startTimeArray[0],
-              startTimeArray[1],
-              endTimeArray[0],
-              endTimeArray[1]
-            );
-          }
-        }
-        renderer.draw(".timetable");
-        let counter = state.indexOfSchedule + 1;
-        $("#schedule-counter").text(
-          counter + " of " + state.allCombinations.length
-        );
+        
       }
 
       // If the current schedule selected has conflicting classes then return true;
