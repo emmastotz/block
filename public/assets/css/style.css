@@ -108,6 +108,7 @@ div.jumbo-logo {
 img.block-logo {
   width: 50%;
   height: auto;
+  margin-top: 1.5rem;
 }
 
 div.login {
