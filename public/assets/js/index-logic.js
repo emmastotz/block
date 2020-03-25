@@ -421,7 +421,7 @@ $(document).ready(function() {
             counter + " of " + state.allCombinations.length
           );
         }
-        
+
       }
 
       // If the current schedule selected has conflicting classes then return true;
@@ -820,12 +820,18 @@ $(document).ready(function() {
       // $(".alert-success").show("show");
 
       // Retrieving saved data from local storage
-      const savedPref = JSON.parse(localStorage.getItem("userPreferences"));
-      generateAllCombinations();
-      renderTimetable();
-      displayTable();
+      //update the value of inputs with users saved preferences
+      $(".time-before").attr("value", userPref.timeBefore)
+      $(".time-after").attr("value", userPref.timeAfter)
+      $(".prof-rating").attr("value", userPref.profRating)
+      $(".omit-conflicts").attr("value", userPref.omitConflicts)
 
-      // TODO: update the value of inputs with users saved preferences
+      if(state.allCombinations.length != 0){
+        generateAllCombinations();
+        renderTimetable();
+        displayTable();
+      }
+
     });
     // =================================================================================
     // Detect conflict
