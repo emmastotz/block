@@ -79,8 +79,12 @@ li.saved {
   padding: 0;
 }
 
+button.view-saved {
+  color: #2e7fad !important;
+}
+
 button.view-saved:hover {
-  color: white;
+  color: white !important;
 }
 
 img.navbar-logo {
@@ -117,6 +121,7 @@ div.login {
 }
 
 div.login-card {
+  border-radius: 50px 5px 5px 5px;
   background-color: rgb(220, 220, 220);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   color: black;
@@ -130,42 +135,42 @@ li.list-group-item {
 
 a:link {
   color: #2e7fad;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 a:visited {
   color: #2e7fad;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 a:hover {
   color: #000000;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 a:active {
   color: #2e7fad;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 button.btn-link {
-  text-decoration: none;
+  text-decoration: none !important;
   color: black;
 }
 
 button.btn-link:visited {
   color: #2e7fad;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 button.btn-link:hover {
-  text-decoration: none;
+  text-decoration: none !important;
   color: #2e7fad;
 }
 
 button.btn-link:active {
   color: #2e7fad;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 button.btn-secondary {
@@ -186,7 +191,7 @@ button.arrow {
 button.arrow:hover {
   color: grey;
   background-color: transparent;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 button#login {
@@ -199,6 +204,7 @@ button#signup-button {
 }
 
 div.user-input-container {
+  border-radius: 50px 5px 5px 5px !important;
   background-color: rgb(220, 220, 220);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   color: black;
@@ -207,6 +213,9 @@ div.user-input-container {
   margin-top: 1%;
   margin-bottom: 1%;
   width: 18rem;
+}
+
+form#signup-form {
 }
 
 div.form-group {
@@ -289,12 +298,7 @@ h4 {
 }
 
 h5.card-title {
-  padding-top: 2%;
-}
-
-hr.top {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+  padding-top: 1rem;
 }
 
 /* ======================================================= */
