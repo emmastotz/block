@@ -215,9 +215,6 @@ div.user-input-container {
   width: 18rem;
 }
 
-form#signup-form {
-}
-
 div.form-group {
   text-align: left;
 }
@@ -288,7 +285,7 @@ div.class-list {
   padding-top: 1%;
   text-align: center;
   padding-bottom: 0;
-  margin-top: 4%;
+  margin-top: 6%;
   height: 30rem;
   overflow-y: scroll;
 }
@@ -321,6 +318,8 @@ h5.card-title {
 /* ======================================================= */
 /* ALERT */
 .alert-success {
+  visibility: hidden;
+  margin-bottom: 0 !important;
   text-align: center;
   z-index: 5;
 }
