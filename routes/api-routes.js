@@ -115,7 +115,8 @@ module.exports = function(app) {
   // Saved a schedule
   app.post("/api/schedule", function(req, res){
     db.savedSchedules.create({
-      user_id: req.body.user_id
+      user_id: req.body.user_id,
+      schedule_name: req.body.schedule_name
     }).then(function(data){
       console.log(data);
       for(var i = 0; i < req.body.current_schedule.length; i++){
@@ -128,6 +129,20 @@ module.exports = function(app) {
         console.log("Here is the error section at routes!");
         throw err;
     });
+  });
+  // ====================================================
+  // Saved a schedule
+  app.delete("/api/schedule", function(req,res){
+    db.savedSchedules.destroy({
+      where : {
+        id: req.body.schedule_id
+      }
+    }).then(function(data){
+
+      res.send('Got a DELETE request at /api/schedule')
+
+    })
+
   });
   // ====================================================
   // Retrieve ALL headers for ALL saved schedules corresponding to ONE user

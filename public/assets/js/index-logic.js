@@ -345,7 +345,6 @@ $(document).ready(function() {
       $(".collision").attr("data-original-title", emptyString);
       $(".collision").attr("title", emptyString);
 
-      // $(".time-entry").css("background-color", "#2e7fad");
       if (state.allCombinations[state.indexOfSchedule]) {
         if (state.allCombinations[state.indexOfSchedule].length) {
           for (
@@ -580,8 +579,6 @@ $(document).ready(function() {
       if (state.alldata.indexOf(id) == -1) {
         state.alldata.push(id);
 
-        console.log(state.alldata);
-
         let deleteBtn = $("<button><i></i></button>");
         deleteBtn.addClass("btn btn-link remove-class fa fa-times");
         deleteBtn.attr("type", "clear");
@@ -602,7 +599,6 @@ $(document).ready(function() {
         generateAllCombinations();
       }
     });
-
     // =================================================================================
     // Remove Single Class from Schedule
     $(document).on("click", ".remove-class", function() {
@@ -624,23 +620,6 @@ $(document).ready(function() {
         $("#schedule-counter").text(0 + " of " + 0);
       }
       renderer.draw(".timetable");
-    });
-    // =============================================================================
-    // Save class schedule for user
-    $(".save-btn").on("click", function() {
-      if (state.allCombinations[state.indexOfSchedule]) {
-        let scheduleData = {
-          user_id: parseInt(sessionStorage.getItem("user_id")),
-          current_schedule: state.allCombinations[state.indexOfSchedule]
-        };
-        $.ajax("/api/schedule", {
-          type: "POST",
-          data: scheduleData
-        }).then(function(data) {
-          console.log(data);
-          // TODO: save schedule name
-        });
-      }
     });
     // =================================================================================
     // Clear Class Schedule
@@ -770,14 +749,26 @@ $(document).ready(function() {
           type: "GET"
         }).then(function(data) {
           for (var i in data) {
+
             let dropdownItem = $("<li>");
             dropdownItem.addClass("list-group-item saved");
+            dropdownItem.attr("id","li-" + data[i].id)
 
+            // Delete link for schedule
+            let deleteBtn = $("<button></button>");
+            deleteBtn.addClass("btn remove-saved-schedule");
+            let iElem = $("<i></i>")
+            iElem.addClass("fa fa-times")
+            deleteBtn.attr("id", data[i].id);
+            deleteBtn.append(iElem);
+
+            // Name link for schedule
             let buttonLink = $("<button>");
             buttonLink.addClass("btn btn-link view-saved");
-            buttonLink.text("Schedule #" + data[i].id);
+            buttonLink.text(data[i].schedule_name);
             buttonLink.attr("id", data[i].id);
 
+            dropdownItem.append(deleteBtn)
             dropdownItem.append(buttonLink);
             $(".saved-schedules").append(dropdownItem);
           }
@@ -793,13 +784,45 @@ $(document).ready(function() {
       $('[data-toggle="tooltip"]').tooltip();
     });
     // =================================================================================
-    // Save Schedule Name
+    // Save Schedule Name function
     $(".save-schedule-name-btn").on("click", function() {
+      if (state.allCombinations[state.indexOfSchedule]) {
+        scheduleName = $("#saved-schedule-name").val()
+        console.log(scheduleName)
+        let scheduleData = {
+          user_id: parseInt(sessionStorage.getItem("user_id")),
+          current_schedule: state.allCombinations[state.indexOfSchedule],
+          schedule_name: scheduleName
+        };
+        $.ajax("/api/schedule", {
+          type: "POST",
+          data: scheduleData
+        }).then(function(data) {
+          console.log(data);
+        });
+      }
       // Alerting save success
       $(".alert-success").css("visibility", "visible");
       setTimeout(function() {
         $(".alert-success").css("visibility", "hidden");
       }, 2500);
+    });
+    // =================================================================================
+    // Delete Saved Schedule
+    $(document).on("click",".remove-saved-schedule", function(){
+      id = $(this)[0].id
+      let destroyData = {
+        schedule_id: id
+      }
+
+      $.ajax("/api/schedule", {
+         type: "DELETE",
+         data: destroyData
+       }).then(function(data) {
+         $("#li-" + id).remove();
+         console.log(data);
+       });
+
     });
     // =================================================================================
     // Save Preferences
@@ -818,6 +841,7 @@ $(document).ready(function() {
 
       // Alerting save success
       $(".alert-success").css("visibility", "visible");
+
       setTimeout(function() {
         $(".alert-success").css("visibility", "hidden");
       }, 2500);

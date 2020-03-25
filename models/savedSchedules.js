@@ -6,6 +6,12 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
+        },
+        schedule_name: {
+            type: DataTypes.STRING
+        },
+        schedule_description: {
+            type: DataTypes.TEXT
         }
     });
     

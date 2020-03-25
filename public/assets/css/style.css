@@ -336,3 +336,7 @@ button.collision {
 span.exclamation {
   object-position: center;
 }
+
+.fa-times {
+  color: red !important;
+}
