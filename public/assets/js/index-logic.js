@@ -146,7 +146,6 @@ $(document).ready(function() {
             timeAfterValidation;
 
           $(".time-entry").css("background-color", "red");
-          // $(".collision").show();
           let collisionCurrent = $(".collision").attr("title");
           let collisionItemStart = "<li>";
           let collisionItemClose = "</li>";
@@ -629,16 +628,19 @@ $(document).ready(function() {
     // =============================================================================
     // Save class schedule for user
     $(".save-btn").on("click", function() {
-      let scheduleData = {
-        user_id: parseInt(sessionStorage.getItem("user_id")),
-        current_schedule: state.allCombinations[state.indexOfSchedule]
-      };
-      $.ajax("/api/schedule", {
-        type: "POST",
-        data: scheduleData
-      }).then(function(data) {
-        console.log(data);
-      });
+      if (state.allCombinations[state.indexOfSchedule]) {
+        let scheduleData = {
+          user_id: parseInt(sessionStorage.getItem("user_id")),
+          current_schedule: state.allCombinations[state.indexOfSchedule]
+        };
+        $.ajax("/api/schedule", {
+          type: "POST",
+          data: scheduleData
+        }).then(function(data) {
+          console.log(data);
+          // TODO: save schedule name
+        });
+      }
     });
     // =================================================================================
     // Clear Class Schedule
@@ -786,14 +788,18 @@ $(document).ready(function() {
       }
     });
     // =================================================================================
-    // Modal Open
-    $("#myModal").on("shown.bs.modal", function() {
-      $("#myInput").trigger("focus");
-    });
-    // =================================================================================
     // Tooltip Hover
     $(function() {
       $('[data-toggle="tooltip"]').tooltip();
+    });
+    // =================================================================================
+    // Save Schedule Name
+    $(".save-schedule-name-btn").on("click", function() {
+      // Alerting save success
+      $(".alert-success").css("visibility", "visible");
+      setTimeout(function() {
+        $(".alert-success").css("visibility", "hidden");
+      }, 2500);
     });
     // =================================================================================
     // Save Preferences
@@ -810,11 +816,11 @@ $(document).ready(function() {
       const stringifiedUserPref = JSON.stringify(userPref);
       localStorage.setItem("userPreferences", stringifiedUserPref);
 
-      // Hiding modal
-      $("#myModal").modal("hide");
-
       // Alerting save success
-      // $(".alert-success").show("show");
+      $(".alert-success").css("visibility", "visible");
+      setTimeout(function() {
+        $(".alert-success").css("visibility", "hidden");
+      }, 2500);
 
       // Retrieving saved data from local storage
       //update the value of inputs with users saved preferences
@@ -828,6 +834,11 @@ $(document).ready(function() {
         renderTimetable();
         displayTable();
       }
+    });
+    // =================================================================================
+    // Log Out Function
+    $(".log-out").on("click", function() {
+      sessionStorage.removeItem("user_id");
     });
     // =================================================================================
     // Detect conflict
