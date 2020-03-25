@@ -33,7 +33,7 @@
       </a>
     </button>
 
-    <button type="button" class="collapsible">
+    <button type="button" class="collapsible log-out">
       <a class="full-menu" href="/">
         <i class="icon-menu fa fa-sign-out"></i>
         Log Out
@@ -43,8 +43,8 @@
 </div>
 
 {{!-- PREFERENCES MODAL --}}
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div class="modal fade preferences-modal" id="exampleModal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -84,19 +84,43 @@
   </div>
 </div>
 
+{{!-- SAVE SCHEDULE WITH NAME MODAL --}}
+<div class="modal fade" id="saveScheduleModal" tabindex="-1" role="dialog" aria-labelledby="saveScheduleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="saveScheduleModalLabel">Set Schedule Name</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="saved-schedule-name">What would you like to name this schedule?</label>
+            <input type="text" class="form-control" id="saved-schedule-name" placeholder="Fall Semester, 2020">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-secondary save-schedule-name-btn" data-dismiss="modal"
+          data-target="alert">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {{!-- SAVE ALERT --}}
-<div class="alert alert-success alert-dismissible fade" role="alert">
+<div class="alert alert-success" role="alert">
   <strong>Saved!</strong>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
 </div>
 
 {{!-- STUDENT SCHEDULE --}}
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-8">
+    <div class="col-9">
       <div class="jumbotron student-schedule">
         <h4>Schedule</h4>
         <hr>
@@ -114,7 +138,8 @@
               <span class="sr-only">Previous</span>
             </a>
           </button>
-          <button class="btn btn-secondary save-btn btn-sm" type="button">Save</button>
+          <button class="btn btn-secondary save-btn btn-sm" data-toggle="modal" data-target="#saveScheduleModal"
+            type="button">Save</button>
           <button class="btn btn-secondary clear-btn btn-sm" type="clear">Clear</button>
 
           <button class=" btn btn-secondary arrow btn-small control-next">
@@ -130,19 +155,9 @@
           <span class="exclamation"><i class="fa fa-exclamation"></i></span>
         </button>
 
-        {{!-- <button type="button" class="btn btn-danger prof-rating" data-toggle="tooltip" data-html="true"
-          data-placement="left" title="Class conflicts go here">
-          <span><i class="fa fa-user"></i></span>
-        </button>
-
-        <button type="button" class="btn btn-danger time-pref" data-toggle="tooltip" data-html="true"
-          data-placement="left" title="Class conflicts go here">
-          <span><i class="fa fa-clock"></i></span>
-        </button> --}}
-
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-3">
       <div class="jumbotron class-list">
         <div class="container">
           <h4>Classes Added</h4>
