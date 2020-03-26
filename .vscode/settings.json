@@ -1,0 +1,8 @@
+{
+  "prettier.htmlWhitespaceSensitivity": "ignore",
+  "prettier.printWidth": 120,
+  "prettier.trailingComma": "es5",
+  "prettier.useTabs": true,
+  "prettier.vueIndentScriptAndStyle": true,
+  "prettier.singleQuote": true
+}
