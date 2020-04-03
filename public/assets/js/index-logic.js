@@ -1,6 +1,6 @@
 $(document).ready(function() {
-  // The state of the page.
-  // Used as input for the time table and fed by adding classes or specific class instances (all data)
+  // The state is used as input for the time table. 
+  // It changes by adding classes or specific class instances.
   let state = {
     indexOfSchedule: 0,
     allCombinations: [],
@@ -13,6 +13,16 @@ $(document).ready(function() {
   // Array of chars representings days of the week
   var dayCode = ["M", "T", "W", "R", "F", "S"];
 
+  // JSON object to simplify switch
+  let dayEquivalenceJSON = {
+    M: 'Monday',
+    T: 'Tuesday',
+    W: 'Wednesday',
+    R: 'Thursday',
+    F: 'Friday',
+    S: 'Saturday'
+  };
+
   $(function() {
     var timetable = new Timetable();
     var renderer = new Timetable.Renderer(timetable);
@@ -23,15 +33,14 @@ $(document).ready(function() {
     //==============================================================
     // Helper functions to remove an element from an array
     function removeFromArray(arr, elem) {
-      var index = arr.indexOf(elem);
-      if (index > -1) {
-        arr.splice(index, 1);
-      }
+      let index = arr.indexOf(elem);
+      index > -1 ? arr.splice(index,1) : 0
     }
     //==============================================================
     // Function that detects if the current schedule has a instructor rating validation error
     function detectRatingPreferenceConflict() {
       let instructorRatingPreference = 0.0;
+      let combinations = state.allCombinations[state.indexOfSchedule]
       // Check to see if before validation is active. If it is retrieve the preference saved in local storage
       if (localStorage.getItem("userPreferences") != null)
         instructorRatingPreference =
@@ -41,13 +50,11 @@ $(document).ready(function() {
 
       for (
         var i = 0;
-        i < state.allCombinations[state.indexOfSchedule].length;
+        i < combinations.length;
         i++
       ) {
-        let instructorName =
-          state.allCombinations[state.indexOfSchedule][i].Instructor.name;
-        let instructorRating =
-          state.allCombinations[state.indexOfSchedule][i].Instructor.rating;
+        let instructorName = combinations[i].Instructor.name;
+        let instructorRating = combinations[i].Instructor.rating;
 
         if (instructorRating != null) {
           if (instructorRating < instructorRatingPreference) {
@@ -58,11 +65,8 @@ $(document).ready(function() {
             $(".time-entry").css("background-color", "red");
             $(".collision").show();
             let collisionCurrent = $(".collision").attr("title");
-            console.log(this.$(".collision").attr("data-original-title"));
-            console.log(collisionCurrent);
             let collisionItemStart = "<li>";
             let collisionItemClose = "</li>";
-
             let collisionString =
               collisionCurrent +
               " " +
@@ -79,6 +83,7 @@ $(document).ready(function() {
     function detectTimePreferenceConflict() {
       let timeStartValidationText = "01:00";
       let timeAfterValidationText = "23:00";
+      let combinations = state.allCombinations[state.indexOfSchedule];
 
       // If the userPreferences at local storage at NOT null then we can perform the extraction of the logic
       if (localStorage.getItem("userPreferences")) {
@@ -103,12 +108,10 @@ $(document).ready(function() {
 
       for (
         var i = 0;
-        i < state.allCombinations[state.indexOfSchedule].length;
+        i < combinations.length;
         i++
       ) {
-        let startTimeArraySource = state.allCombinations[state.indexOfSchedule][
-          i
-        ].start_time.split(":");
+        let startTimeArraySource = combinations[i].start_time.split(":");
         let startTimeNumberSource =
           parseFloat(startTimeArraySource[0]) +
           parseFloat(startTimeArraySource[1]) / 60;
@@ -116,9 +119,7 @@ $(document).ready(function() {
         // Validation for time less than preference.
         if (startTimeNumberSource < timeStartValidation) {
           let displayText =
-            state.allCombinations[state.indexOfSchedule][i].number_title +
-            " starts before " +
-            timeStartValidation;
+            `${combinations[i].number_title} starts before ${timeStartValidation}`
 
           $(".time-entry").css("background-color", "red");
           $(".collision").show();
@@ -164,15 +165,15 @@ $(document).ready(function() {
     //==============================================================
     // Function that detects if the current schedule has a collision
     function detectCollision() {
-      var allCombos = state.allCombinations;
       var scheduleIndex = state.indexOfSchedule;
+      var allCombos = state.allCombinations[scheduleIndex];
       $(".collision").hide();
 
-      for (var i = 0; i < allCombos[scheduleIndex].length; i++) {
-        let startTimeArraySource = allCombos[scheduleIndex][i].start_time.split(
+      for (var i = 0; i < allCombos.length; i++) {
+        let startTimeArraySource = allCombos[i].start_time.split(
           ":"
         );
-        let endTimeArraySource = allCombos[scheduleIndex][i].end_time.split(
+        let endTimeArraySource = allCombos[i].end_time.split(
           ":"
         );
         let startTimeNumberSource =
@@ -182,13 +183,9 @@ $(document).ready(function() {
           parseFloat(endTimeArraySource[0]) +
           parseFloat(endTimeArraySource[1]) / 60;
 
-        for (var j = i; j < allCombos[scheduleIndex].length - 1; j++) {
-          let startTimeArrayTarget = allCombos[scheduleIndex][
-            j + 1
-          ].start_time.split(":");
-          let endTimeArrayTarget = allCombos[scheduleIndex][
-            j + 1
-          ].end_time.split(":");
+        for (var j = i; j < allCombos.length - 1; j++) {
+          let startTimeArrayTarget = allCombos[j + 1].start_time.split(":");
+          let endTimeArrayTarget = allCombos[j + 1].end_time.split(":");
           let startTimeNumberTarget =
             parseFloat(startTimeArrayTarget[0]) +
             parseFloat(startTimeArrayTarget[1]) / 60;
@@ -199,8 +196,8 @@ $(document).ready(function() {
           if (
             startTimeNumberTarget >= startTimeNumberSource &&
             startTimeNumberTarget <= endTimeNumberSource &&
-            allCombos[scheduleIndex][i].day_code ==
-              allCombos[scheduleIndex][j + 1].day_code
+            allCombos[i].day_code ==
+              allCombos[j + 1].day_code
           ) {
             $(".time-entry").css("background-color", "red");
             $(".collision").show();
@@ -209,11 +206,11 @@ $(document).ready(function() {
             let collisionItemStart = "<li>";
             let collisionItemClose = "</li>";
             let collisionText =
-              allCombos[scheduleIndex][i].number_title +
+              allCombos[i].number_title +
               " and " +
-              allCombos[scheduleIndex][j + 1].number_title +
+              allCombos[j + 1].number_title +
               " overlap at " +
-              allCombos[scheduleIndex][i].start_time;
+              allCombos[i].start_time;
 
             let collisionString =
               collisionCurrentText +
@@ -238,42 +235,22 @@ $(document).ready(function() {
     //================================================================
     // Day Code Function
     function dayEquivalence(param) {
-      var day;
-      switch (param) {
-        case "M":
-          day = "Monday";
-          break;
-        case "T":
-          day = "Tuesday";
-          break;
-        case "W":
-          day = "Wednesday";
-          break;
-        case "R":
-          day = "Thursday";
-          break;
-        case "F":
-          day = "Friday";
-          break;
-        case "S":
-          day = "Saturday";
-          break;
-        default:
-          day = "";
-      }
-      return day;
+      if(typeof dayEquivalenceJSON[param] !== 'undefined')
+        var day = dayEquivalenceJSON[param]
+      else
+        var day = ""
+      return day
     }
     //==================================================================================
     // Create combination of classes and class instances
     function generateAllCombinations() {
-      var godArray = [];
+      let godArray = [];
       for (var i = 0; i < state.alldata.length; i++) {
         $.ajax("/classes/all/" + state.alldata[i], function() {
           type: "GET";
         }).then(function(res) {
           var arr = [];
           arr.push(res[0]);
-          console.log(arr);
           godArray.push(arr);
           state.allCombinations = mixer(godArray);
           setTimeout(1000, displayTable());
@@ -302,15 +279,8 @@ $(document).ready(function() {
     // Function used to mix an array of arrays
     function mixer(arr) {
       var mix_result = [];
-      for (var i = 0; i < arr.length; i++) {
-        console.log(arr[i]);
-        if (i == 0) {
-          mix_result = arr[i];
-        } else {
-          mix_result = cartesian(mix_result, arr[i]);
-          console.log(mix_result);
-        }
-      }
+      for (var i = 0; i < arr.length; i++)
+        mix_result = i == 0 ? arr[i] : cartesian(mix_result, arr[i])
 
       if (localStorage.getItem("userPreferences") != null)
         if (JSON.parse(localStorage.getItem("userPreferences")).omitConflicts)
@@ -695,12 +665,7 @@ $(document).ready(function() {
         state.indexOfSchedule++;
         state.indexOfSchedule =
           state.indexOfSchedule % state.allCombinations.length;
-        console.log(
-          "State of conflict: ",
-          detectConflict(state.allCombinations[state.indexOfSchedule])
-        );
       }
-
       renderTimetable();
       displayTable();
     });
@@ -788,7 +753,6 @@ $(document).ready(function() {
     $(".save-schedule-name-btn").on("click", function() {
       if (state.allCombinations[state.indexOfSchedule]) {
         scheduleName = $("#saved-schedule-name").val()
-        console.log(scheduleName)
         let scheduleData = {
           user_id: parseInt(sessionStorage.getItem("user_id")),
           current_schedule: state.allCombinations[state.indexOfSchedule],
@@ -798,7 +762,6 @@ $(document).ready(function() {
           type: "POST",
           data: scheduleData
         }).then(function(data) {
-          console.log(data);
         });
       }
       // Alerting save success
@@ -965,8 +928,6 @@ $(document).ready(function() {
           (startTimeNumberSource > timeAfterValidation)
         )
           return true;
-
-        let endTimeArraySource = schedule.end_time.split(":");
 
         return false;
       }
